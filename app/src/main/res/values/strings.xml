@@ -1,3 +1,29 @@
 <resources>
-    <string name="app_name">Budget</string>
+    <string name="app_name">Бюджет</string>
+    <string name="action_settings">Настройки</string>
+    <string name="reload">reload</string>
+    <string name="text_view_main_font">Размер основного шрифта</string>
+    <string name="text_view_optional_font">Размер дополнительного шрифта</string>
+    <string name="popup_menu_item_delete">Удалить</string>
+    <string name="popup_menu_item_duplicate">Дублировать</string>
+    <string name="popup_menu_item_edit">Заполнить файл тестовыми данными</string>
+    <string name="APP_PREFERENCES">mysettings</string>
+    <string name="APP_NIGHTMODE">NIGHTMODE</string>
+    <string name="settings">Настройки</string>
+    <string name="export_to_excel">Экспорт в Excel</string>
+    <string name="backup">Бэкап</string>
+    <string name="expense_items">Статьи расходов</string>
+    <string name="bills_list">Счета</string>
+    <string name="add_gain_and_expenses">Добавление расхода или дохода</string>
+    <string name="add_expense_items">Добравление статьи расходов</string>
+    <string name="Food_products">Продукты питания</string>
+    <string name="Date">Дата</string>
+    <string name="Type">Тип</string>
+    <string name="expense_item">Статья расходов</string>
+    <string name="debit_account">Счёт списания</string>
+    <string name="note">Примечания\n</string>
+    <string name="amount">Сумма</string>
+    <string name="Add">Добавить</string>
+
+
 </resources>
