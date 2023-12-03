@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="budgetBackgroundColor" format="color"/>
+    <attr name="budgetPrimaryColor" format="color"/>
+    <attr name="budgetPrimaryDarkColor" format="color"/>
+    <attr name="colorOnSurface" format="color"/>
+    <attr name="swipeIndicatorActive" format="color"/>
+    <attr name="swipeIndicatorPassive" format="color"/>
+</resources>
