@@ -1,6 +1,5 @@
-package com.example.budget.view.fragments;
+package com.example.budget.view.fragments
 
-import android.app.Activity;
+import android.app.Activity
 
-public class ExpenseItemsFragment extends Activity {
-}
+class ExpenseItemsFragment : Activity()

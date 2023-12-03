@@ -1,4 +1,4 @@
-package com.ruslanakhmetov.myapplication
+package com.example.budget.ruslan
 
 data class Seller(
     val name: String,

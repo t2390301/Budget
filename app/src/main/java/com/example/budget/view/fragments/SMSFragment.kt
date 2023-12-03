@@ -1,6 +1,5 @@
-package com.example.budget.view.fragments;
+package com.example.budget.view.fragments
 
-import android.app.Activity;
+import android.app.Activity
 
-public class SMSFragment extends Activity {
-}
+class SMSFragment : Activity()

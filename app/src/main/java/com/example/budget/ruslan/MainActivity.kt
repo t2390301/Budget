@@ -1,12 +1,12 @@
-package com.ruslanakhmetov.myapplication
+package com.example.budget.ruslan
 
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.ruslanakhmetov.myapplication.databinding.ActivityMainBinding
+import com.example.budget.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivityRuslan : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var smsData: SMSData
     lateinit var smsDataMapper: SMSDataMapper

@@ -1,4 +1,4 @@
-package com.ruslanakhmetov.myapplication
+package com.example.budget.ruslan
 
 import android.content.Context
 import android.database.Cursor

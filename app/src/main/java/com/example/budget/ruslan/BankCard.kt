@@ -1,4 +1,4 @@
-package com.ruslanakhmetov.myapplication
+package com.example.budget.ruslan
 
 data class BankCard(
     val bankName: String,

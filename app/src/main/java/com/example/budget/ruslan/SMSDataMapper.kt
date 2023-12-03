@@ -1,4 +1,4 @@
-package com.ruslanakhmetov.myapplication
+package com.example.budget.ruslan
 
 import android.util.Log
 import java.util.*
