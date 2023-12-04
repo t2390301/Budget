@@ -1,24 +1,62 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Budget" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/teal_700</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
 
+    <style name="MyThemeOrange" parent="MyBaseTheme">
+        <item name="budgetBackgroundColor">@color/yellow_900</item>
+        <item name="budgetPrimaryColor">@color/yellow_50</item>
+        <item name="budgetPrimaryDarkColor">@color/black</item>
+        <item name="swipeIndicatorActive">@color/red</item>
+        <item name="swipeIndicatorPassive">@color/orange</item>
+        <item name="bottomAppBarStyle">@style/myBottomAppBarStyleBlackBlue</item>
+        <item name="floatingActionButtonStyle">@style/myFloatingActionButtonStyleOrange</item>
     </style>
 
+    <style name="MyThemeIndigo" parent="MyBaseTheme">
+        <item name="budgetBackgroundColor">@color/indigo_900</item>
+        <item name="budgetPrimaryColor">@color/indigo_50</item>
+        <item name="budgetPrimaryDarkColor">@color/black</item>
+        <item name="swipeIndicatorActive">@color/indigo_600</item>
+        <item name="swipeIndicatorPassive">@color/indigo_900</item>
+        <item name="bottomAppBarStyle">@style/myBottomAppBarStyleBlackBlue</item>
+        <item name="floatingActionButtonStyle">@style/myFloatingActionButtonStyleOrange</item>
+        <item name="useMaterialThemeColors">false</item>
+    </style>
 
-    <style name="Theme.Weather.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="MyThemeSplash" parent="MyBaseTheme">
+        <item name="budgetBackgroundColor">@color/white</item>
+        <item name="budgetPrimaryColor">@color/white</item>
+        <item name="budgetPrimaryDarkColor">@color/white</item>
+        <item name="swipeIndicatorActive">@color/white</item>
+        <item name="swipeIndicatorPassive">@color/white</item>
+    </style>
 
-    <style name="Theme.Weather.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="MyBaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="budgetBackgroundColor">@color/indigo_900</item>
+        <item name="budgetPrimaryColor">@color/indigo_50</item>
+        <item name="budgetPrimaryDarkColor">@color/black</item>
+        <item name="swipeIndicatorActive">@color/indigo_600</item>
+        <item name="swipeIndicatorPassive">@color/indigo_900</item>
+        <item name="android:navigationBarColor">?attr/budgetBackgroundColor</item>
+        <item name="colorPrimary">?attr/budgetBackgroundColor</item>
+        <item name="colorOnPrimary">?attr/budgetPrimaryColor</item>
+        <item name="colorPrimaryContainer">?attr/budgetBackgroundColor</item>
+        <item name="colorOnPrimaryContainer">?attr/budgetBackgroundColor</item>
+        <item name="colorPrimaryInverse">?attr/budgetBackgroundColor</item>
+        <item name="colorSecondary">?attr/budgetBackgroundColor</item>
+        <item name="colorOnSecondary">?attr/budgetPrimaryColor</item>
+        <item name="colorOnSurfaceVariant">@color/red</item>
+        <item name="colorSecondaryContainer">?attr/budgetBackgroundColor</item>
+        <item name="colorOnSecondaryContainer">?attr/budgetBackgroundColor</item>
+        <item name="colorTertiary">?attr/budgetBackgroundColor</item>
+        <item name="colorOnTertiary">?attr/budgetPrimaryColor</item>
+        <item name="colorTertiaryContainer">?attr/budgetBackgroundColor</item>
+        <item name="colorOnTertiaryContainer">?attr/budgetBackgroundColor</item>
+        <item name="android:statusBarColor">?attr/budgetBackgroundColor</item>
+        <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
+        <item name="tabStyle">@style/myTabStyle</item>
+        <item name="textAppearanceHeadline1">@style/MyTextAppearanceHeadline1</item>
+        <item name="materialButtonStyle">@style/myMaterialButtonStyle</item>
+        <item name="materialCardViewStyle">@style/myMaterialCardViewStyle</item>
+        <item name="bottomNavigationStyle">@style/myBottomNavigationStyle</item>
+    </style>
 </resources>

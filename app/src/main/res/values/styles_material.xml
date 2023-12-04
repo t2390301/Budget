@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SecondaryText" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">19sp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <style name="myMaterialButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="layout_constraintWidth_percent">0.2</item>
+        <item name="layout_constraintHeight_percent">0.05</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="myMaterialButtonStyleOrange" parent="myMaterialButtonStyle">
+        <item name="backgroundTint">@color/yellow_900</item>
+        <item name="android:textColor">@color/yellow_50</item>
+    </style>
+
+    <style name="myMaterialButtonStyleBlueGray" parent="myMaterialButtonStyle">
+        <item name="backgroundTint">@color/blue_grey_900</item>
+        <item name="android:textColor">@color/blue_grey_50</item>
+    </style>
+
+    <style name="myMaterialButtonStyleIndigo" parent="myMaterialButtonStyle">
+        <item name="backgroundTint">@color/indigo_900</item>
+        <item name="android:textColor">@color/indigo_50</item>
+    </style>
+
+    <style name="myTabStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabRippleColor">?attr/budgetBackgroundColor</item>
+        <item name="colorOnSurface">@color/yellow_100</item>
+        <item name="colorSurface">@color/yellow_300</item>
+    </style>
+
+    <style name="myMaterialCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="shapeAppearance">@style/shapeAppearanceForCard</item>
+        <item name="cardElevation">20dp</item>
+    </style>
+
+    <style name="MyTextAppearanceHeadline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/azeret</item>
+        <item name="android:textColor">?attr/budgetPrimaryDarkColor</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="shapeAppearanceForCard" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">10dp</item>
+        <item name="cornerFamily">cut</item>
+
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+        <item name="chipBackgroundColor">@color/light_gray</item>
+        <item name="rippleColor">@color/light_gray</item>
+        <item name="chipStrokeColor">@color/light_gray</item>
+        <item name="android:windowBackground">@color/light_gray</item>
+    </style>
+
+    <style name="myChipStyle" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">?attr/budgetBackgroundColor</item>
+        <item name="rippleColor">@color/light_gray</item>
+        <item name="chipStrokeColor">@color/light_gray</item>
+        <item name="android:windowBackground">@color/light_gray</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="cornerSize">4dp</item>
+        <item name="cornerFamily">cut</item>
+    </style>
+
+    <style name="myChipChoiceStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@drawable/my_choice_chip_background_color</item>
+    </style>
+
+    <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
+        <item name="backgroundTint">?attr/budgetBackgroundColor</item>
+        <item name="strokeColor">@color/red</item>
+
+    </style>
+
+    <style name="myBottomAppBarStyleBlackBlue" parent="Widget.MaterialComponents.BottomAppBar">
+        <item name="backgroundTint">?attr/budgetBackgroundColor</item>
+    </style>
+
+    <style name="myBottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">?attr/budgetBackgroundColor</item>
+        <item name="itemIconTint">?attr/swipeIndicatorActive</item>
+        <item name="iconTint">?attr/budgetPrimaryColor</item>
+    </style>
+
+    <style name="myFloatingActionButtonStyleOrange" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">?attr/budgetBackgroundColor</item>
+        <item name="tint">?attr/budgetPrimaryColor</item>
+        <item name="strokeColor">@color/red</item>
+    </style>
+
+</resources>

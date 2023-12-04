@@ -15,7 +15,7 @@
     <string name="expense_items">Статьи расходов</string>
     <string name="bills_list">Счета</string>
     <string name="add_gain_and_expenses">Добавление расхода или дохода</string>
-    <string name="add_expense_items">Добравление статьи расходов</string>
+    <string name="add_expense_items">Добавление статьи расходов</string>
     <string name="Food_products">Продукты питания</string>
     <string name="Date">Дата</string>
     <string name="Type">Тип</string>
@@ -24,6 +24,23 @@
     <string name="note">Примечания\n</string>
     <string name="amount">Сумма</string>
     <string name="Add">Добавить</string>
+    <string name="date_example">30.11.2023</string>
+    <string name="account_example">*8888</string>
+    <string name="expense_item_example">Продукты питания</string>
+    <string name="amount_example">250 р.</string>
+    <string name="date_and_time_example">30.11.2023 09:05</string>
+    <string name="sms_text_example">Покупка, карта *8555. 300 RUB. MAGNIT MM. Доступно 57334.33 RUB</string>
+    <string name="add_expense_or_income">Добавление расхода или дохода</string>
+    <string name="enter_expense_item">Введите название статьи</string>
+    <string name="save_expense_item">Cохранить</string>
+    <string name="add_new_expense_item">Введите название новой статьи</string>
+    <string name="edit_text_date">Поле для ввода даты</string>
+    <string name="type_income_or_expense">Тип (доход/расход)</string>
+    <string name="date">Дата</string>
+    <string name="expense_item_edit_text">Статья расходов</string>
+    <string name="debit_account_edit_text">Счёт списания/пополнения</string>
+    <string name="note_edit_text">Примечания</string>
+    <string name="amount_edit_text">Сумма</string>
 
 
 </resources>
