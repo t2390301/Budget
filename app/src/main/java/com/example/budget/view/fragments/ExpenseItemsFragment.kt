@@ -1,5 +1,5 @@
 package com.example.budget.view.fragments
 
-import android.app.Activity
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class ExpenseItemsFragment : Activity()
+class ExpenseItemsFragment : BottomSheetDialogFragment()

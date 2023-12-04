@@ -15,7 +15,7 @@
     <string name="expense_items">Статьи расходов</string>
     <string name="bills_list">Счета</string>
     <string name="add_gain_and_expenses">Добавление расхода или дохода</string>
-    <string name="add_expense_items">Добравление статьи расходов</string>
+    <string name="add_expense_items">Добавление статьи расходов</string>
     <string name="Food_products">Продукты питания</string>
     <string name="Date">Дата</string>
     <string name="Type">Тип</string>
@@ -24,6 +24,10 @@
     <string name="note">Примечания\n</string>
     <string name="amount">Сумма</string>
     <string name="Add">Добавить</string>
+    <string name="date_example">30.11.2023</string>
+    <string name="account_example">*8888</string>
+    <string name="expense_item_example">Продукты питания</string>
+    <string name="amount_example">250 р.</string>
 
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.budget.view.fragments
+package com.example.budget.view.fragments.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +18,11 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     companion object {

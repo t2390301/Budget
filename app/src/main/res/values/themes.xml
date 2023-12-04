@@ -11,17 +11,6 @@
         <item name="floatingActionButtonStyle">@style/myFloatingActionButtonStyleOrange</item>
     </style>
 
-    <style name="MyThemeBlueGray" parent="MyBaseTheme">
-        <item name="budgetBackgroundColor">@color/blue_grey_900</item>
-        <item name="budgetPrimaryColor">@color/blue_grey_50</item>
-        <item name="colorOnSurfaceVariant">@color/red</item>
-        <item name="budgetPrimaryDarkColor">@color/black</item>
-        <item name="swipeIndicatorActive">@color/blue_grey_900</item>
-        <item name="swipeIndicatorPassive">@color/blue_grey_600</item>
-        <item name="bottomAppBarStyle">@style/myBottomAppBarStyleBlackBlue</item>
-        <item name="floatingActionButtonStyle">@style/myFloatingActionButtonStyleOrange</item>
-    </style>
-
     <style name="MyThemeIndigo" parent="MyBaseTheme">
         <item name="budgetBackgroundColor">@color/indigo_900</item>
         <item name="budgetPrimaryColor">@color/indigo_50</item>
@@ -63,7 +52,6 @@
         <item name="colorTertiaryContainer">?attr/budgetBackgroundColor</item>
         <item name="colorOnTertiaryContainer">?attr/budgetBackgroundColor</item>
         <item name="android:statusBarColor">?attr/budgetBackgroundColor</item>
-        <item name="chipStyle">@style/myChipStyle</item>
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
         <item name="tabStyle">@style/myTabStyle</item>
         <item name="textAppearanceHeadline1">@style/MyTextAppearanceHeadline1</item>
