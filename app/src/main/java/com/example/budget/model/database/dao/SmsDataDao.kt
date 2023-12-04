@@ -7,20 +7,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.budget.model.database.SmsDataEntity
-import java.util.Date
 
 @Dao
 interface SmsDataDao {
 
-    @Query("INSERT INTO sms_data_table (id,rawSms, date) VALUES(:id,:rawSms,:date)")
-    suspend fun nativeInsert(
-        id: Long,
-        rawSms: String,
-        date: Date
-    )
-
     @Query("SELECT * FROM sms_data_table")
-    suspend fun all(): List<SmsDataEntity>
+    suspend fun getAll(): List<SmsDataEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(entity: SmsDataEntity)

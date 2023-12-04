@@ -1,9 +1,7 @@
 package com.example.budget.viewmodel
 
-import com.example.budget.model.data.SmsData
-
-sealed class AppState {
-    data class Success(val data: List<SmsData>) : AppState()
-    data class Error(val error: Throwable) : AppState()
-    data object Loading : AppState()
+sealed class AppState<T> {
+    data class Loading<T>(val isLoading: Boolean = true) : AppState<T>()
+    data class Success<T>(val data: T?) : AppState<T>()
+    data class Error<T>(val error: Throwable) : AppState<T>()
 }
