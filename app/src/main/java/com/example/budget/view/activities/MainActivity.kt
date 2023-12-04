@@ -6,16 +6,42 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.budget.App
 import com.example.budget.R
-import com.example.budget.databinding.ActivityMainBinding
+import com.example.budget.databinding.FragmentMainBinding
+import com.example.budget.model.data.BankCard
+import com.example.budget.model.data.Seller
+import com.example.budget.model.database.BudgetEntryEntity
+import com.example.budget.model.domain.OperationType
+import com.example.budget.model.domain.TransactionSource
+import com.example.budget.model.data.SMSData
+import com.example.budget.model.data.SMSDataMapper
+import com.example.budget.view.fragments.main.MainFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.Date
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: FragmentMainBinding
+    lateinit var smsData: SMSData
+    lateinit var smsDataMapper: SMSDataMapper
 
-    private lateinit var binding: BottomNavigationLayoutBinding
+    companion object {
+        val sellers = arrayListOf(
+            Seller("METRO.SPB", TransactionSource.ТРАНСПОРТ),
+            Seller("APTECHNOE", TransactionSource.ПРОДУКТЫ),
+            Seller("DIXI-78788D", TransactionSource.ПРОДУКТЫ),
+            Seller("BUSHE", TransactionSource.РАЗВЛЕЧЕНИЯ),
+            Seller("bilet.nspk", TransactionSource.ТРАНСПОРТ)
+        )
+
+        val bankCards = arrayListOf(
+            BankCard("Tinkoff", "*0345", 0.0)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = BottomNavigationLayoutBinding.inflate(layoutInflater)
+        binding = FragmentMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {

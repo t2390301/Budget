@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -40,13 +39,16 @@ class MainFragment : Fragment() {
             if (isMain) {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
                 binding.mainRecyclerBottomAppbar.navigationIcon = null
-                binding.mainRecyclerBottomAppbar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+                binding.mainRecyclerBottomAppbar.fabAlignmentMode =
+                    BottomAppBar.FAB_ALIGNMENT_MODE_END
                 binding.mainRecyclerBottomAppbar.replaceMenu(R.menu.menu_bottom_navigation)
                 binding.mainRecyclerFab.setImageResource(R.drawable.ic_back_fab)
             } else {
                 behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                binding.mainRecyclerBottomAppbar.navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_main_menu_bottom_bar)
-                binding.mainRecyclerBottomAppbar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                binding.mainRecyclerBottomAppbar.navigationIcon =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_main_menu_bottom_bar)
+                binding.mainRecyclerBottomAppbar.fabAlignmentMode =
+                    BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
                 binding.mainRecyclerBottomAppbar.replaceMenu(R.menu.menu_bottom_navigation)
                 binding.mainRecyclerFab.setImageResource(R.drawable.ic_plus_fab)
             }
