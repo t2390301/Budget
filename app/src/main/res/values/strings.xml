@@ -31,6 +31,8 @@
     <string name="date_and_time_example">30.11.2023 09:05</string>
     <string name="sms_text_example">Покупка, карта *8555. 300 RUB. MAGNIT MM. Доступно 57334.33 RUB</string>
     <string name="add_expense_or_income">Добавление расхода или дохода</string>
+    <string name="enter_expense_item">Введите название статьи</string>
+    <string name="save_expense_item">Cохранить</string>
 
 
 </resources>
