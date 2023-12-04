@@ -33,6 +33,14 @@
     <string name="add_expense_or_income">Добавление расхода или дохода</string>
     <string name="enter_expense_item">Введите название статьи</string>
     <string name="save_expense_item">Cохранить</string>
+    <string name="add_new_expense_item">Введите название новой статьи</string>
+    <string name="edit_text_date">Поле для ввода даты</string>
+    <string name="type_income_or_expense">Тип (доход/расход)</string>
+    <string name="date">Дата</string>
+    <string name="expense_item_edit_text">Статья расходов</string>
+    <string name="debit_account_edit_text">Счёт списания/пополнения</string>
+    <string name="note_edit_text">Примечания</string>
+    <string name="amount_edit_text">Сумма</string>
 
 
 </resources>

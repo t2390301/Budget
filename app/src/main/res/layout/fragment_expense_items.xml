@@ -16,7 +16,7 @@
 
     <include
         android:id="@+id/included"
-        layout="@layout/expense_item_bottom_sheet" />
+        layout="@layout/bottom_sheet_expense_item" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/expense_item_recycler_bottom_appbar"
