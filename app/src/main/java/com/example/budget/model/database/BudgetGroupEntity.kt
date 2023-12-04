@@ -8,5 +8,5 @@ data class BudgetGroupEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
-    val rules: List<String>
+    //  val rules: List<String>
 )

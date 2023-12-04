@@ -10,15 +10,9 @@ import com.example.budget.model.database.BudgetGroupEntity
 
 @Dao
 interface BudgetGroupEntityDao {
-    @Query("INSERT INTO budget_group_table (id,name, rules) VALUES(:id,:name,:rules)")
-    suspend fun nativeInsert(
-        id: Long,
-        name: String,
-        rules: List<String>
-    )
 
     @Query("SELECT * FROM budget_group_table")
-    suspend fun all(): List<BudgetGroupEntity>
+    suspend fun getAll(): List<BudgetGroupEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(entity: BudgetGroupEntity)
