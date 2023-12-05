@@ -22,14 +22,16 @@ class SMSDataMapper(var sellers: List<Seller>, var cards: List<BankCard>) {
                     sms.date                      //Вряд ли в одну миллисекунду придут два SMS
                 budgetEntry.smsId = sms.date
                 budgetEntry.date = Date(sms.date)
-                var balanceStr = sms.body.substringBeforeLast(CURRENCY, "").trim()
-
-                balanceStr = balanceStr.substringAfterLast(SPACE, "").trim()
-                if (balanceStr.length > 0) {
-                    Log.i(TAG, "convertSMSToBudgetEntry: balanceSTR = $balanceStr")
-                    balanceStr.toDouble()?.let {
-                        card.balance = it
-                    }
+                var stringAfterCardPan = sms.body.substringAfter("${card.cardPan}.")
+                val pattern = Pattern.compile("\\d+\\.?\\d*")
+                val matcher = pattern.matcher(stringAfterCardPan)
+                if (matcher.find()) {
+                    Log.i(TAG, "convertSMSToBudgetEntry: matcher1 = ${matcher.group()}")
+                    budgetEntry.operationAmount = matcher.group().toDouble()
+                }
+                if (matcher.find()) {
+                    Log.i(TAG, "convertSMSToBudgetEntry: matcher2 = ${matcher.group()}")
+                    card.balance = matcher.group().toDouble()
                 }
 
             }
