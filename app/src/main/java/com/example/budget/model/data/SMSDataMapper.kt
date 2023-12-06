@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.budget.model.domain.BudgetEntry
 import com.example.budget.model.domain.OperationType
 import java.util.Date
+import java.util.regex.Pattern
 
 
 class SMSDataMapper(var sellers: List<Seller>, var cards: List<BankCard>) {

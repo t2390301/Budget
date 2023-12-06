@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.budget"
-        minSdk = 32
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -64,7 +64,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
 
     //Apache POI for convertToExcel
-    implementation 'org.apache.poi:poi:4.1.2'
-    implementation 'org.apache.poi:poi-ooxml:4.1.2'
+    implementation ("org.apache.poi:poi:4.1.2")
+    implementation ("org.apache.poi:poi-ooxml:4.1.2")
 
 }
