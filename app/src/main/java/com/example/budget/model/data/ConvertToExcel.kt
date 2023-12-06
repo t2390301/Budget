@@ -13,9 +13,9 @@ import java.io.IOException
 class ConvertToExcel(private val context: Context) {
     companion object {
         const val TAG = "ConvertToExcel"
-
-        const val FILE_NAME = "EntryReport.xls"       //Output file extension .xls
-        const val SHEET_NAME = "Report"              // Excel sheet name
+        const val APP_DIRECTORY_NAME = "reports"
+        const val FILE_NAME = "EntryReport.xls"       //Output file .xls
+        const val SHEET_NAME = "Report"   // Excel sheet name
         val HEADER_LIST = listOf(
             "id",
             "smsId",
@@ -30,15 +30,18 @@ class ConvertToExcel(private val context: Context) {
 
     }
 
-    fun convertBudgetEntryToExcel(fileName: String = FILE_NAME,
+    fun convertBudgetEntryToExcel(dirName : String = APP_DIRECTORY_NAME,
+                                  fileName: String = FILE_NAME,
                                   dataList: List<BudgetEntry> = BUDGET_ENTRY,
                                   sheetName: String = SHEET_NAME,
                                   headerColNames: List<String> = HEADER_LIST,
     ) {
         //Get App Director, APP_DIRECTORY_NAME is a string
-        val appDirectory = context.filesDir  // context.getExternalFilesDir(dirName)
+        val appDirectory = File(context?.filesDir, dirName)  // context.getExternalFilesDir(dirName)
+        Log.i(TAG, "convertBudgetEntryToExcel: directoryexist ${appDirectory.exists()}")
         if (appDirectory != null && !appDirectory.exists()){
-            appDirectory.mkdir()
+            if(appDirectory.mkdir())
+                Log.i(TAG, "convertBudgetEntryToExcel: directory ${appDirectory.toString()} made")
         }
 
         //Create excel file with extension .xlsx
@@ -46,7 +49,7 @@ class ConvertToExcel(private val context: Context) {
 
         //Write workbook to file using FileOutputStream
         try {
-            val fileOutStream = context.openFileOutput(fileName, Context.MODE_PRIVATE)
+            val fileOutStream = FileOutputStream(excelFile)
             val workbook = createWorkbook(sheetName, headerColNames, dataList)
             workbook.write(fileOutStream)
             workbook.close()
