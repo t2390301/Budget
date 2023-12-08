@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.budget.model.database.SmsDataEntity
+import com.example.budget.model.database.entity.SmsDataEntity
 
 @Dao
 interface SmsDataDao {

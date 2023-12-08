@@ -6,11 +6,11 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.budget.model.database.BudgetEntryEntity
+import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.domain.OperationType
 
 @Dao
-interface BudgetEntryEntityDao {
+interface BudgetEntryDao {
 
     @Query("SELECT * FROM budget_entry_table")
     suspend fun getAll(): List<BudgetEntryEntity>
