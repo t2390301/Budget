@@ -1,7 +1,9 @@
 package com.example.budget.model.domain
 
-class BudgetGroup(
-    id: Long,
-    name: String,
-    rules: List<String>
+//Статья расходов
+data class BudgetGroup(
+    val id: Long,
+    val name: String,  //название статьи
+    val description: String, //описание
+    val iconResId: Long //иконка
 )

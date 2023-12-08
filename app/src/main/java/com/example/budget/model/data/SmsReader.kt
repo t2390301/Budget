@@ -1,15 +1,12 @@
 package com.example.budget.model.data
 
 import android.content.Context
-import android.database.Cursor
-import android.provider.Telephony
-import android.util.Log
 
 const val TAG = "SMSDataMapper"
 
-class SMSData(private val applicationContext: Context) {
+class SmsReader(private val applicationContext: Context) {
 
-     fun readAllSMS(): List<SMS?>? {
+    /* fun readAllSMS(): List<SmsData?>? {
          val cr = applicationContext.contentResolver
          val cursor = cr.query(Telephony.Sms.CONTENT_URI, null, null, null, null)
          cursor?.let {
@@ -18,7 +15,7 @@ class SMSData(private val applicationContext: Context) {
          return null
      }
 
-     fun readSMSAfterDate(date: Long): List<SMS?>? {
+     fun readSMSAfterDate(date: Long): List<SmsData?>? {
          val cursor = applicationContext.contentResolver.query(
              Telephony.Sms.CONTENT_URI, null,
              "${Telephony.Sms.DATE} > ?", arrayOf(date.toString()), null
@@ -29,7 +26,7 @@ class SMSData(private val applicationContext: Context) {
          return null
      }
 
-     fun readSMSFromSender(sender: String): List<SMS?>? {
+     fun readSMSFromSender(sender: String): List<SmsData?>? {
          val cursor = applicationContext.contentResolver.query(
              Telephony.Sms.CONTENT_URI, null,
              "${Telephony.Sms.ADDRESS} = ?", arrayOf(sender), null
@@ -40,8 +37,8 @@ class SMSData(private val applicationContext: Context) {
          return null
      }
 
-     private fun convertCursorToSMS(cursor: Cursor): List<SMS?>? {
-         var smsList = mutableListOf<SMS>()
+     private fun convertCursorToSMS(cursor: Cursor): List<SmsData?>? {
+         var smsList = mutableListOf<SmsData>()
          if (cursor.moveToFirst() == true) {
              while (!cursor.isAfterLast) {
                  val smsDate = cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.DATE))
@@ -50,12 +47,12 @@ class SMSData(private val applicationContext: Context) {
                  val body: String =
                      cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.BODY))
                  Log.i(TAG, "readSMS:  $number : $body")
-                 smsList.add(SMS(smsDate.toLong(), number, body))
+                 smsList.add(SmsData(smsDate.toLong(), number, body))
                  cursor.moveToNext()
              }
              cursor.close()
              return smsList
          }
          return null
-     }
+     }*/
 }

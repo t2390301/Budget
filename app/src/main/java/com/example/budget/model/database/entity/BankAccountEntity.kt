@@ -1,0 +1,19 @@
+package com.example.budget.model.database.entity
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.budget.model.domain.CardType
+
+@Entity(tableName = "bank_account_table")
+data class BankAccountEntity(
+    //меню добавления счета
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    val cardPan: String, //номер карты
+    val cardType: CardType, //кредитная дебетовая
+    val cardLimit: Double, //доступный лимит
+    var balance: Double,
+)
+
+
+

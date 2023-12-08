@@ -1,4 +1,4 @@
-package com.example.budget.model.database
+package com.example.budget.model.database.converters
 
 import androidx.room.TypeConverter
 import com.example.budget.model.domain.OperationType
