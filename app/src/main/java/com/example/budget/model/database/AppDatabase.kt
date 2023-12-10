@@ -6,8 +6,12 @@ import androidx.room.TypeConverters
 import com.example.budget.model.database.converters.DateConverter
 import com.example.budget.model.database.converters.OperationTypeConverter
 import com.example.budget.model.database.converters.StringListConverter
+import com.example.budget.model.database.dao.BankAccountDao
+import com.example.budget.model.database.dao.BankDao
 import com.example.budget.model.database.dao.BudgetEntryDao
 import com.example.budget.model.database.dao.BudgetGroupDao
+import com.example.budget.model.database.dao.CombainTableDao
+import com.example.budget.model.database.dao.SellerDao
 import com.example.budget.model.database.dao.SmsDataDao
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
@@ -33,6 +37,11 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun smsDataDao(): SmsDataDao
     abstract fun budgetGroupEntityDao(): BudgetGroupDao
     abstract fun budgetEntryEntityDao(): BudgetEntryDao
+    abstract fun bankDao(): BankDao
+
+    abstract fun sellerDao(): SellerDao
+    abstract fun bankAccountDao(): BankAccountDao
+    abstract fun combainTableDao(): CombainTableDao
 }
 
 

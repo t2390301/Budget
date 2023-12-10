@@ -10,6 +10,7 @@ data class BankAccountEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val cardPan: String, //номер карты
+    val bankId: Long,
     val cardType: CardType, //кредитная дебетовая
     val cardLimit: Double, //доступный лимит
     var balance: Double,

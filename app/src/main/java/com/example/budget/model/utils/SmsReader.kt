@@ -1,12 +1,16 @@
-package com.example.budget.model.data
+package com.example.budget.model.utils
 
 import android.content.Context
+import android.database.Cursor
+import android.provider.Telephony
+import android.util.Log
+import com.example.budget.model.domain.SmsData
 
 const val TAG = "SMSDataMapper"
 
 class SmsReader(private val applicationContext: Context) {
 
-    /* fun readAllSMS(): List<SmsData?>? {
+     suspend fun readAllSMS(): List<SmsData?>? {
          val cr = applicationContext.contentResolver
          val cursor = cr.query(Telephony.Sms.CONTENT_URI, null, null, null, null)
          cursor?.let {
@@ -15,7 +19,7 @@ class SmsReader(private val applicationContext: Context) {
          return null
      }
 
-     fun readSMSAfterDate(date: Long): List<SmsData?>? {
+     suspend fun readSMSAfterDate(date: Long): List<SmsData>? {
          val cursor = applicationContext.contentResolver.query(
              Telephony.Sms.CONTENT_URI, null,
              "${Telephony.Sms.DATE} > ?", arrayOf(date.toString()), null
@@ -26,7 +30,7 @@ class SmsReader(private val applicationContext: Context) {
          return null
      }
 
-     fun readSMSFromSender(sender: String): List<SmsData?>? {
+     suspend fun readSMSFromSender(sender: String): List<SmsData>? {
          val cursor = applicationContext.contentResolver.query(
              Telephony.Sms.CONTENT_URI, null,
              "${Telephony.Sms.ADDRESS} = ?", arrayOf(sender), null
@@ -37,7 +41,7 @@ class SmsReader(private val applicationContext: Context) {
          return null
      }
 
-     private fun convertCursorToSMS(cursor: Cursor): List<SmsData?>? {
+     private suspend fun convertCursorToSMS(cursor: Cursor): List<SmsData>? {
          var smsList = mutableListOf<SmsData>()
          if (cursor.moveToFirst() == true) {
              while (!cursor.isAfterLast) {
@@ -54,5 +58,5 @@ class SmsReader(private val applicationContext: Context) {
              return smsList
          }
          return null
-     }*/
+     }
 }

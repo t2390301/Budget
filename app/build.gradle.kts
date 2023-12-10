@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.budget"
-        minSdk = 32
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -63,5 +63,8 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
+    //APACHE poi operations with excel
+    implementation ("org.apache.poi:poi:4.1.2")
+    implementation ("org.apache.poi:poi-ooxml:4.1.2")
 
 }

@@ -1,7 +1,12 @@
-package com.example.budget.model.data
+package com.example.budget.model.utils
 
+import android.util.Log
 import com.example.budget.model.domain.BankAccount
+import com.example.budget.model.domain.BudgetEntry
+import com.example.budget.model.domain.OperationType
 import com.example.budget.model.domain.Seller
+import com.example.budget.model.domain.SmsData
+import java.util.Date
 
 
 class SmsDataMapper(var sellers: List<Seller>, var cards: List<BankAccount>) {
@@ -9,7 +14,7 @@ class SmsDataMapper(var sellers: List<Seller>, var cards: List<BankAccount>) {
         const val CURRENCY = "RUB"
         const val SPACE = " "
     }
-    /*
+
         fun convertSMSToBudgetEntry(sms: SmsData): BudgetEntry {
             var id: Long = 0
             var date: Date = Date(0)
@@ -62,5 +67,5 @@ class SmsDataMapper(var sellers: List<Seller>, var cards: List<BankAccount>) {
 
         fun updateCars(newCards: List<BankAccount>) {
             cards = newCards
-        }*/
+        }
 }
