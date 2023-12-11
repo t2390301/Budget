@@ -17,6 +17,7 @@ import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.database.entity.BudgetGroupEntity
+import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.database.entity.SmsDataEntity
 
 @Database(
@@ -25,7 +26,8 @@ import com.example.budget.model.database.entity.SmsDataEntity
         BudgetGroupEntity::class,
         BudgetEntryEntity::class,
         BankAccountEntity::class,
-        BankEntity::class],
+        BankEntity::class,
+        SellerEntity::class],
     version = 1
 )
 @TypeConverters(

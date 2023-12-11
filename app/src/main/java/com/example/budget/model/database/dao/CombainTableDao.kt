@@ -6,8 +6,9 @@ import com.example.budget.model.domain.CombainBudgetEntry
 
 @Dao
 interface CombainTableDao {
-    @Query("SELECT budget_entry_table.date, bank_table.name, bank_account_table.cardPan, budget_entry_table.operationAmount, " +
-            "seller_table.name, budget_group_table.name " +
+    @Query("SELECT budget_entry_table.date, bank_table.name as bankName, bank_account_table.cardPan, " +
+            "budget_entry_table.operationAmount, " +
+            "seller_table.name as sellerName, budget_group_table.name as budgetGroupName " +
             "FROM budget_entry_table " +
             "INNER JOIN bank_account_table ON budget_entry_table.bankAccountId = bank_account_table.id " +
             "INNER JOIN bank_table ON bank_account_table.bankId = bank_table.id" +

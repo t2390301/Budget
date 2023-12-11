@@ -7,6 +7,7 @@ fun bankAccountConverter(bankAccount: BankAccount): BankAccountEntity =
     BankAccountEntity(
         bankAccount.id,
         bankAccount.cardPan,
+        bankAccount.bankId,
         bankAccount.cardType,
         bankAccount.cardLimit,
         bankAccount.balance

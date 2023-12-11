@@ -12,5 +12,5 @@ data class BankEntity(
     val id: Long,
     val name: String,
     val smsAddress: String,
-    val bankAccountId: Long
+   // val bankAccountId: Long
 )
