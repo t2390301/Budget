@@ -4,11 +4,11 @@
     android:id="@+id/bottom_sheet_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_12_dp"
     android:background="?attr/actionBarItemBackground"
     app:behavior_hideable="true"
-    app:behavior_peekHeight="10dp"
+    app:behavior_peekHeight="1dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
 
     <View
         android:id="@+id/bottom_sheet_line"
@@ -19,87 +19,128 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <androidx.appcompat.widget.AppCompatEditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_text_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_12_dp"
-        android:drawableStart="@android:drawable/ic_menu_today"
         android:hint="@string/date"
-        android:inputType="datetime|date"
-        android:textSize="@dimen/recycler_item_text_size"
+        app:endIconDrawable="@drawable/ic_calendar_month_24"
+        app:endIconMode="custom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line">
 
-    <androidx.appcompat.widget.AppCompatEditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_text_type"
+        style="?attr/textInputOutlinedExposedDropdownMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin_12_dp"
-        android:drawableStart="@android:drawable/ic_menu_today"
-        android:hint="@string/type_income_or_expense"
-        android:textSize="@dimen/recycler_item_text_size"
+        android:hint="Тип операции"
+        app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_date" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_date">
 
-    <androidx.appcompat.widget.AppCompatEditText
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            app:simpleItems="@array/types_list" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_text_expense_item"
+        style="?attr/textInputOutlinedExposedDropdownMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin_12_dp"
-        android:drawableStart="@drawable/ic_expense_items"
-        android:hint="@string/expense_item_edit_text"
-        android:textSize="@dimen/recycler_item_text_size"
+        android:hint="Статья расходов/доходов"
+        app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_type" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_type">
 
-    <androidx.appcompat.widget.AppCompatEditText
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            app:simpleItems="@array/expense_item_list" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_text_debit_account"
+        style="?attr/textInputOutlinedExposedDropdownMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin_12_dp"
-        android:drawableStart="@android:drawable/ic_menu_today"
         android:hint="@string/debit_account_edit_text"
-        android:textSize="@dimen/recycler_item_text_size"
+        app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_expense_item" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_expense_item">
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            app:simpleItems="@array/debit_account_list" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_text_note"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin_12_dp"
-        android:drawableStart="@android:drawable/ic_menu_today"
-        android:hint="@string/note_edit_text"
-        android:textSize="@dimen/recycler_item_text_size"
+        android:hint="  Оставьте примечание, если необходимо"
+        app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_debit_account" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_debit_account">
 
-    <androidx.appcompat.widget.AppCompatEditText
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_text_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin_12_dp"
-        android:drawableStart="@drawable/ic_bills_list"
         android:hint="@string/amount_edit_text"
-        android:textSize="@dimen/recycler_item_text_size"
+        app:endIconDrawable="@drawable/ic_bills_list"
+        app:endIconMode="custom"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_note" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_note">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_save_expense_item"
-        android:layout_width="match_parent"
+        android:id="@+id/material_icon_button"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_12_dp"
         android:text="@string/save_expense_item"
-        android:textSize="@dimen/loading_text_size"
+        app:icon="@drawable/ic_plus_fab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_amount" />

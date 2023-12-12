@@ -18,7 +18,7 @@
     <string name="add_expense_items">Добавление статьи расходов</string>
     <string name="Food_products">Продукты питания</string>
     <string name="Date">Дата</string>
-    <string name="Type">Тип</string>
+    <string name="type">Тип</string>
     <string name="expense_item">Статья расходов</string>
     <string name="debit_account">Счёт списания</string>
     <string name="note">Примечания\n</string>
@@ -36,11 +36,30 @@
     <string name="add_new_expense_item">Введите название новой статьи</string>
     <string name="edit_text_date">Поле для ввода даты</string>
     <string name="type_income_or_expense">Тип (доход/расход)</string>
-    <string name="date">Дата</string>
+    <string name="date">Дата операции</string>
     <string name="expense_item_edit_text">Статья расходов</string>
     <string name="debit_account_edit_text">Счёт списания/пополнения</string>
     <string name="note_edit_text">Примечания</string>
     <string name="amount_edit_text">Сумма</string>
+
+    <string-array name="expense_item_list" translatable="false">
+        <item>Продукты</item>
+        <item>ЖКХ</item>
+        <item>Зарплата</item>
+        <item>Ресторан</item>
+    </string-array>
+
+    <string-array name="debit_account_list" translatable="false">
+        <item>Тинькофф *8888</item>
+        <item>Сбербанк *5555</item>
+        <item>Альфабанк *3333</item>
+        <item>Тинькофф кредитная </item>
+    </string-array>
+
+    <string-array name="types_list" translatable="false">
+        <item>Доход</item>
+        <item>Расход</item>
+    </string-array>
 
 
 </resources>
