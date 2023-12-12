@@ -42,7 +42,7 @@ class SmsReader(private val applicationContext: Context) {
      }
 
      private suspend fun convertCursorToSMS(cursor: Cursor): List<SmsData>? {
-         var smsList = mutableListOf<SmsData>()
+         val smsList = mutableListOf<SmsData>()
          if (cursor.moveToFirst() == true) {
              while (!cursor.isAfterLast) {
                  val smsDate = cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.DATE))
@@ -50,8 +50,9 @@ class SmsReader(private val applicationContext: Context) {
                      cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.ADDRESS))
                  val body: String =
                      cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.BODY))
+
                  Log.i(TAG, "readSMS:  $number : $body")
-                 smsList.add(SmsData(smsDate.toLong(), number, body))
+                 smsList.add(SmsData(smsDate.toLong(), number, body, false, false, false))
                  cursor.moveToNext()
              }
              cursor.close()
