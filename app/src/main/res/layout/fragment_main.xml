@@ -23,14 +23,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:fabAlignmentMode="center"
-        app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="10dp"
+        android:fitsSystemWindows="true"
         app:hideOnScroll="true"
         app:navigationIcon="@drawable/ic_main_menu_bottom_bar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_recycler_fab"
+        style="?attr/floatingActionButtonTertiaryStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/add_expense_or_income"

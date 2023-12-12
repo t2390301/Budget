@@ -7,6 +7,7 @@ import com.example.budget.databinding.FragmentMainBinding
 import com.example.budget.model.data.SmsDataMapper
 import com.example.budget.model.data.SmsReader
 import com.example.budget.view.fragments.main.MainFragment
+import com.google.android.material.color.DynamicColors
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DynamicColors.applyToActivityIfAvailable(this)
         binding = FragmentMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
 

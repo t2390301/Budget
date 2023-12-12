@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_15_dp">15dp</dimen>
+    <dimen name="margin_12_dp">12dp</dimen>
     <dimen name="fab_icon_size">56dp</dimen>
-    <dimen name="fab_margin">15dp</dimen>
+    <dimen name="fab_margin">12dp</dimen>
     <dimen name="recycler_item_padding">10dp</dimen>
-    <dimen name="recycler_item_text_size">25sp</dimen>
+    <dimen name="recycler_item_text_size">24sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
     <dimen name="recycler_item_line_margin_end">20dp</dimen>
      <dimen name="loading_margin_top">20sp</dimen>
     <dimen name="loading_text_size">35sp</dimen>
-    <dimen name="padding_vh">14dp</dimen>
-    <dimen name="margin_note_edit">14dp</dimen>
+    <dimen name="padding_vh">12dp</dimen>
+    <dimen name="margin_note_edit">12dp</dimen>
     <dimen name="card_view_corner_radius">16dp</dimen>
 
 

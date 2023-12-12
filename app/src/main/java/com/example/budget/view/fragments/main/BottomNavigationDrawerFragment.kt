@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.budget.R
 import com.example.budget.databinding.BottomNavigationLayoutBinding
 import com.example.budget.view.fragments.ExpenseItemsFragment
@@ -21,7 +22,6 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,10 +35,10 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
         binding.navigationView.setNavigationItemSelectedListener { menu ->
             when (menu.itemId) {
-//                R.id.navigation_backup -> navigateTo(BackupFragment())
-//                R.id.navigation_export_to_excel -> navigateTo(ExportToExcelFragment())
+                R.id.navigation_backup -> Toast.makeText(requireContext(), "navigation_backup", Toast.LENGTH_SHORT).show()
+                R.id.navigation_export_to_excel -> Toast.makeText(requireContext(), "navigation_export_to_excel", Toast.LENGTH_SHORT).show()
                 R.id.navigation_expense_items -> navigateTo(ExpenseItemsFragment())
-//                R.id.navigation_bills_list -> navigateTo(BillsListFragment())
+                R.id.navigation_bills_list -> Toast.makeText(requireContext(), "navigation_bills_list", Toast.LENGTH_SHORT).show()
             }
             dismiss()
             true
