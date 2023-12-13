@@ -31,18 +31,19 @@ class ConvertToExcel(private val context: Context) {
 
     }
 
-    suspend fun convertBudgetEntryToExcel(dirName : String = APP_DIRECTORY_NAME,
-                                  fileName: String = FILE_NAME,
-                                  dataList: List<BudgetEntry>, //= BUDGET_ENTRY,
-                                  sheetName: String = SHEET_NAME,
-                                  headerColNames: List<String> = HEADER_LIST,
+    suspend fun convertBudgetEntryToExcel(
+        dirName: String = APP_DIRECTORY_NAME,
+        fileName: String = FILE_NAME,
+        dataList: List<BudgetEntry>, //= BUDGET_ENTRY,
+        sheetName: String = SHEET_NAME,
+        headerColNames: List<String> = HEADER_LIST,
     ) {
         //Get App Director, APP_DIRECTORY_NAME is a string
-        val appDirectory = File(context?.filesDir, dirName)  // context.getExternalFilesDir(dirName)
+        val appDirectory = File(context.filesDir, dirName)  // context.getExternalFilesDir(dirName)
         Log.i(TAG, "convertBudgetEntryToExcel: directoryexist ${appDirectory.exists()}")
-        if (appDirectory != null && !appDirectory.exists()){
-            if(appDirectory.mkdir())
-                Log.i(TAG, "convertBudgetEntryToExcel: directory ${appDirectory.toString()} made")
+        if (appDirectory != null && !appDirectory.exists()) {
+            if (appDirectory.mkdir())
+                Log.i(TAG, "convertBudgetEntryToExcel: directory $appDirectory made")
         }
 
         //Create excel file with extension .xlsx
@@ -54,11 +55,14 @@ class ConvertToExcel(private val context: Context) {
             val workbook = createWorkbook(sheetName, headerColNames, dataList)
             workbook.write(fileOutStream)
             workbook.close()
-            Log.i(TAG, "convertBudgetEntryToExcel: File ${excelFile.name} in directory ${appDirectory?.toString()} done ")
+            Log.i(
+                TAG,
+                "convertBudgetEntryToExcel: File ${excelFile.name} in directory $appDirectory done "
+            )
             fileOutStream.close()
-        } catch (e: FileNotFoundException){
+        } catch (e: FileNotFoundException) {
             e.printStackTrace()
-        } catch (e: IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
         }
 
@@ -76,7 +80,7 @@ class ConvertToExcel(private val context: Context) {
         val sheet = workbook.createSheet(sheetName)
 
         //Creating sheet header row
-        createSheetHeader( sheet, headerColNames)
+        createSheetHeader(sheet, headerColNames)
 
         //Adding data to the sheet
         addData(1, sheet, dataList)
@@ -105,7 +109,7 @@ class ConvertToExcel(private val context: Context) {
         cell?.setCellValue(value)
     }
 
-    private fun createSheetHeader( sheet: Sheet, colNames: List<String>) {
+    private fun createSheetHeader(sheet: Sheet, colNames: List<String>) {
         //Create sheet first row
         val row = sheet.createRow(0)
         for ((index, value) in colNames.withIndex()) {
@@ -120,13 +124,15 @@ class ConvertToExcel(private val context: Context) {
 
         //Apply cell color
         //val colorMap = (workbook as HSSFWorkbook)  .stylesSource.indexedColors
-        var color = HSSFColor.HSSFColorPredefined.GREY_25_PERCENT //IndexedColors.GREY_25_PERCENT, colorMap).indexed
+        var color =
+            HSSFColor.HSSFColorPredefined.GREY_25_PERCENT //IndexedColors.GREY_25_PERCENT, colorMap).indexed
         cellStyle.fillForegroundColor = color.index
         cellStyle.fillPattern = FillPatternType.SOLID_FOREGROUND
 
         //Apply font style on cell text
         val brownFont = workbook.createFont()
-        color = HSSFColor.HSSFColorPredefined.BROWN    //IndexedColors.BROWN, IndexedColors.CORAL,colorMap ) HSSFColor(IndexedColors.BROWN, colorMap).indexed
+        color =
+            HSSFColor.HSSFColorPredefined.BROWN    //IndexedColors.BROWN, IndexedColors.CORAL,colorMap ) HSSFColor(IndexedColors.BROWN, colorMap).indexed
         brownFont.color = color.index
         brownFont.bold = true
         cellStyle.setFont(brownFont)

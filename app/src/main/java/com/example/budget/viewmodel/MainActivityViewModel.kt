@@ -3,23 +3,30 @@ package com.example.budget.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.budget.App
-import com.example.budget.model.database.converters.bankAccountEntityConverter
-import com.example.budget.model.database.converters.budgetEntryConverter
-import com.example.budget.model.database.converters.sellerEntityConverter
 import com.example.budget.model.domain.BankAccount
 import com.example.budget.model.domain.Seller
 import com.example.budget.model.domain.SmsData
 import com.example.budget.model.utils.SmsDataMapper
-import com.example.budget.repository.DBRepository
+import com.example.budget.repository.BankAccountRepository
+import com.example.budget.repository.BankRepository
+import com.example.budget.repository.BudgetEntryRepository
+import com.example.budget.repository.BudgetGroupRepository
 import com.example.budget.repository.SMSRepository
+import com.example.budget.repository.SellerRepository
+import com.example.budget.repository.SmsDataRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel() : ViewModel() {
+class MainActivityViewModel : ViewModel() {
     val aplication = App()
     val smsRepository = SMSRepository(App.app)
-    val dbRepository = DBRepository(aplication.getDatabaseHelper())
+    val bankAccountRepository = BankAccountRepository(aplication.getDatabaseHelper())
+    val bankRepository = BankRepository(aplication.getDatabaseHelper())
+    val budgetEntryRepository = BudgetEntryRepository(aplication.getDatabaseHelper())
+    val sellerRepository = SellerRepository(aplication.getDatabaseHelper())
+    val budgetGroupRepository = BudgetGroupRepository(aplication.getDatabaseHelper())
+    val smsDataRepository = SmsDataRepository(aplication.getDatabaseHelper())
 
     var bankAccountsAppState = MutableLiveData<AppState<List<BankAccount>>>()
 
@@ -36,7 +43,7 @@ class MainActivityViewModel() : ViewModel() {
             sellerAppState.value = AppState.Loading(true)
             try {
                 sellerAppState.value = AppState.Success(
-                    dbRepository.getSellerEntities().map { sellerEntityConverter(it) }
+                    sellerRepository.getSellers()
                 )
             } catch (e: Throwable) {
                 sellerAppState.value = AppState.Error(e)
@@ -49,7 +56,8 @@ class MainActivityViewModel() : ViewModel() {
             bankAccountsAppState.value = AppState.Loading(true)
             try {
                 bankAccountsAppState.value = AppState.Success(
-                    dbRepository.getBankAccountEntities().map { bankAccountEntityConverter(it) })
+                    bankAccountRepository.getBankAccounts()
+                )
             } catch (e: Throwable) {
                 bankAccountsAppState.value = AppState.Error(e)
             }
@@ -59,7 +67,7 @@ class MainActivityViewModel() : ViewModel() {
     fun updateSMSList(lastSMSDate: Long) {
         CoroutineScope(Dispatchers.IO).launch {
             smsListAppState.value = AppState.Loading(true)
-            val banksSMSAddress = dbRepository.getBankEntities().map { it.smsAddress }
+            val banksSMSAddress = bankRepository.getBanks().map { it.smsAddress }
             try {
                 smsRepository.readSMSAfterData(lastSMSDate)
                     ?.filter { sms -> sms.sender in banksSMSAddress }?.let {
@@ -84,7 +92,7 @@ class MainActivityViewModel() : ViewModel() {
                     for (sms in listSMS.filter { it.isCashed == false }) {
                         val budgetEntryEntity = smsDataMapper.convertSMSToBudgetEntry(sms)
                         budgetEntryEntity?.let {
-                            dbRepository.insertBudgetEntryEntity(budgetEntryConverter(it))
+                            budgetEntryRepository.insertBudgetEntry(it)
                             sms.isCashed = true
                         }
                     }

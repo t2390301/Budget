@@ -1,6 +1,6 @@
 package com.example.budget.model.domain
 
-data class CombainBudgetEntry (
+data class CombainBudgetEntry(
     val date: Long,
     val bankName: String,
     val cardPan: String,

@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
 
-        val lastSMSDate:Long = sharedPref.getLong(LAST_SAVED_SMS_Date, 0)
+        val lastSMSDate: Long = sharedPref.getLong(LAST_SAVED_SMS_Date, 0)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

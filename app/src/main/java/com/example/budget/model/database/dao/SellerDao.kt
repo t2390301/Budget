@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.SellerEntity
 
 @Dao

@@ -7,6 +7,7 @@ class App : Application() {
     companion object {
         lateinit var app: App
     }
+
     private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate() {

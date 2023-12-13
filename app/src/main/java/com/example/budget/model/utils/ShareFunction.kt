@@ -9,15 +9,15 @@ import androidx.core.content.FileProvider
 import java.io.File
 
 
-fun shareFile(context: Context, fromDirectory: String, fileName : String ){
+fun shareFile(context: Context, fromDirectory: String, fileName: String) {
     val TAG = "ShareFile"
     val reportPath = File(context.filesDir, fromDirectory)
     Log.i(TAG, "onCreate: path exist ${reportPath.exists()}")
-    if(!reportPath.exists()) {
+    if (!reportPath.exists()) {
         throw IllegalArgumentException("Report path not found")
     }
     val requestFile = File(reportPath, fileName)
-    if(!requestFile.exists()) {
+    if (!requestFile.exists()) {
         throw IllegalArgumentException("File report not found")
     } else {
         Log.i(TAG, "FileName - ${requestFile} exist")
@@ -28,18 +28,19 @@ fun shareFile(context: Context, fromDirectory: String, fileName : String ){
                 "com.geekbrain.budget.fileprovider",
                 requestFile
             )
-        } catch (e:IllegalArgumentException){
+        } catch (e: IllegalArgumentException) {
             e.printStackTrace()
             Log.i(
                 TAG,
-                "The selected file can't be shared: $requestFile - ${e.printStackTrace()}")
+                "The selected file can't be shared: $requestFile - ${e.printStackTrace()}"
+            )
             null
         }
         Log.i(TAG, "FileUri: ${fileUri.toString()}")
 
-        if (fileUri != null){
+        if (fileUri != null) {
             val intent = Intent(Intent.ACTION_SEND)
-            intent.setType("application/xls")
+            intent.type = "application/xls"
             intent.putExtra(Intent.EXTRA_SUBJECT, "Share file report.xls ")
             intent.putExtra(Intent.EXTRA_STREAM, fileUri)
             context.startActivity(intent)

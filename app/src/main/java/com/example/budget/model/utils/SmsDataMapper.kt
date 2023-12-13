@@ -10,7 +10,7 @@ import java.util.Date
 import java.util.regex.Pattern
 
 
-class SmsDataMapper() {
+class SmsDataMapper {
     companion object {
         const val CURRENCY = "RUB"
         const val SPACE = " "
@@ -22,7 +22,7 @@ class SmsDataMapper() {
 
     fun convertSMSToBudgetEntry(sms: SmsData): BudgetEntry? {
 
-        var budgetEntry : BudgetEntry? = null
+        var budgetEntry: BudgetEntry? = null
         sms.bankAccountFound = false
         sms.sellerFound = false
         for (card in bankAccounts) {
@@ -45,7 +45,7 @@ class SmsDataMapper() {
                             card.balance = matcher.group().toDouble()
                         }
                         budgetEntry = BudgetEntry(
-                            id= sms.date,                      //Вряд ли в одну миллисекунду придут два SMS
+                            id = sms.date,                      //Вряд ли в одну миллисекунду придут два SMS
                             date = Date(sms.date),
                             operationType = OperationType.EXPENSE,
                             bankAccountId = card.id,
