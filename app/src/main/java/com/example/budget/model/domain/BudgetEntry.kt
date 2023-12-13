@@ -3,11 +3,11 @@ package com.example.budget.model.domain
 import java.util.Date
 
 data class BudgetEntry(
-    val id: Long,
-    val date: Date,
-    val operationType: OperationType,
-    val bankAccountId: Long,
+    var id: Long,
+    var date: Date,
+    var operationType: OperationType,
+    var bankAccountId: Long,
     val note: String = "",
-    val operationAmount: Double,
-    val sellerId: Long,
+    var operationAmount: Double,
+    var sellerId: Long,
 )
