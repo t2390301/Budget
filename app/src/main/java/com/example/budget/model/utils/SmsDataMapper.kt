@@ -25,6 +25,35 @@ class SmsDataMapper() {
         var budgetEntry : BudgetEntry? = null
         sms.bankAccountFound = false
         sms.sellerFound = false
+
+        val pattern = Pattern.compile("\\*\\d{4}")
+        val matcher = pattern.matcher(sms.body)
+        val cardpan = ""
+        if (matcher.find()){
+            Log.i(TAG, "convertSMSToBudgetEntry: cardSpan = ${matcher.group()}")
+            cardpan = matcher.group()
+        } else{
+            return null
+        }
+
+        pattern = Pattern.compile("[A-Z.]+")
+        matcher = pattern.matcher(sms.body)
+        val seller = ""
+        if (matcher.find()) {
+            Log.i(TAG, "convertSMSToBudgetEntry: cardSpan = ${matcher.group()}")
+            seller = matcher.group()
+        } else{
+            return null
+        }
+
+        val bankAccount: BankAccount? = null
+        bankAccount = bankAccounts.filter(it.cardPan.equal(cardpan))
+        if (bankAccount.isEmpty()){
+            bankAccount = BankAcount(
+
+            )
+        }
+
         for (card in bankAccounts) {
             if (sms.body.contains(card.cardPan, true)) {
                 sms.bankAccountFound = true
@@ -34,8 +63,8 @@ class SmsDataMapper() {
                         val amount = 0.0
                         val stringAfterCardPan = sms.body.substringAfter("${card.cardPan}.")
 
-                        val pattern = Pattern.compile("\\d+\\.?\\d*")
-                        val matcher = pattern.matcher(stringAfterCardPan)
+                        pattern = Pattern.compile("\\d+\\.?\\d*")
+                        matcher = pattern.matcher(stringAfterCardPan)
                         if (matcher.find()) {
                             Log.i(TAG, "convertSMSToBudgetEntry: matcher1 = ${matcher.group()}")
                             val amount = matcher.group().toDouble()
@@ -45,7 +74,7 @@ class SmsDataMapper() {
                             card.balance = matcher.group().toDouble()
                         }
                         budgetEntry = BudgetEntry(
-                            id= sms.date,                      //Вряд ли в одну миллисекунду придут два SMS
+                            id= sms.date,
                             date = Date(sms.date),
                             operationType = OperationType.EXPENSE,
                             bankAccountId = card.id,

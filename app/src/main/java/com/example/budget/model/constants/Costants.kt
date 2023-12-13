@@ -11,6 +11,7 @@ val BANKS = listOf<Bank>(
 )
 
 val BUDGETGROUPS = listOf<BudgetGroup>(
+    BudgetGroup(0L, "НЕ ОПРЕДЕЛЕНО", "", 0L)
     BudgetGroup(1L, "ПРОДУКТЫ", "", 0L),
     BudgetGroup(1L, "ТРАНСПОРТ", "", 0L),
     BudgetGroup(3L, "РАЗВЛЕЧЕНИЯ", "", 0L),

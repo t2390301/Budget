@@ -9,7 +9,7 @@ import com.example.budget.model.domain.Seller
 
 fun bankAccountConverter(bankAccount: BankAccount): BankAccountEntity =
     BankAccountEntity(
-        bankAccount.id,
+        //bankAccount.id,
         bankAccount.cardPan,
         bankAccount.bankId,
         bankAccount.cardType,
