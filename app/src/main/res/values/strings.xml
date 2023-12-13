@@ -49,6 +49,8 @@
     <string name="text_account_example">Тинькофф *8555</string>
     <string name="text_expense_type_example">кредитная\n</string>
     <string name="text_sender_example">Тинькофф</string>
+    <string name="export_and_backup">ЭКСПОРТ И БЭКАП</string>
+    <string name="backup_data">Бэкап данных</string>
 
     <string-array name="expense_item_list" translatable="false">
         <item>Продукты</item>
