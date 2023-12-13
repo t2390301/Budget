@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_container"
-    android:theme="@style/MyBaseTheme"
+    android:theme="@style/AppTheme"
     tools:context=".view.activities.MainActivity">
 </FrameLayout>

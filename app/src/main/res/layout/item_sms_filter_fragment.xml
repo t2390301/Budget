@@ -23,37 +23,36 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
-                app:srcCompat="@drawable/ic_fastfood"
+                app:srcCompat="@drawable/tinkoff"
                 app:strokeColor="?attr/colorSecondary" />
 
             <TextView
-                android:id="@+id/text_expense"
+                android:id="@+id/text_sender"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/margin_12_dp"
                 android:layout_marginEnd="@dimen/margin_12_dp"
                 android:gravity="center|start"
-                android:text="@string/food_products"
+                android:text="@string/text_sender_example"
                 android:textSize="20sp" />
         </LinearLayout>
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/expense_circular_indicator"
+        <CheckBox
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:indeterminate="true" />
-
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/expense_linear_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/margin_12_dp"
+            android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_12_dp"
-            android:indeterminate="true" />
+            android:checked="true"
+            android:enabled="true"
+            android:layout_gravity="end"/>
+
 
     </com.google.android.material.card.MaterialCardView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/account_material_card"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

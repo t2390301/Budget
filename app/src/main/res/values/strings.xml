@@ -16,9 +16,9 @@
     <string name="bills_list">Счета</string>
     <string name="add_gain_and_expenses">Добавление расхода или дохода</string>
     <string name="add_expense_items">Добавление статьи расходов</string>
-    <string name="Food_products">Продукты питания</string>
+    <string name="food_products">Продукты питания</string>
     <string name="Date">Дата</string>
-    <string name="Type">Тип</string>
+    <string name="type">Тип</string>
     <string name="expense_item">Статья расходов</string>
     <string name="debit_account">Счёт списания</string>
     <string name="note">Примечания\n</string>
@@ -27,7 +27,7 @@
     <string name="date_example">30.11.2023</string>
     <string name="account_example">*8888</string>
     <string name="expense_item_example">Продукты питания</string>
-    <string name="amount_example">250 р.</string>
+    <string name="text_amount_example">250 р.</string>
     <string name="date_and_time_example">30.11.2023 09:05</string>
     <string name="sms_text_example">Покупка, карта *8555. 300 RUB. MAGNIT MM. Доступно 57334.33 RUB</string>
     <string name="add_expense_or_income">Добавление расхода или дохода</string>
@@ -36,11 +36,40 @@
     <string name="add_new_expense_item">Введите название новой статьи</string>
     <string name="edit_text_date">Поле для ввода даты</string>
     <string name="type_income_or_expense">Тип (доход/расход)</string>
-    <string name="date">Дата</string>
+    <string name="date">Дата операции</string>
     <string name="expense_item_edit_text">Статья расходов</string>
     <string name="debit_account_edit_text">Счёт списания/пополнения</string>
     <string name="note_edit_text">Примечания</string>
     <string name="amount_edit_text">Сумма</string>
+    <string name="cancel_expense_item">Отменить</string>
+    <string name="hint_expense_item">Статья расходов/доходов</string>
+    <string name="hint_operation_type">Тип операции</string>
+    <string name="hint_note">Примечание</string>
+    <string name="previous_fragment">Предыдущее меню</string>
+    <string name="text_account_example">Тинькофф *8555</string>
+    <string name="text_expense_type_example">кредитная\n</string>
+    <string name="text_sender_example">Тинькофф</string>
+    <string name="export_and_backup">ЭКСПОРТ И БЭКАП</string>
+    <string name="backup_data">Бэкап данных</string>
+
+    <string-array name="expense_item_list" translatable="false">
+        <item>Продукты</item>
+        <item>ЖКХ</item>
+        <item>Зарплата</item>
+        <item>Ресторан</item>
+    </string-array>
+
+    <string-array name="debit_account_list" translatable="false">
+        <item>Тинькофф *8888</item>
+        <item>Сбербанк *5555</item>
+        <item>Альфабанк *3333</item>
+        <item>Тинькофф кредитная </item>
+    </string-array>
+
+    <string-array name="types_list" translatable="false">
+        <item>Доход</item>
+        <item>Расход</item>
+    </string-array>
 
 
 </resources>

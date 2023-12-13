@@ -2,38 +2,28 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/margin_15_dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/margin_12_dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:orientation="horizontal">
+            android:layout_margin="@dimen/margin_12_dp"
+            android:hint="@string/date"
+            app:endIconDrawable="@drawable/ic_calendar_month_24" >
 
-            <TextView
-                android:id="@+id/text_view_date"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="30"
-                android:text="@string/Date"
-                android:textSize="20sp" />
+                />
 
-            <EditText
-                android:id="@+id/edit_text_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="70"
-                android:inputType="date" />
-
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,11 +38,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="30"
-                android:text="@string/Type"
+                android:text="@string/type"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/edit_text_type"
+                android:id="@+id/edit_text_operation_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -164,7 +154,7 @@
             android:id="@+id/button_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_15_dp"
+            android:layout_margin="@dimen/margin_12_dp"
             android:text="@string/Add" />
 
 

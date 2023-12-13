@@ -1,6 +1,7 @@
 package com.example.budget.model.constants
 
-import com.ruslanakhmetov.myapplication.domain.Bank
+import com.example.budget.model.domain.Bank
+
 
 val BANKS = listOf<Bank>(
     Bank(1L, "Альфа Банк", "Alfa-Bank"),

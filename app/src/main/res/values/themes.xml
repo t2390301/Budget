@@ -1,62 +1,31 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
 
-    <style name="MyThemeOrange" parent="MyBaseTheme">
-        <item name="budgetBackgroundColor">@color/yellow_900</item>
-        <item name="budgetPrimaryColor">@color/yellow_50</item>
-        <item name="budgetPrimaryDarkColor">@color/black</item>
-        <item name="swipeIndicatorActive">@color/red</item>
-        <item name="swipeIndicatorPassive">@color/orange</item>
-        <item name="bottomAppBarStyle">@style/myBottomAppBarStyleBlackBlue</item>
-        <item name="floatingActionButtonStyle">@style/myFloatingActionButtonStyleOrange</item>
-    </style>
-
-    <style name="MyThemeIndigo" parent="MyBaseTheme">
-        <item name="budgetBackgroundColor">@color/indigo_900</item>
-        <item name="budgetPrimaryColor">@color/indigo_50</item>
-        <item name="budgetPrimaryDarkColor">@color/black</item>
-        <item name="swipeIndicatorActive">@color/indigo_600</item>
-        <item name="swipeIndicatorPassive">@color/indigo_900</item>
-        <item name="bottomAppBarStyle">@style/myBottomAppBarStyleBlackBlue</item>
-        <item name="floatingActionButtonStyle">@style/myFloatingActionButtonStyleOrange</item>
-        <item name="useMaterialThemeColors">false</item>
-    </style>
-
-    <style name="MyThemeSplash" parent="MyBaseTheme">
-        <item name="budgetBackgroundColor">@color/white</item>
-        <item name="budgetPrimaryColor">@color/white</item>
-        <item name="budgetPrimaryDarkColor">@color/white</item>
-        <item name="swipeIndicatorActive">@color/white</item>
-        <item name="swipeIndicatorPassive">@color/white</item>
-    </style>
-
-    <style name="MyBaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="budgetBackgroundColor">@color/indigo_900</item>
-        <item name="budgetPrimaryColor">@color/indigo_50</item>
-        <item name="budgetPrimaryDarkColor">@color/black</item>
-        <item name="swipeIndicatorActive">@color/indigo_600</item>
-        <item name="swipeIndicatorPassive">@color/indigo_900</item>
-        <item name="android:navigationBarColor">?attr/budgetBackgroundColor</item>
-        <item name="colorPrimary">?attr/budgetBackgroundColor</item>
-        <item name="colorOnPrimary">?attr/budgetPrimaryColor</item>
-        <item name="colorPrimaryContainer">?attr/budgetBackgroundColor</item>
-        <item name="colorOnPrimaryContainer">?attr/budgetBackgroundColor</item>
-        <item name="colorPrimaryInverse">?attr/budgetBackgroundColor</item>
-        <item name="colorSecondary">?attr/budgetBackgroundColor</item>
-        <item name="colorOnSecondary">?attr/budgetPrimaryColor</item>
-        <item name="colorOnSurfaceVariant">@color/red</item>
-        <item name="colorSecondaryContainer">?attr/budgetBackgroundColor</item>
-        <item name="colorOnSecondaryContainer">?attr/budgetBackgroundColor</item>
-        <item name="colorTertiary">?attr/budgetBackgroundColor</item>
-        <item name="colorOnTertiary">?attr/budgetPrimaryColor</item>
-        <item name="colorTertiaryContainer">?attr/budgetBackgroundColor</item>
-        <item name="colorOnTertiaryContainer">?attr/budgetBackgroundColor</item>
-        <item name="android:statusBarColor">?attr/budgetBackgroundColor</item>
-        <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
-        <item name="tabStyle">@style/myTabStyle</item>
-        <item name="textAppearanceHeadline1">@style/MyTextAppearanceHeadline1</item>
-        <item name="materialButtonStyle">@style/myMaterialButtonStyle</item>
-        <item name="materialCardViewStyle">@style/myMaterialCardViewStyle</item>
-        <item name="bottomNavigationStyle">@style/myBottomNavigationStyle</item>
+<resources>
+    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
     </style>
 </resources>

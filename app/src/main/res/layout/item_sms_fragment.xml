@@ -4,37 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/img_bank"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/material_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/tinkoff" />
+        app:layout_constraintTop_toTopOf="parent" >
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/sms_date_and_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_15_dp"
-        android:text="@string/date_and_time_example"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/sms_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_15_dp"
-        android:maxWidth="320dp"
-        android:maxLines="2"
-        android:text="@string/sms_text_example"
-        app:autoSizeMaxTextSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_bank"
-        app:layout_constraintTop_toBottomOf="@+id/sms_date_and_time" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_bank"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+                app:srcCompat="@drawable/tinkoff"
+                app:strokeColor="?attr/colorSecondary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_12_dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sms_date_and_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:gravity="end"
+                    android:text="@string/date_and_time_example" />
+
+                <TextView
+                    android:id="@+id/sms_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:maxLines="3"
+                    android:text="@string/sms_text_example" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
