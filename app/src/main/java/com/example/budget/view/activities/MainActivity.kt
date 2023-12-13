@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var smsDataMapper: SmsDataMapper
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,7 +31,9 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
 
+
         val lastSMSDate:Long = sharedPref.getLong(LAST_SAVED_SMS_Date, 0)
+
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

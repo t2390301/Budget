@@ -1,5 +1,6 @@
 package com.example.budget.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.budget.App
@@ -25,11 +26,13 @@ class MainActivityViewModel() : ViewModel() {
 
     var sellersAppState = MutableLiveData<AppState<List<Seller>>>()
 
-    val smsDataMapper = SmsDataMapper()
+    val smsDataMapper = SmsDataMapper(dbRepository)
 
     val smsListAppState = MutableLiveData<AppState<List<SmsData>>>()
     val bankAccountAppState = MutableLiveData<AppState<List<BankAccount>>>()
     val sellerAppState = MutableLiveData<AppState<List<Seller>>>()
+
+
 
     fun getSellers() {
         CoroutineScope(Dispatchers.IO).launch {
