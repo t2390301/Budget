@@ -1,17 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".view.fragments.ExpenseItemsFragment">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/expense_item"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/account_material_card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:textSize="20sp"
-        tools:text="@string/Food_products" />
-</LinearLayout>
+        android:minHeight="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_bank"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+                app:srcCompat="@drawable/ic_fastfood"
+                app:strokeColor="?attr/colorSecondary" />
+
+            <TextView
+                android:id="@+id/text_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_12_dp"
+                android:layout_marginEnd="@dimen/margin_12_dp"
+                android:gravity="center|start"
+                android:text="@string/food_products"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/expense_circular_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:indeterminate="true" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/expense_linear_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/margin_12_dp"
+            android:layout_marginEnd="@dimen/margin_12_dp"
+            android:indeterminate="true" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
