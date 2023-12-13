@@ -45,6 +45,7 @@
     <string name="hint_expense_item">Статья расходов/доходов</string>
     <string name="hint_operation_type">Тип операции</string>
     <string name="hint_note">Примечание</string>
+    <string name="previous_fragment">Предыдущее меню</string>
 
     <string-array name="expense_item_list" translatable="false">
         <item>Продукты</item>
