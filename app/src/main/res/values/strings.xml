@@ -41,6 +41,10 @@
     <string name="debit_account_edit_text">Счёт списания/пополнения</string>
     <string name="note_edit_text">Примечания</string>
     <string name="amount_edit_text">Сумма</string>
+    <string name="cancel_expense_item">Отменить</string>
+    <string name="hint_expense_item">Статья расходов/доходов</string>
+    <string name="hint_operation_type">Тип операции</string>
+    <string name="hint_note">Примечание</string>
 
     <string-array name="expense_item_list" translatable="false">
         <item>Продукты</item>
