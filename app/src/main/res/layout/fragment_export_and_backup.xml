@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/export_button" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/material_card"
+            android:id="@+id/google_material_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_12_dp"
@@ -72,7 +72,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/img_bank"
+                    android:id="@+id/google_img"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
@@ -80,13 +80,58 @@
                     app:strokeColor="?attr/colorSecondary" />
 
                 <TextView
-                    android:id="@+id/text_sender"
+                    android:id="@+id/google_text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_12_dp"
                     android:layout_marginEnd="@dimen/margin_12_dp"
                     android:gravity="center|start"
-                    android:text="Гугл облако"
+                    android:text="@string/google_cloud"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/google_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/margin_12_dp"
+                android:checked="true"
+                android:enabled="true"
+                android:layout_gravity="end"/>
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/yandex_material_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_12_dp"
+            android:minHeight="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/google_material_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/yandex_img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+                    app:srcCompat="@drawable/tinkoff"
+                    app:strokeColor="?attr/colorSecondary" />
+
+                <TextView
+                    android:id="@+id/yandex_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_12_dp"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:gravity="center|start"
+                    android:text="@string/yandex_disk"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -94,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/margin_12_dp"
-                android:checked="true"
+                android:checked="false"
                 android:enabled="true"
                 android:layout_gravity="end"/>
         </com.google.android.material.card.MaterialCardView>
@@ -110,7 +155,7 @@
             app:endIconMode="custom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/material_card">
+            app:layout_constraintTop_toBottomOf="@+id/yandex_material_card">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

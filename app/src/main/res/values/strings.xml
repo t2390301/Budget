@@ -51,6 +51,8 @@
     <string name="text_sender_example">Тинькофф</string>
     <string name="export_and_backup">ЭКСПОРТ И БЭКАП</string>
     <string name="backup_data">Бэкап данных</string>
+    <string name="yandex_disk">Яндекс диск</string>
+    <string name="google_cloud">Гугл облако</string>
 
     <string-array name="expense_item_list" translatable="false">
         <item>Продукты</item>
