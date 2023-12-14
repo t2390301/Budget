@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.example.budget.model.constants.BANKS
 import com.example.budget.model.constants.BUDGETGROUPS
+import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.AppDatabase
 import com.example.budget.model.database.dao.BankAccountDao
 import com.example.budget.model.database.dao.BankDao
@@ -36,8 +37,8 @@ class DatabaseHelper {
             for (budgetGroup in BUDGETGROUPS) {
                 appDataBase!!.budgetGroupEntityDao().insert(
                     BudgetGroupEntity(
-                        budgetGroup.id,
-                        budgetGroup.name,
+                        0L,
+                        enumValueOf<BudgetGroupEnum>(budgetGroup.name),
                         budgetGroup.description,
                         budgetGroup.iconResId
                     )

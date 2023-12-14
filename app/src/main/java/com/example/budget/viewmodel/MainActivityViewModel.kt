@@ -32,6 +32,12 @@ class MainActivityViewModel() : ViewModel() {
     val sellerAppState = MutableLiveData<AppState<MutableList<Seller>>>()
     val banksAppState = MutableLiveData<AppState<MutableList<Bank>>>()
 
+    init{
+        getBanks()
+        getSellers()
+        getBankAccounts()
+
+    }
 
     fun getSellers() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -125,5 +131,7 @@ class MainActivityViewModel() : ViewModel() {
             }
         }
     }
+
+
 
 }

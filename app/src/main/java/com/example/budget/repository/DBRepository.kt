@@ -69,7 +69,7 @@ class DBRepository( db: DatabaseHelper) {
     suspend fun getBankAccountIdBySMSAddressAndCardSpan(smsAddress: String, cardSpan: String): Long {
         var id = -1L
         bankDao.getBankListWithAddress(smsAddress).first()?.let {bankEntity ->
-            bankAccountDao.getBankAccountIdBySMSAddressAndCardApan(bankEntity.id, cardSpan).first()?.let {
+            bankAccountDao.getBankAccountIdBySMSAddressAndCardSpan(bankEntity.id, cardSpan).first()?.let {
                 return it.id
             }
         }

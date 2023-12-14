@@ -15,7 +15,7 @@ interface BudgetGroupDao {
     @Query("SELECT * FROM budget_group_table")
     suspend fun getAll(): List<BudgetGroupEntity>
 
-    @Query("SELECT name FROM budget_group_table WHERE id =:id")
+    @Query("SELECT * FROM budget_group_table WHERE id =:id")
     suspend fun getBudgetGroupNameById(id: Long): List<BudgetGroupEntity>
 
     @Query("SELECT * FROM budget_group_table WHERE name =:groupName")

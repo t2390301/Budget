@@ -18,8 +18,6 @@ class ConvertToExcel(private val context: Context) {
         const val FILE_NAME = "EntryReport.xls"       //Output file .xls
         const val SHEET_NAME = "Report"   // Excel sheet name
         val HEADER_LIST = listOf(
-            "id",
-            "smsId",
             "Date",
             "Operation_Type",
             "Operation_amount",
@@ -88,14 +86,14 @@ class ConvertToExcel(private val context: Context) {
         var rowNum = first_row
         for (entry in dataList) {
             val row = sheet.createRow(rowNum)
-            createCell(row, 0, entry.id.toString())
+            //createCell(row, 0, entry.id.toString())
             //createCell(row, 1, entry.smsId.toString())
-            createCell(row, 2, entry.date.toString())
-            createCell(row, 3, entry.operationType.toString())
-            createCell(row, 4, entry.operationAmount.toString())
+            createCell(row, 1, entry.date.toString())
+            createCell(row, 2, entry.operationType.toString())
+            createCell(row, 3, entry.operationAmount.toString())
             //createCell(row, 5, entry.transactionSource.toString())
-            createCell(row, 6, entry.note)
-            //createCell(row, 7, entry.cardPan)
+            createCell(row, 4, entry.note)
+            createCell(row, 5, entry.cardSPan)
             rowNum++
         }
     }
