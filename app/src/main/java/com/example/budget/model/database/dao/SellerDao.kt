@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.SellerEntity
 
 @Dao
@@ -26,4 +25,7 @@ interface SellerDao {
 
     @Delete
     suspend fun delete(entity: SellerEntity)
+
+    @Query("SELECT * FROM seller_table WHERE name =:sellerName")
+    suspend fun getSellerIdBySellerName(sellerName: String): List<SellerEntity>
 }

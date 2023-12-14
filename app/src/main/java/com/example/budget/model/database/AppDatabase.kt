@@ -3,6 +3,7 @@ package com.example.budget.model.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.budget.model.database.converters.BudgetGroupConverter
 import com.example.budget.model.database.converters.DateConverter
 import com.example.budget.model.database.converters.OperationTypeConverter
 import com.example.budget.model.database.converters.StringListConverter
@@ -33,7 +34,8 @@ import com.example.budget.model.database.entity.SmsDataEntity
 @TypeConverters(
     OperationTypeConverter::class,
     DateConverter::class,
-    StringListConverter::class
+    StringListConverter::class,
+    BudgetGroupConverter::class
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun smsDataDao(): SmsDataDao

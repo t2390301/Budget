@@ -14,6 +14,14 @@ interface BankDao {
     @Query("SELECT * FROM bank_table")
     suspend fun getAll(): List<BankEntity>
 
+    @Query("SELECT * FROM bank_table WHERE smsAddress =:bankAddress")
+    suspend fun getBankListWithAddress(bankAddress: String): List<BankEntity>
+
+    @Query("SELECT * FROM bank_table WHERE id =:id")
+    suspend fun getBankListWithID(id: Long): List<BankEntity>
+
+
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(entity: BankEntity)
 
@@ -22,7 +30,6 @@ interface BankDao {
 
     @Update
     suspend fun update(entity: BankEntity)
-
     @Delete
     suspend fun delete(entity: BankEntity)
 }
