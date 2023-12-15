@@ -30,7 +30,7 @@ class DatabaseHelper {
                 .build()
 
 
-        CoroutineScope(Dispatchers.IO).launch {
+        /*CoroutineScope(Dispatchers.IO).launch {
             for (bank in BANKS) {
                 appDataBase!!.bankDao().insert(BankEntity(bank.id, bank.name, bank.smsAddress))
             }
@@ -44,7 +44,7 @@ class DatabaseHelper {
                     )
                 )
             }
-        }
+        }*/
     }
 
     fun getSmsDataDao(): SmsDataDao = appDataBase!!.smsDataDao()
@@ -56,8 +56,6 @@ class DatabaseHelper {
     fun getBanksDAO(): BankDao = appDataBase!!.bankDao()
     fun getBankAccountDao(): BankAccountDao = appDataBase!!.bankAccountDao()
     fun getSellerDao(): SellerDao = appDataBase!!.sellerDao()
-
-
 
 
 }

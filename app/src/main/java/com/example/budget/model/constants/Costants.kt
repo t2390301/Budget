@@ -28,7 +28,5 @@ enum class BudgetGroupEnum(val id : Int){
     УСЛУГИ(5),
     ДОМАШНЕЕ_ХОЗЯЙСТВО(6),
     ЕДА_ВНЕ_ДОМА(7),
-
-
 }
 

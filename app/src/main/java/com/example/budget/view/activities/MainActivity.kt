@@ -15,7 +15,7 @@ import com.example.budget.viewmodel.MainActivityViewModel
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: FragmentMainBinding
 
-    val viewModel: MainActivityViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +27,12 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(arrayOf("android.permission.READ_SMS"), 2)
         }
 
-
-
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
 
 
         val lastSMSDate:Long = sharedPref.getLong(LAST_SAVED_SMS_Date, 0)
 
+        val viewModel: MainActivityViewModel by viewModels()
         viewModel.updateSMSList(lastSMSDate = lastSMSDate)
 
         if (savedInstanceState == null) {

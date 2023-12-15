@@ -20,11 +20,11 @@ import kotlinx.coroutines.launch
 class MainActivityViewModel() : ViewModel() {
     val aplication = App()
     val smsRepository = SMSRepository(App.app)
-    val dbRepository = DBRepository(aplication.getDatabaseHelper())
+    lateinit var dbRepository: DBRepository
 
-    val converter = Converters(dbRepository)
+    lateinit var converter :Converters
 
-    val smsDataMapper = SmsDataMapper(dbRepository)
+    lateinit var smsDataMapper: SmsDataMapper
 
     val smsListAppState = MutableLiveData<AppState<MutableList<SmsData>>>()
     val budgetEntriesAppState = MutableLiveData<AppState<MutableList<BudgetEntry>>>()
@@ -33,6 +33,9 @@ class MainActivityViewModel() : ViewModel() {
     val banksAppState = MutableLiveData<AppState<MutableList<Bank>>>()
 
     init{
+        dbRepository = DBRepository(aplication.getDatabaseHelper())
+        converter = Converters(dbRepository)
+        smsDataMapper = SmsDataMapper(dbRepository)
         getBanks()
         getSellers()
         getBankAccounts()
