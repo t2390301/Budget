@@ -35,10 +35,24 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
         binding.navigationView.setNavigationItemSelectedListener { menu ->
             when (menu.itemId) {
-                R.id.navigation_backup -> Toast.makeText(requireContext(), "navigation_backup", Toast.LENGTH_SHORT).show()
-                R.id.navigation_export_to_excel -> Toast.makeText(requireContext(), "navigation_export_to_excel", Toast.LENGTH_SHORT).show()
+                R.id.navigation_backup -> Toast.makeText(
+                    requireContext(),
+                    "navigation_backup",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                R.id.navigation_export_to_excel -> Toast.makeText(
+                    requireContext(),
+                    "navigation_export_to_excel",
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 R.id.navigation_expense_items -> navigateTo(ExpenseItemsFragment())
-                R.id.navigation_bills_list -> Toast.makeText(requireContext(), "navigation_bills_list", Toast.LENGTH_SHORT).show()
+                R.id.navigation_bills_list -> Toast.makeText(
+                    requireContext(),
+                    "navigation_bills_list",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             dismiss()
             true
