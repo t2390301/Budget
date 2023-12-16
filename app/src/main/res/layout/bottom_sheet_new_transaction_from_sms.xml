@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottom_sheet_container"
+    android:id="@+id/bottom_sheet_expense_item_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/margin_12_dp"
@@ -19,6 +19,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/material_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_12_dp"
+        android:minHeight="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_bank"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:padding="4dp"
+                app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+                app:srcCompat="@drawable/ic_tinkoff_72"
+                app:strokeColor="?attr/colorSecondary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_12_dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sms_date_and_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:gravity="end"
+                    android:text="@string/date_and_time_example" />
+
+                <TextView
+                    android:id="@+id/sms_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:maxLines="3"
+                    android:text="@string/sms_text_example" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_text_date"
         android:layout_width="match_parent"
@@ -27,13 +78,15 @@
         android:hint="@string/date"
         app:endIconDrawable="@drawable/ic_calendar_month_24"
         app:endIconMode="custom"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line">
+        app:layout_constraintTop_toBottomOf="@+id/material_card">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/date_example"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -43,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin_12_dp"
-        android:hint="Тип операции"
+        android:hint="@string/hint_operation_type"
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
+            android:text="@string/buy"
             app:simpleItems="@array/types_list" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin_12_dp"
-        android:hint="Статья расходов/доходов"
+        android:hint="@string/hint_expense_item"
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,11 +127,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
+            android:text="MAGNIT MM"
+            android:textColor="@color/design_default_color_error"
             app:simpleItems="@array/expense_item_list" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_account_type"
+        android:id="@+id/edit_text_account_name"
         style="?attr/textInputOutlinedExposedDropdownMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,6 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
+            android:text="@string/account_name_example"
             app:simpleItems="@array/debit_account_list" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,13 +159,13 @@
         android:layout_height="56dp"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin_12_dp"
-        android:hint="  Оставьте примечание, если необходимо"
+        android:hint="@string/hint_note"
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_account_type">
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_account_name">
 
-        <AutoCompleteTextView
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none" />
@@ -128,22 +185,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_note">
 
-        <AutoCompleteTextView
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/amount_example"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/material_icon_button"
-        style="@style/Widget.Material3.Button.Icon"
+        android:id="@+id/cancel_button"
+        style="@style/Widget.Material3.Button.IconButton.Outlined"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save_expense_item"
-        app:icon="@drawable/ic_plus_fab"
+        android:text="@string/cancel_expense_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_amount" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_button"
+        style="Widget.Material3.Button.IconButton.Filled"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_expense_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancel_button"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_amount" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

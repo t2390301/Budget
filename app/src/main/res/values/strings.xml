@@ -66,6 +66,9 @@
     <string name="account_type">Тип счёта</string>
     <string name="sms_sender">Отправитель СМС</string>
     <string name="balance">Баланс</string>
+    <string name="buy">Покупка</string>
+    <string name="account_name_example">Тинькофф *8555</string>
+    <string name="amount_example">57334,33</string>
 
     <string-array name="expense_item_list" translatable="false">
         <item>Продукты</item>
