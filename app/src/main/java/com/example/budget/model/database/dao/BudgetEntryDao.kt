@@ -18,10 +18,10 @@ interface BudgetEntryDao {
     @Query("SELECT * FROM budget_entry_table WHERE operationType = :operationType")
     suspend fun getByOperationType(operationType: OperationType): List<BudgetEntryEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: BudgetEntryEntity)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(entities: List<BudgetEntryEntity>)
 
     @Update

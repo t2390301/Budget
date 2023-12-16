@@ -3,25 +3,32 @@ package com.example.budget.view.activities
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
 import com.example.budget.model.constants.LAST_SAVED_SMS_Date
-import com.example.budget.model.utils.SmsDataMapper
-import com.example.budget.model.utils.SmsReader
+import com.example.budget.model.domain.BudgetEntry
 import com.example.budget.view.fragments.main.MainFragment
-import com.google.android.material.color.DynamicColors
+import com.example.budget.viewmodel.AppState
+import com.example.budget.viewmodel.MainActivityViewModel
+import java.util.Date
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: FragmentMainBinding
-    lateinit var smsData: SmsReader
-    lateinit var smsDataMapper: SmsDataMapper
 
+    companion object{
+        const val TAG = "MainActivityView"
+    }
+    private lateinit var binding: FragmentMainBinding
+    lateinit var BudgetEntries: MutableLiveData<List<BudgetEntry>>
+    /*lateinit var viewModel: MainActivityViewModel*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DynamicColors.applyToActivityIfAvailable(this)
+
         binding = FragmentMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
 
@@ -31,7 +38,39 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
 
-        val lastSMSDate: Long = sharedPref.getLong(LAST_SAVED_SMS_Date, 0)
+
+        var lastSMSDate: Long = sharedPref.getLong(LAST_SAVED_SMS_Date, 0)
+
+        val viewModel : MainActivityViewModel by viewModels()
+
+
+        viewModel.updateSMSList(lastSMSDate = lastSMSDate)
+
+        with(sharedPref.edit()){
+            putLong(LAST_SAVED_SMS_Date, Date().time)
+            apply()
+        }
+        Log.i("TAGMain", "onCreate: $lastSMSDate" )
+
+
+
+        viewModel.saveSMSListToBudgetEntries()
+
+        viewModel.budgetEntriesAppState.observe(this){budgets ->
+            if(budgets is AppState.Success){
+                Log.i(TAG, "onCreate: Success")
+                budgets.data?.let { list ->
+                    for (budget in list) {
+                        Log.i(
+                            TAG,
+                            "onCreate: ${budget.date} ; ${budget.cardSPan} ; ${budget.sellerName} ; ${budget.operationAmount}"
+                        )
+
+                    }
+                }
+            }
+
+        }
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

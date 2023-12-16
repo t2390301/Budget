@@ -1,8 +1,9 @@
 package com.example.budget
 
 import android.app.Application
+import android.util.Log
 import androidx.room.Room
-import com.example.budget.model.constants.BANKS
+import com.example.budget.model.constants.BANKSENTITY
 import com.example.budget.model.constants.BUDGETGROUPS
 import com.example.budget.model.database.AppDatabase
 import com.example.budget.model.database.dao.BankAccountDao
@@ -11,8 +12,6 @@ import com.example.budget.model.database.dao.BudgetEntryDao
 import com.example.budget.model.database.dao.BudgetGroupDao
 import com.example.budget.model.database.dao.SellerDao
 import com.example.budget.model.database.dao.SmsDataDao
-import com.example.budget.model.database.entity.BankEntity
-import com.example.budget.model.database.entity.BudgetGroupEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,17 +29,13 @@ class DatabaseHelper {
 
 
         CoroutineScope(Dispatchers.IO).launch {
-            for (bank in BANKS) {
-                appDataBase!!.bankDao().insert(BankEntity(bank.id, bank.name, bank.smsAddress))
+            for (bank in BANKSENTITY) {
+                appDataBase!!.bankDao().insert(bank)
             }
-            for (budgetGroup in BUDGETGROUPS) {
+            Log.i(DB_NAME, "initDatabase: In BANKS")
+            for (budgetGroupEntity in BUDGETGROUPS) {
                 appDataBase!!.budgetGroupEntityDao().insert(
-                    BudgetGroupEntity(
-                        budgetGroup.id,
-                        budgetGroup.name,
-                        budgetGroup.description,
-                        budgetGroup.iconResId
-                    )
+                   budgetGroupEntity
                 )
             }
         }

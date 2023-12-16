@@ -17,6 +17,9 @@ class App : Application() {
     }
 
     fun getDatabaseHelper(): DatabaseHelper {
+
+    //    initDatabase()
+
         return databaseHelper
     }
 

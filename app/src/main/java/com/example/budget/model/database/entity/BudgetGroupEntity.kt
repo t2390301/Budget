@@ -2,7 +2,7 @@ package com.example.budget.model.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.budget.model.domain.BudgetGroup
+import com.example.budget.model.constants.BudgetGroupEnum
 
 @Entity(
     tableName = "budget_group_table"
@@ -10,19 +10,7 @@ import com.example.budget.model.domain.BudgetGroup
 data class BudgetGroupEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val name: String,
+    val name: BudgetGroupEnum,
     val description: String,
     val iconResId: Long
 )
-
-fun BudgetGroupEntity.toBudgetGroup(): BudgetGroup {
-    return BudgetGroup(
-        id, name, description, iconResId
-    )
-}
-
-fun BudgetGroup.toBudgetGroupEntity(): BudgetGroupEntity {
-    return BudgetGroupEntity(
-        id, name, description, iconResId
-    )
-}
