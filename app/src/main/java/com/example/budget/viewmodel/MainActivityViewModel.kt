@@ -1,8 +1,13 @@
 package com.example.budget.viewmodel
 
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.budget.App
+import com.example.budget.App.Companion.app
 import com.example.budget.model.database.converters.Converters
 import com.example.budget.model.domain.Bank
 import com.example.budget.model.domain.BankAccount
@@ -17,96 +22,104 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class MainActivityViewModel() : ViewModel() {
-    val aplication = App()
+class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
+    //val aplication = App()
+
+    private val TAG = "MainActivityViewModel"
     val smsRepository = SMSRepository(App.app)
-    lateinit var dbRepository: DBRepository
+    private lateinit var dbRepository: DBRepository
 
-    lateinit var converter :Converters
+    var converter :Converters
 
-    lateinit var smsDataMapper: SmsDataMapper
+    var smsDataMapper: SmsDataMapper
 
     val smsListAppState = MutableLiveData<AppState<MutableList<SmsData>>>()
     val budgetEntriesAppState = MutableLiveData<AppState<MutableList<BudgetEntry>>>()
     var bankAccountsAppState = MutableLiveData<AppState<MutableList<BankAccount>>>()
     val sellerAppState = MutableLiveData<AppState<MutableList<Seller>>>()
-    val banksAppState = MutableLiveData<AppState<MutableList<Bank>>>()
+    lateinit var banksAppState : MutableLiveData<AppState<MutableList<Bank>>>
 
     init{
-        dbRepository = DBRepository(aplication.getDatabaseHelper())
+        dbRepository = DBRepository(app.getDatabaseHelper())
         converter = Converters(dbRepository)
         smsDataMapper = SmsDataMapper(dbRepository)
+        banksAppState = MutableLiveData()
         getBanks()
         getSellers()
+        Log.i(TAG, "init : MainActivityViewModel")
+
         getBankAccounts()
 
     }
 
     fun getSellers() {
-        CoroutineScope(Dispatchers.IO).launch {
-            sellerAppState.value = AppState.Loading(true)
+        viewModelScope.launch {
+            sellerAppState.postValue(AppState.Loading(true))
             try {
-                sellerAppState.value = AppState.Success(
+                sellerAppState.postValue( AppState.Success(
                     dbRepository.getSellerEntities().map { converter.sellerEntityConverter(it)!! }
                         .toMutableList()
-                )
+                ))
             } catch (e: Throwable) {
-                sellerAppState.value = AppState.Error(e)
+                sellerAppState.postValue( AppState.Error(e))
             }
         }
     }
 
     fun getBanks() {
-        CoroutineScope(Dispatchers.IO).launch {
-            banksAppState.value = AppState.Loading(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            banksAppState.postValue(AppState.Loading(true))
             try {
-                banksAppState.value = AppState.Success(
-                    dbRepository.getBankEntities().map { converter.bankEntityConverter(it) }.toMutableList()
-                )
+                banksAppState.postValue( AppState.Success(
+                    dbRepository.getBankEntities().map { converter.bankEntityConverter(it) }
+                        .toMutableList()
+                ))
             } catch (e: Throwable) {
-                banksAppState.value = AppState.Error(e)
+                banksAppState.postValue(AppState.Error(e))
             }
         }
     }
 
     fun getBankAccounts() {
-        CoroutineScope(Dispatchers.IO).launch {
-            bankAccountsAppState.value = AppState.Loading(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            bankAccountsAppState.postValue(AppState.Loading(true))
+            Log.i(TAG, "getBankAccounts: is Loading ${bankAccountsAppState.value is AppState.Loading}")
             try {
-                bankAccountsAppState.value = AppState.Success(
+                bankAccountsAppState.postValue( AppState.Success(
                     dbRepository.getBankAccountEntities()
-                        .map { converter.bankAccountEntityConverter(it)!! }.toMutableList())
+                        .map { converter.bankAccountEntityConverter(it)!! }.toMutableList()))
+                Log.i(TAG, "getBankAccounts: is Success ${bankAccountsAppState.value is AppState.Success}")
             } catch (e: Throwable) {
-                bankAccountsAppState.value = AppState.Error(e)
+                bankAccountsAppState.postValue( AppState.Error(e))
             }
         }
     }
 
     fun updateSMSList(lastSMSDate: Long) {
-        CoroutineScope(Dispatchers.IO).launch {
-            smsListAppState.value = AppState.Loading(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            smsListAppState.postValue( AppState.Loading(true))
             val banksSMSAddress = dbRepository.getBankEntities().map { it.smsAddress }
             try {
                 smsRepository.readSMSAfterData(lastSMSDate)
                     ?.filter { sms -> sms.sender in banksSMSAddress }?.let {
-                        smsListAppState.value = AppState.Success(it.toMutableList())
+                        smsListAppState.postValue( AppState.Success(it.toMutableList()))
                     }
             } catch (e: Throwable) {
-                smsListAppState.value = AppState.Error(e)
+                smsListAppState.postValue( AppState.Error(e))
             }
 
         }
     }
 
     fun saveSMSListToBudgetEntries() {
-        CoroutineScope(Dispatchers.IO).launch {
-            (banksAppState.value as AppState.Success).data?.let {
-                smsDataMapper.updateBanks(it)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
             (bankAccountsAppState.value as AppState.Success).data?.let {
                 smsDataMapper.updateBankAccounts(it)
             }
 
+            (banksAppState.value as AppState.Success).data?.let {
+                smsDataMapper.updateBanks(it)
+            }
             (sellerAppState.value as AppState.Success).data?.let {
                 smsDataMapper.updateSellers(it)
             }

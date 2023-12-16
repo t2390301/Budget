@@ -6,8 +6,11 @@ import com.example.budget.model.domain.BudgetGroup
 const val LAST_SAVED_SMS_Date = "last_saved_sms_date"
 
 val BANKS = listOf<Bank>(
-    Bank(1L, "Альфа Банк", "Alfa-Bank"),
-    Bank(1L, "Тинькофф", "Tinkoff")
+    Bank(1L, "Альфа Банк", "AlfaBank"),
+    Bank(1L, "Тинькофф", "Tinkoff"),
+    Bank( 2L, "UniCredit", "UniCredit"),  //cardpan без звездочки
+    Bank(3L, "Test Bank", "+71111111111")
+
 )
 
 val BUDGETGROUPS = listOf<BudgetGroup>(

@@ -1,6 +1,7 @@
 package com.example.budget
 
 import android.app.Application
+import android.util.Log
 import androidx.room.Room
 import com.example.budget.model.constants.BANKS
 import com.example.budget.model.constants.BUDGETGROUPS
@@ -30,12 +31,13 @@ class DatabaseHelper {
                 .build()
 
 
-        /*CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             for (bank in BANKS) {
-                appDataBase!!.bankDao().insert(BankEntity(bank.id, bank.name, bank.smsAddress))
+                appDataBase!!.bankDao().insert(BankEntity(0L, bank.name, bank.smsAddress))
+                Log.i(DB_NAME, "initDatabase: In BANKS")
             }
             for (budgetGroup in BUDGETGROUPS) {
-                appDataBase!!.budgetGroupEntityDao().insert(
+                appDataBase!!.budgetGroupEntityDao().update(
                     BudgetGroupEntity(
                         0L,
                         enumValueOf<BudgetGroupEnum>(budgetGroup.name),
@@ -44,7 +46,7 @@ class DatabaseHelper {
                     )
                 )
             }
-        }*/
+        }
     }
 
     fun getSmsDataDao(): SmsDataDao = appDataBase!!.smsDataDao()
