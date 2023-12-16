@@ -51,12 +51,44 @@
     <string name="text_sender_example">Тинькофф</string>
     <string name="export_and_backup">ЭКСПОРТ И БЭКАП</string>
     <string name="backup_data">Бэкап данных</string>
+    <string name="yandex_disk">Яндекс диск</string>
+    <string name="google_cloud">Гугл облако</string>
+    <string name="this_device">Это устройство</string>
+    <string name="settings_backup">Настройки бэкапа</string>
+    <string name="hint_periodicity_backup">Периодичность бэкапа</string>
+    <string name="hint_day_of_the_week">День недели</string>
+    <string name="restoring_backup">Восстановление из Бэкапа</string>
+    <string name="expense_item_name">Название статьи</string>
+    <string name="designation_in_sms">Обозначение в СМС</string>
+    <string name="enter_seller_name_from_sms">Введите название продавца из СМС</string>
+    <string name="account_name">Название счета</string>
+    <string name="bank">Банк</string>
+    <string name="account_type">Тип счёта</string>
+    <string name="sms_sender">Отправитель СМС</string>
+    <string name="balance">Баланс</string>
+    <string name="buy">Покупка</string>
+    <string name="account_name_example">Тинькофф *8555</string>
+    <string name="amount_example">57334,33</string>
+    <string name="sms_fragment">СМС фрагмент</string>
 
     <string-array name="expense_item_list" translatable="false">
         <item>Продукты</item>
         <item>ЖКХ</item>
         <item>Зарплата</item>
         <item>Ресторан</item>
+    </string-array>
+
+    <string-array name="bank_list" translatable="false">
+        <item>Тинькофф</item>
+        <item>Сбербанк</item>
+        <item>Альфабанк</item>
+        <item>ВТБ</item>
+    </string-array>
+
+    <string-array name="bank_account_type" translatable="false">
+        <item>Кредитная</item>
+        <item>Дебетовая</item>
+        <item>Накопительный</item>
     </string-array>
 
     <string-array name="debit_account_list" translatable="false">
@@ -69,6 +101,23 @@
     <string-array name="types_list" translatable="false">
         <item>Доход</item>
         <item>Расход</item>
+        <item>Корректировка</item>
+    </string-array>
+
+    <string-array name="periodicity_backup_list" translatable="false">
+        <item>Ежедневно</item>
+        <item>Еженедельно</item>
+        <item>Ежемесячно</item>
+    </string-array>
+
+    <string-array name="day_of_the_week_list" translatable="false">
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
+        <item>Суббота</item>
+        <item>Воскресенье</item>
     </string-array>
 
 

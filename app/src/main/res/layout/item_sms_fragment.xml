@@ -22,8 +22,9 @@
                 android:id="@+id/img_bank"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
+                android:padding="4dp"
                 app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
-                app:srcCompat="@drawable/tinkoff"
+                app:srcCompat="@drawable/ic_tinkoff_72"
                 app:strokeColor="?attr/colorSecondary" />
 
             <LinearLayout

@@ -27,7 +27,7 @@
         android:minHeight="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,8 +38,9 @@
                 android:id="@+id/img_bank"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
+                android:padding="4dp"
                 app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
-                app:srcCompat="@drawable/tinkoff"
+                app:srcCompat="@drawable/ic_tinkoff_72"
                 app:strokeColor="?attr/colorSecondary" />
 
             <LinearLayout
@@ -52,10 +53,10 @@
                     android:id="@+id/sms_date_and_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:layout_marginEnd="@dimen/margin_12_dp"
                     android:gravity="end"
-                    android:text="@string/date_and_time_example" />
+                    android:text="@string/date_and_time_example"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/sms_text"
@@ -87,7 +88,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_operation_type"
+        android:id="@+id/edit_text_account_type"
         style="?attr/textInputOutlinedExposedDropdownMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,7 +118,7 @@
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_operation_type">
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_account_type">
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
@@ -127,7 +128,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_debit_account"
+        android:id="@+id/edit_text_account_name"
         style="?attr/textInputOutlinedExposedDropdownMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -149,16 +150,16 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_text_note"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin_12_dp"
         android:hint="@string/hint_note"
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_debit_account">
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_account_name">
 
-        <AutoCompleteTextView
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none" />
@@ -178,7 +179,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_note">
 
-        <AutoCompleteTextView
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number" />
@@ -187,9 +188,9 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/cancel_button"
         style="@style/Widget.Material3.Button.IconButton.Outlined"
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/cancel_expense_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -198,9 +199,9 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_button"
         style="Widget.Material3.Button.IconButton.Filled"
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/save_expense_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cancel_button"

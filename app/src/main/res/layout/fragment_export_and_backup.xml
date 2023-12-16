@@ -14,19 +14,20 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/loading_margin_top"
             android:gravity="start"
-            android:textSize="20sp"
             android:text="@string/export_and_backup"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/export_button"
-            style="@style/Widget.Material3.Button.IconButton.Filled"
+            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_12_dp"
             android:gravity="center"
+            android:minHeight="60dp"
             android:text="@string/export_to_excel"
             app:icon="@drawable/ic_share_24"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,14 +35,15 @@
             app:layout_constraintTop_toBottomOf="@+id/text_export_and_backup" />
 
         <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_backup_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:dividerInsetStart="32dp"
-            app:dividerInsetEnd="32dp"
             android:layout_gravity="center_vertical"
+            app:dividerInsetEnd="32dp"
+            app:dividerInsetStart="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/export_button"/>
+            app:layout_constraintTop_toBottomOf="@+id/export_button" />
 
 
         <TextView
@@ -50,14 +52,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/loading_margin_top"
             android:gravity="start"
-            android:textSize="20sp"
             android:text="@string/backup_data"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/export_button" />
+            app:layout_constraintTop_toBottomOf="@+id/divider_backup_data" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/material_card"
+            android:id="@+id/google_material_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_12_dp"
@@ -72,91 +74,226 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/img_bank"
+                    android:id="@+id/google_img"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
-                    app:srcCompat="@drawable/tinkoff"
+                    app:srcCompat="@drawable/ic_google_cloud_64"
                     app:strokeColor="?attr/colorSecondary" />
 
                 <TextView
-                    android:id="@+id/text_sender"
+                    android:id="@+id/google_text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_12_dp"
                     android:layout_marginEnd="@dimen/margin_12_dp"
                     android:gravity="center|start"
-                    android:text="Гугл облако"
+                    android:text="@string/google_cloud"
                     android:textSize="20sp" />
             </LinearLayout>
 
             <CheckBox
+                android:id="@+id/google_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/margin_12_dp"
                 android:checked="true"
-                android:enabled="true"
-                android:layout_gravity="end"/>
+                android:enabled="true" />
         </com.google.android.material.card.MaterialCardView>
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_text_date"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/yandex_material_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_12_dp"
-            android:hint="@string/date"
-            app:endIconDrawable="@drawable/ic_calendar_month_24"
-            app:endIconMode="custom"
+            android:minHeight="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/material_card">
+            app:layout_constraintTop_toBottomOf="@+id/google_material_card">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/yandex_img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+                    app:srcCompat="@drawable/ic_yandexdisk_64"
+                    app:strokeColor="?attr/colorSecondary" />
+
+                <TextView
+                    android:id="@+id/yandex_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_12_dp"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:gravity="center|start"
+                    android:text="@string/yandex_disk"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/yandex_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_12_dp"
+                android:checked="false"
+                android:enabled="true" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/device_material_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_12_dp"
+            android:minHeight="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/yandex_material_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/device_img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+                    app:srcCompat="@drawable/ic_smartphone_24"
+                    app:strokeColor="?attr/colorSecondary" />
+
+                <TextView
+                    android:id="@+id/device_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_12_dp"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:gravity="center|start"
+                    android:text="@string/this_device"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/device_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_12_dp"
+                android:checked="false"
+                android:enabled="true" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_settings_backup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/margin_12_dp"
+            app:dividerInsetEnd="32dp"
+            app:dividerInsetStart="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/device_material_card" />
+
+        <TextView
+            android:id="@+id/text_settings_backup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/loading_margin_top"
+            android:layout_marginTop="@dimen/margin_12_dp"
+            android:gravity="start"
+            android:text="@string/settings_backup"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider_settings_backup" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_text_operation_type"
-            style="?attr/textInputOutlinedExposedDropdownMenuStyle"
+            android:id="@+id/edit_text_periodicity_backup"
+            style="?attr/textInputFilledExposedDropdownMenuStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/margin_12_dp"
-            android:hint="@string/hint_operation_type"
+            android:hint="@string/hint_periodicity_backup"
             app:helperTextEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_date">
+            app:layout_constraintTop_toBottomOf="@+id/text_settings_backup">
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                app:simpleItems="@array/types_list" />
+                app:simpleItems="@array/periodicity_backup_list" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_text_expense_item"
-            style="?attr/textInputOutlinedExposedDropdownMenuStyle"
+            style="?attr/textInputFilledExposedDropdownMenuStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/margin_12_dp"
-            android:hint="@string/hint_expense_item"
+            android:hint="@string/hint_day_of_the_week"
             app:helperTextEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_operation_type">
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_periodicity_backup">
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                app:simpleItems="@array/expense_item_list" />
+                app:simpleItems="@array/day_of_the_week_list" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/restoring_backup"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_12_dp"
+            android:gravity="center"
+            android:minHeight="40dp"
+            android:text="@string/restoring_backup"
+            app:icon="@drawable/ic_settings_backup_restore_24"
+            app:iconPadding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_expense_item" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel_button"
+            style="@style/Widget.Material3.Button.IconButton.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12_dp"
+            android:gravity="center"
+            android:text="@string/cancel_expense_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restoring_backup" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_button"
+            style="Widget.Material3.Button.IconButton.Filled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12_dp"
+            android:gravity="center"
+            android:text="@string/save_expense_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cancel_button"
+            app:layout_constraintTop_toBottomOf="@+id/restoring_backup" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
