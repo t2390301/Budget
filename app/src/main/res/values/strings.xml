@@ -97,6 +97,7 @@
     <string-array name="types_list" translatable="false">
         <item>Доход</item>
         <item>Расход</item>
+        <item>Корректировка</item>
     </string-array>
 
     <string-array name="periodicity_backup_list" translatable="false">
