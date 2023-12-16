@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
 import com.example.budget.model.constants.LAST_SAVED_SMS_Date
@@ -15,16 +14,17 @@ import com.example.budget.model.domain.BudgetEntry
 import com.example.budget.view.fragments.main.MainFragment
 import com.example.budget.viewmodel.AppState
 import com.example.budget.viewmodel.MainActivityViewModel
+import java.util.Date
 
 
 class MainActivity : AppCompatActivity() {
 
     companion object{
-        const val TAG = "MainActivity"
+        const val TAG = "MainActivityView"
     }
     private lateinit var binding: FragmentMainBinding
     lateinit var BudgetEntries: MutableLiveData<List<BudgetEntry>>
-    lateinit var viewModel: MainActivityViewModel
+    /*lateinit var viewModel: MainActivityViewModel*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,14 +39,21 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
 
 
-        val lastSMSDate: Long = sharedPref.getLong(LAST_SAVED_SMS_Date, 0)
+        var lastSMSDate: Long = sharedPref.getLong(LAST_SAVED_SMS_Date, 0)
 
-        val viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(MainActivityViewModel::class.java)
+        val viewModel : MainActivityViewModel by viewModels()
+
 
         viewModel.updateSMSList(lastSMSDate = lastSMSDate)
+
+        with(sharedPref.edit()){
+            putLong(LAST_SAVED_SMS_Date, Date().time)
+            apply()
+        }
+        Log.i("TAGMain", "onCreate: $lastSMSDate" )
+
+
+
         viewModel.saveSMSListToBudgetEntries()
 
         viewModel.budgetEntriesAppState.observe(this){budgets ->

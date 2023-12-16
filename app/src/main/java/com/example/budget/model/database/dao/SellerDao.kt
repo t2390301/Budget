@@ -14,10 +14,10 @@ interface SellerDao {
     @Query("SELECT * FROM seller_table")
     suspend fun getAll(): List<SellerEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: SellerEntity)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(entities: List<SellerEntity>)
 
     @Update

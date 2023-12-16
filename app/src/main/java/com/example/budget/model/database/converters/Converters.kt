@@ -1,5 +1,6 @@
 package com.example.budget.model.database.converters
 
+import android.util.Log
 import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
@@ -12,6 +13,10 @@ import com.example.budget.model.domain.Seller
 import com.example.budget.repository.DBRepository
 
 class Converters (val dbRepository: DBRepository) {
+    companion object{
+        const val TAG = "Converters"
+    }
+
     suspend fun bankAccountConverter(bankAccount: BankAccount): BankAccountEntity? {
         val bankId: Long = dbRepository.getBankEntityWithName(bankAccount.bankSMSAddress)
         if (bankId >= 0) {
@@ -55,13 +60,17 @@ class Converters (val dbRepository: DBRepository) {
     }
 
     suspend fun sellerConverter(seller: Seller): SellerEntity? {
+        Log.i(TAG, "sellerConverter: seller.bg = ${seller.budgetGroupName}")
         val groupId = dbRepository.getBudgetGroupIdByBudgetGroupName(seller.budgetGroupName)
+        Log.i(TAG, "sellerConverter: $groupId")
         if (groupId >=0) {
-            return SellerEntity(
+            val seller = SellerEntity(
                 0L,
                 seller.name,
                 groupId
             )
+            Log.i(TAG, "sellerConverter: $seller")
+            return seller
         } else{
             return null
         }
@@ -85,14 +94,14 @@ class Converters (val dbRepository: DBRepository) {
         }
     }
 
-    suspend fun bankEntityConverter(bankEntity: BankEntity): Bank =
+    fun bankEntityConverter(bankEntity: BankEntity): Bank =
         Bank(
             bankEntity.id,
             bankEntity.name,
             bankEntity.smsAddress
         )
 
-    suspend fun bankConverter(bank: Bank): BankEntity =
+    fun bankConverter(bank: Bank): BankEntity =
         BankEntity(
             bank.id,
             bank.name,

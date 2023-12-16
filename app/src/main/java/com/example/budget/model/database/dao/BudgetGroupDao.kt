@@ -21,7 +21,7 @@ interface BudgetGroupDao {
     @Query("SELECT * FROM budget_group_table WHERE name =:groupName")
     suspend fun getBudgetGroupNameByGroupName(groupName: BudgetGroupEnum): List<BudgetGroupEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: BudgetGroupEntity)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

@@ -31,8 +31,11 @@ class SmsDataMapper(val dbRepository: DBRepository) {
 
     suspend fun convertSMSToBudgetEntry(sms: SmsData): BudgetEntry? {
 
-        var budgetEntry: BudgetEntry? = null
+        var budgetEntry: BudgetEntry?
 
+        Log.i(TAG, "convertSMSToBudgetEntry: sms.adress = ${sms.sender}")
+        Log.i(TAG, "convertSMSToBudgetEntry: sms.body = ${sms.body}")
+        Log.i(TAG, "convertSMSToBudgetEntry: sms.body = ${sms.date}")
         var pattern = Pattern.compile("\\*\\d{4}")
         var matcher = pattern.matcher(sms.body)
         var cardpan = ""
@@ -46,6 +49,7 @@ class SmsDataMapper(val dbRepository: DBRepository) {
         var amount = 0.0
 
         val stringAfterCardPan = sms.body.substringAfter("$cardpan.")
+        Log.i(TAG, "convertSMSToBudgetEntry: $stringAfterCardPan")
         pattern = Pattern.compile("\\d+\\.?\\d*")
         matcher = pattern.matcher(stringAfterCardPan)
         if (matcher.find()) {
@@ -63,7 +67,7 @@ class SmsDataMapper(val dbRepository: DBRepository) {
             bankAccounts.filter { it.cardPan.equals(cardpan) }.let { list ->
                 if (list.isEmpty()) {
                     val bankAccount = BankAccount(
-                        bankAccounts.last().id+1,
+                        0,
                         cardPan =  cardpan,
                         bankSMSAddress = sms.sender,
                         cardType= CardType.NOTYPE,
@@ -86,10 +90,10 @@ class SmsDataMapper(val dbRepository: DBRepository) {
         }
 
         var sellerName = ""
-        pattern = Pattern.compile("[A-Za-z][A-Za-z0-9]+[-\\s\\.]?[A-Za-z0-9]+")      //sellerName Regex Pattern
+        pattern = Pattern.compile("[A-Za-z][A-Za-z0-9]{1}[-\\.A-Za-z0-9]{3,}")      //sellerName Regex Pattern
         matcher = pattern.matcher(sms.body)
         if (matcher.find()) {
-            Log.i(TAG, "convertSMSToBudgetEntry: cardSpan = ${matcher.group()}")
+            Log.i(TAG, "convertSMSToBudgetEntry: SellerName = ${matcher.group()}")
             sellerName = matcher.group()
             if (sellerName in CURRENCYLIST) {
                 return null
@@ -100,11 +104,21 @@ class SmsDataMapper(val dbRepository: DBRepository) {
 
 
         var budgetGroup = BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО
+
         sellers.filter { it.name.equals(sellerName) }.let { sellerList ->
             if (sellerList.isEmpty()) {
+               /* val budgetgroupentity = dbRepository.getBudgetGroupEntities()
+                delay(1000)
+                Log.i(TAG, "convertSMSToBudgetEntry: ${budgetgroupentity.size}")
+                for (bd in budgetgroupentity){
+                    Log.i(TAG, "convertSMSToBudgetEntry: ${bd.id}, ${bd.name}")
+                }*/
+
                 Seller(sellerName, BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО)?.let {
                     sellers.add(it)
-                    dbRepository.insertSellerEntity(converter.sellerConverter(it)!!)
+
+                    converter.sellerConverter(it)
+                        ?.let { it1 -> dbRepository.insertSellerEntity(it1) }
                 }
             } else {
                 budgetGroup = sellerList.first().budgetGroupName
