@@ -2,6 +2,8 @@ package com.example.budget.view.fragments.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -66,6 +68,11 @@ class MainFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_main, menu)
+    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -21,7 +21,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_account_type"
+        android:id="@+id/edit_text_account_type_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -39,7 +39,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_day_of_the_week"
+        android:id="@+id/edit_text_expense_item"
         style="?attr/textInputOutlinedExposedDropdownMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_account_type">
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_account_type_2">
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_account_type"
+        android:id="@+id/edit_text_account_type_3"
         style="?attr/textInputOutlinedExposedDropdownMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_day_of_the_week">
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_expense_item">
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
@@ -89,7 +89,7 @@
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_account_type">
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_account_type_3">
 
         <AutoCompleteTextView
             android:layout_width="match_parent"

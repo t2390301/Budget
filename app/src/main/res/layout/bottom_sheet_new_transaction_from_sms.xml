@@ -111,7 +111,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_day_of_the_week"
+        android:id="@+id/edit_text_expense_item"
         style="?attr/textInputOutlinedExposedDropdownMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_day_of_the_week">
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_expense_item">
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
