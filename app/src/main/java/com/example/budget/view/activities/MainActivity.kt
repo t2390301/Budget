@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     }
     private lateinit var binding: FragmentMainBinding
     lateinit var BudgetEntries: MutableLiveData<List<BudgetEntry>>
-    /*lateinit var viewModel: MainActivityViewModel*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

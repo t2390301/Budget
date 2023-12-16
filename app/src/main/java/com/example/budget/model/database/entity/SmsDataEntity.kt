@@ -14,15 +14,3 @@ data class SmsDataEntity(
     var bankAccountFound: Boolean,
     var sellerFound: Boolean,
 )
-
-fun SmsDataEntity.toSmsData(): SmsData {
-    return SmsData(
-        date, sender, body, isCashed, bankAccountFound, sellerFound
-    )
-}
-
-fun SmsData.toSmsDataEntity(): SmsDataEntity {
-    return SmsDataEntity(
-        date, sender, body, isCashed, bankAccountFound, sellerFound
-    )
-}

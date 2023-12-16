@@ -20,14 +20,3 @@ data class BudgetEntryEntity(
     val sellerId: Long,
 )
 
-fun BudgetEntryEntity.toBudgetEntry(): BudgetEntry {
-    return BudgetEntry(
-        id, date, operationType, bankAccountId, note, operationAmount, sellerId
-    )
-}
-
-fun BudgetEntry.toBudgetEntryEntity(): BudgetEntryEntity {
-    return BudgetEntryEntity(
-        id, date, operationType, bankAccountId, note, operationAmount, sellerId
-    )
-}

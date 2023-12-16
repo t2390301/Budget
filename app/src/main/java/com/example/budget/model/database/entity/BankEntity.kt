@@ -16,15 +16,3 @@ data class BankEntity(
     val smsAddress: String,
     // val bankAccountId: Long
 )
-
-fun BankEntity.toBank(): Bank {
-    return Bank(
-        id, name, smsAddress
-    )
-}
-
-fun Bank.toBankEntity(): BankEntity {
-    return BankEntity(
-        id, name, smsAddress
-    )
-}

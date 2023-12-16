@@ -16,15 +16,3 @@ data class BankAccountEntity(
     val cardLimit: Double, //доступный лимит
     var balance: Double,
 )
-
-fun BankAccountEntity.toBankAccount(): BankAccount {
-    return BankAccount(
-        id, cardPan, bankId, cardType, cardLimit, balance
-    )
-}
-
-fun BankAccount.toBankAccountEntity(): BankAccountEntity {
-    return BankAccountEntity(
-        id, cardPan, bankId, cardType, cardLimit, balance
-    )
-}

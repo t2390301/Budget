@@ -43,9 +43,9 @@ class DatabaseHelper {
 
     fun getSmsDataDao(): SmsDataDao = appDataBase!!.smsDataDao()
 
-    fun getBudgetEntryDao(): BudgetEntryDao = appDataBase!!.budgetEntryEntityDao()
+    fun getBudgetEntryEntityDao(): BudgetEntryDao = appDataBase!!.budgetEntryEntityDao()
 
-    fun getBudgetGroupDao(): BudgetGroupDao = appDataBase!!.budgetGroupEntityDao()
+    fun getBudgetGroupEntityDao(): BudgetGroupDao = appDataBase!!.budgetGroupEntityDao()
 
     fun getBanksDAO(): BankDao = appDataBase!!.bankDao()
     fun getBankAccountDao(): BankAccountDao = appDataBase!!.bankAccountDao()
