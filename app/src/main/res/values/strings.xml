@@ -61,12 +61,30 @@
     <string name="expense_item_name">Название статьи</string>
     <string name="designation_in_sms">Обозначение в СМС</string>
     <string name="enter_seller_name_from_sms">Введите название продавца из СМС</string>
+    <string name="account_name">Название счета</string>
+    <string name="bank">Банк</string>
+    <string name="account_type">Тип счёта</string>
+    <string name="sms_sender">Отправитель СМС</string>
+    <string name="balance">Баланс</string>
 
     <string-array name="expense_item_list" translatable="false">
         <item>Продукты</item>
         <item>ЖКХ</item>
         <item>Зарплата</item>
         <item>Ресторан</item>
+    </string-array>
+
+    <string-array name="bank_list" translatable="false">
+        <item>Тинькофф</item>
+        <item>Сбербанк</item>
+        <item>Альфабанк</item>
+        <item>ВТБ</item>
+    </string-array>
+
+    <string-array name="bank_account_type" translatable="false">
+        <item>Кредитная</item>
+        <item>Дебетовая</item>
+        <item>Накопительный</item>
     </string-array>
 
     <string-array name="debit_account_list" translatable="false">
