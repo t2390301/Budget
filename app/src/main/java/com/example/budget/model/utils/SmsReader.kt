@@ -52,7 +52,14 @@ class SmsReader(private val applicationContext: Context) {
                     cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.BODY))
 
                 Log.i(TAG, "readSMS:  $number : $body")
-                smsList.add(SmsData(smsDate.toLong(), number, body, false, false, false))
+                smsList.add(SmsData(
+                    date = smsDate.toLong(),
+                    sender = number,
+                    body = body,
+                    isCashed = false,
+                    bankAccountFound = false,
+                    sellerFound = false
+                ))
                 cursor.moveToNext()
             }
             cursor.close()

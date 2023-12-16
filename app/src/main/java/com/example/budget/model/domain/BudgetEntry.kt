@@ -3,7 +3,7 @@ package com.example.budget.model.domain
 import java.util.Date
 
 data class BudgetEntry(
-    var id: Long,
+    var id: Long = 0,
     var date: Date,
     var operationType: OperationType,
     var bankAccountId: Long,

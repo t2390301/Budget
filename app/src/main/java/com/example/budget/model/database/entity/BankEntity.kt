@@ -11,7 +11,7 @@ import com.example.budget.model.domain.Bank
 )
 data class BankEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0,
     val name: String,
     val smsAddress: String,
     // val bankAccountId: Long

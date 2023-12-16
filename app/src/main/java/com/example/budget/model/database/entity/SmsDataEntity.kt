@@ -7,6 +7,7 @@ import com.example.budget.model.domain.SmsData
 @Entity(tableName = "sms_data_table")
 data class SmsDataEntity(
     @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
     val date: Long,
     val sender: String,
     val body: String,
@@ -17,12 +18,12 @@ data class SmsDataEntity(
 
 fun SmsDataEntity.toSmsData(): SmsData {
     return SmsData(
-        date, sender, body, isCashed, bankAccountFound, sellerFound
+        id, date, sender, body, isCashed, bankAccountFound, sellerFound
     )
 }
 
 fun SmsData.toSmsDataEntity(): SmsDataEntity {
     return SmsDataEntity(
-        date, sender, body, isCashed, bankAccountFound, sellerFound
+        id, date, sender, body, isCashed, bankAccountFound, sellerFound
     )
 }

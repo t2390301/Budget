@@ -15,7 +15,7 @@ import com.example.budget.model.domain.Seller
 )
 data class SellerEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0,
     val name: String,
     val budgetGroupId: Long
 )
