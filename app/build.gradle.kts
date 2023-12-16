@@ -52,10 +52,15 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 
     //Design
-    implementation("com.google.android.material:material:1.10.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    // Skip this if you don't want to use integration libraries or configure Glide.
+    // annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
     //Room
     val roomVersion = "2.6.1"

@@ -58,6 +58,9 @@
     <string name="hint_periodicity_backup">Периодичность бэкапа</string>
     <string name="hint_day_of_the_week">День недели</string>
     <string name="restoring_backup">Восстановление из Бэкапа</string>
+    <string name="expense_item_name">Название статьи</string>
+    <string name="designation_in_sms">Обозначение в СМС</string>
+    <string name="enter_seller_name_from_sms">Введите название продавца из СМС</string>
 
     <string-array name="expense_item_list" translatable="false">
         <item>Продукты</item>
