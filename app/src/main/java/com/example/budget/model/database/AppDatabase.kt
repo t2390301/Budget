@@ -3,6 +3,8 @@ package com.example.budget.model.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.budget.model.database.converters.BudgetGroupConverter
 import com.example.budget.model.database.converters.DateConverter
 import com.example.budget.model.database.converters.OperationTypeConverter
@@ -29,7 +31,7 @@ import com.example.budget.model.database.entity.SmsDataEntity
         BankAccountEntity::class,
         BankEntity::class,
         SellerEntity::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(
     OperationTypeConverter::class,
@@ -38,6 +40,18 @@ import com.example.budget.model.database.entity.SmsDataEntity
     BudgetGroupConverter::class
 )
 abstract class AppDatabase : RoomDatabase() {
+    companion object{
+        val MIGRATION_1_2 = object : Migration(1,2){
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE bank_table " +
+                        "ADD COLUMN cardPanRegex TEXT NOT NULL, " +
+                        "ADD COLUMN sellerNameRegex TEXT NOT NULL, " +
+                        "ADD COLUMN operationAmountRegex TEXT NOT NULL, " +
+                        "ADD COLUMN balanceRegex TEXT NOT NULL")
+            }
+
+        }
+    }
     abstract fun smsDataDao(): SmsDataDao
     abstract fun budgetGroupEntityDao(): BudgetGroupDao
     abstract fun budgetEntryEntityDao(): BudgetEntryDao
@@ -46,6 +60,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun sellerDao(): SellerDao
     abstract fun bankAccountDao(): BankAccountDao
     abstract fun combainTableDao(): CombainTableDao
+
+
 }
 
 

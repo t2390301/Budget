@@ -105,6 +105,6 @@ class Converters (val dbRepository: DBRepository) {
         BankEntity(
             bank.id,
             bank.name,
-            bank.smsAddress
+            bank.smsAddress, "", "", "", "","",""
         )
 }

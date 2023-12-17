@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.example.budget.model.constants.BANKSENTITY
 import com.example.budget.model.constants.BUDGETGROUPS
 import com.example.budget.model.database.AppDatabase
+import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_1_2
 import com.example.budget.model.database.dao.BankAccountDao
 import com.example.budget.model.database.dao.BankDao
 import com.example.budget.model.database.dao.BudgetEntryDao
@@ -23,8 +24,10 @@ class DatabaseHelper {
     private var appDataBase: AppDatabase? = null
 
     fun initDatabase(context: Application) {
+
         appDataBase =
             Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
+                .addMigrations(MIGRATION_1_2)
                 .build()
 
 

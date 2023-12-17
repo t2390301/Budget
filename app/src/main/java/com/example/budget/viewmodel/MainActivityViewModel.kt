@@ -25,6 +25,7 @@ import java.util.Date
 
 
 class MainActivityViewModel : ViewModel() {
+
     val application = app
     private val TAG = "MainActivityViewModel"
     val smsRepository = SMSRepository(application)
@@ -69,12 +70,8 @@ class MainActivityViewModel : ViewModel() {
     }
 
     fun getBanks() {
-        banksAppState.value = (AppState.Loading(true))
-        Log.i(
-            TAG, "getBanks:  banksAppState is Loading = ${banksAppState.value is AppState.Loading} "
-        )
         viewModelScope.launch {
-
+            banksAppState.value = (AppState.Loading(true))
             try {
                 Log.i(TAG, "getBanks: here")
                 val banksListEntities = dbRepository.getBankEntities()
@@ -93,7 +90,6 @@ class MainActivityViewModel : ViewModel() {
                 Log.i(TAG, "getBanks:  banksAppState is ${banksAppState.value is AppState.Error} ")
             }
         }
-        Log.i(TAG, "getBanks: ${banksAppState.value!!.javaClass}")
     }
 
     fun getBankAccounts() {
@@ -112,12 +108,11 @@ class MainActivityViewModel : ViewModel() {
                     Log.i(TAG, "getBankAccounts: size= ${it.size}")
                 }
 
-
                 bankAccountsAppState.value =
-                    (AppState.Success(
+                    AppState.Success(
                         bankAccountsList
                             .map { converter.bankAccountEntityConverter(it)!! }.toMutableList()
-                    ))
+                    )
                 Log.i(
                     TAG,
                     "getBankAccounts: is Success ${bankAccountsAppState.value is AppState.Success}"
@@ -137,33 +132,28 @@ class MainActivityViewModel : ViewModel() {
     fun updateSMSList(lastSMSDate: Long) {
 
         viewModelScope.launch {
-            var lastSMSDate: Long = -1
+
             smsListAppState.value = (AppState.Loading(true))
             Log.i(
                 TAG,
                 "updateSMSList: smsList is Loading ${smsListAppState.value is AppState.Loading}"
             )
             val banksSMSAddress = dbRepository.getBankEntities().map { it.smsAddress }.distinct()
-            Log.i(TAG, "updateSMSList: banksSMSAddress.size = ${banksSMSAddress.size}")
+
             try {
                 Log.i(TAG, "updateSMSList: start sms reading")
 
                 smsRepository.readSMSAfterData(lastSMSDate)
                     ?.filter { banksSMSAddress.contains(it.sender) }?.let {
-
-                    smsListAppState.value = (AppState.Success(it.toMutableList()))
-
-                        lastSMSDate = (it.map { it.date }).max()
-                        Log.i(TAG, "updateSMSList: ${Date(lastSMSDate)}")
-                    Log.i(
-                        TAG,
-                        "updateSMSList: smsList is Success ${smsListAppState.value is AppState.Success} and smsList.size = ${it.size}"
-                    )
-                }
+                        smsListAppState.value = (AppState.Success(it.toMutableList()))
+                        Log.i(
+                            TAG,
+                            "updateSMSList: smsList is Success ${smsListAppState.value is AppState.Success} and smsList.size = ${it.size}"
+                        )
+                    }
             } catch (e: Throwable) {
                 smsListAppState.postValue(AppState.Error(e))
             }
-
 
         }
         Log.i(TAG, "updateSMSList: ${Date(lastSMSDate)}")
@@ -171,10 +161,9 @@ class MainActivityViewModel : ViewModel() {
     }
 
     fun saveSMSListToBudgetEntries() {
-        budgetEntriesAppState.value = AppState.Loading(true)
-        val budgetEntries = mutableListOf<BudgetEntry>()
-
         viewModelScope.launch {
+            budgetEntriesAppState.value = AppState.Loading(true)
+            val budgetEntries = mutableListOf<BudgetEntry>()
             delay(4000)
 
             (banksAppState.value as AppState.Success).data?.let {
@@ -204,6 +193,9 @@ class MainActivityViewModel : ViewModel() {
                             converter.budgetEntryConverter(it)
                                 ?.let { it1 -> dbRepository.insertBudgetEntryEntity(it1) }
                             sms.isCashed = true
+                            if (!budgetEntries.isEmpty()) {
+                                budgetEntriesAppState.value = AppState.Success(budgetEntries)
+                            }
                         }
                     }
                 }
@@ -219,9 +211,7 @@ class MainActivityViewModel : ViewModel() {
             }
 
         }
-        if (!budgetEntries.isEmpty()) {
-            budgetEntriesAppState.value = AppState.Success(budgetEntries)
-        }
+
     }
 
 }
