@@ -14,10 +14,10 @@ interface SmsDataDao {
     @Query("SELECT * FROM sms_data_table")
     suspend fun getAll(): List<SmsDataEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: SmsDataEntity)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(entities: List<SmsDataEntity>)
 
     @Update

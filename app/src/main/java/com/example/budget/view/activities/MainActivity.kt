@@ -46,15 +46,17 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel : MainActivityViewModel by viewModels()
 
+        Log.i(TAG, "onCreate: Before ")
 
         viewModel.updateSMSList(lastSMSDate = lastSMSDate)
+
+        Log.i(TAG, "onCreate: After ")
 
         with(sharedPref.edit()){
             putLong(LAST_SAVED_SMS_Date, Date().time)
             apply()
         }
         Log.i("TAGMain", "onCreate: $lastSMSDate" )
-
 
 
         viewModel.saveSMSListToBudgetEntries()

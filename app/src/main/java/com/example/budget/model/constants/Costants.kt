@@ -7,10 +7,52 @@ import com.example.budget.model.database.entity.BudgetGroupEntity
 const val LAST_SAVED_SMS_Date = "last_saved_sms_date"
 
 val BANKSENTITY = listOf<BankEntity>(
-    BankEntity(1L, "Альфа Банк", "AlfaBank"),
-    BankEntity(2L, "Тинькофф", "Tinkoff"),
-    BankEntity( 3L, "UniCredit", "UniCredit"),  //cardpan без звездочки
-    BankEntity(4L, "Test Bank", "+71111111111")
+    BankEntity(
+        1L, "Альфа Банк", "AlfaBank",
+        "Pokupka",
+        "Postupleniye",
+        "(^\\*\\*[\\d]{4})",
+        "\\/[A-Za-z\\-\\s]+\\/([^:].+)[\\s][\\d]{2}[\\.]",
+        "Summa: ([\\d\\s\\,]+) RUR",
+        "Ostatok: ([\\d\\s\\,]+) RUR"
+    ),
+    BankEntity(
+        2L, "Тинькофф", "Tinkoff",
+        "Покупка",
+        "Поступление",     //"Проверить"
+        "карта (\\*\\d{4}).",
+        "RUB. (.+?). Доступно",
+        "\\d\\. ([\\d\\.]+) RUB.", //не работает
+        "Доступно ([\\d\\.]+) RUB"
+    ),
+    BankEntity( 3L, "UniCredit", "UniCredit",
+        "Pokupka",
+        "uvelichen",
+        "Karta (\\d{4})",
+        "RUB (.+)$",
+        "[^:] ([\\d\\.\\s]+) RUB",
+        "Dostupno: ([\\d\\.\\s]+) RUB"
+        ),
+    BankEntity(
+        4L, "Test Bank", "+71111111111",
+        "Покупка",         //Такие как у tinkoff
+        "Поступление",
+        "карта (\\*\\d{4}).",
+        "RUB. (.+?). Доступно",
+        "\\d\\. ([\\d\\.]+) RUB.",
+        "Доступно ([\\d\\.]+) RUB."
+    ),
+    BankEntity(
+        5L, "МТС Банк",
+        "MTS-Bank",
+        "Oplata",
+        "Postuplenie",       //Не уверен
+        "([\\*][\\d]{4})\\s\\Z",
+        "RUB (.+)\\sOstatok",
+        "([\\d\\s\\,]+) RUB[^;]",  //убрать пробулы перед toDouble
+        "Ostatok: ([\\d\\s\\,]+) RUB"        //убрать пробелы перед toDouble
+    )
+
 
 )
 

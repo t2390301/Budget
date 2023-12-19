@@ -9,12 +9,12 @@ import androidx.room.PrimaryKey
         entity = BudgetGroupEntity::class,
         parentColumns = ["id"],
         childColumns = ["budgetGroupId"],
-        onDelete = ForeignKey.CASCADE
+        onDelete = ForeignKey.SET_DEFAULT
     )]
 )
 data class SellerEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
-    val budgetGroupId: Long
+    val budgetGroupId: Long = 1L
 )
