@@ -2,15 +2,18 @@ package com.example.budget.view.fragments.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.budget.R
 import com.example.budget.databinding.BottomNavigationLayoutBinding
-import com.example.budget.view.fragments.ExpenseItemsFragment
+import com.example.budget.view.fragments.accounts.AccountsFragment
+import com.example.budget.view.fragments.expenseItem.ExpenseItemsFragment
+import com.example.budget.view.fragments.exportandbackup.ExportAndBackupFragment
+import com.example.budget.view.fragments.sms.SMSFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import timber.log.Timber
 
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -35,13 +38,13 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.i("onViewCreated BottomNavigationDrawerFragment")
 
         binding.navigationView.setNavigationItemSelectedListener { menu ->
             when (menu.itemId) {
-                R.id.navigation_backup -> Toast.makeText(requireContext(), "navigation_backup", Toast.LENGTH_SHORT).show()
-                R.id.navigation_export_to_excel -> Toast.makeText(requireContext(), "navigation_export_to_excel", Toast.LENGTH_SHORT).show()
+                R.id.navigation_export_and_backup -> navigateTo(ExportAndBackupFragment())
                 R.id.navigation_expense_items -> navigateTo(ExpenseItemsFragment())
-                R.id.navigation_bills_list -> Toast.makeText(requireContext(), "navigation_bills_list", Toast.LENGTH_SHORT).show()
+                R.id.navigation_accounts -> navigateTo(AccountsFragment())
             }
             dismiss()
             true

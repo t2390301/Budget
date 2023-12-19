@@ -2,10 +2,11 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-  <item
-    android:icon="@drawable/ic_outline_sms_24"
-    android:title="@string/sms_fragment"
-    app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/navigation_sms"
+        android:icon="@drawable/ic_outline_sms_24"
+        android:title="@string/menu_sms_fragment"
+        app:showAsAction="always" />
 
   <item
       android:id="@+id/planning"

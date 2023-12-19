@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="budgetBackgroundColor" format="color"/>
-    <attr name="budgetPrimaryColor" format="color"/>
-    <attr name="budgetPrimaryDarkColor" format="color"/>
-    <attr name="colorOnSurface" format="color"/>
-    <attr name="swipeIndicatorActive" format="color"/>
-    <attr name="swipeIndicatorPassive" format="color"/>
+    <attr name="budgetBackgroundColor" format="color" />
+    <attr name="budgetPrimaryColor" format="color" />
+    <attr name="budgetPrimaryDarkColor" format="color" />
+    <attr name="colorOnSurface" format="color" />
+    <attr name="swipeIndicatorActive" format="color" />
+    <attr name="swipeIndicatorPassive" format="color" />
+
+    <attr name="catalogToolbarStyle" format="reference" />
+    <attr name="catalogToolbarWithCloseButtonStyle" format="reference" />
+    <attr name="textInputSignInStyle" format="reference" />
 </resources>

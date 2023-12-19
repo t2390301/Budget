@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="none">
         <item
-            android:id="@+id/navigation_backup"
+            android:id="@+id/navigation_export_and_backup"
             android:icon="@drawable/ic_backup"
-            android:title="@string/backup"/>
-        <item
-            android:id="@+id/navigation_export_to_excel"
-            android:icon="@drawable/ic_export_to_excel"
-            android:title="@string/export_to_excel"/>
+            android:title="@string/menu_export_and_backup"/>
         <item
             android:id="@+id/navigation_expense_items"
             android:icon="@drawable/ic_expense_items"
-            android:title="@string/expense_items"/>
+            android:title="@string/menu_expense_items"/>
         <item
-            android:id="@+id/navigation_bills_list"
+            android:id="@+id/navigation_accounts"
             android:icon="@drawable/ic_bills_list"
-            android:title="@string/bills_list" />
+            android:title="@string/menu_accounts" />
 
     </group>
 </menu>
