@@ -18,61 +18,76 @@ import java.util.regex.Pattern
 
 class SmsDataMapper(val dbRepository: DBRepository) {
     companion object {
-        val CURRENCYLIST = listOf("RUB","USD")
+        const val TAG = "SmsDataMapper"
+        val CURRENCYLIST = listOf("RUB", "USD")
         const val SPACE = " "
+        const val COMMA = ","
+        const val DOT = "."
     }
 
-    lateinit var banks: MutableList<Bank>
-    lateinit var sellers: MutableList<Seller>
-    lateinit var bankAccounts: MutableList<BankAccount>
-    lateinit var budgetGroups: MutableList<BudgetGroup>
+    private lateinit var banks: MutableList<Bank>
+    private lateinit var sellers: MutableList<Seller>
+    private lateinit var bankAccounts: MutableList<BankAccount>
+    private lateinit var budgetGroups: MutableList<BudgetGroup>
 
     val converter = Converters(dbRepository)
 
     suspend fun convertSMSToBudgetEntry(sms: SmsData): BudgetEntry? {
 
-        var budgetEntry: BudgetEntry?
+        val budgetEntry: BudgetEntry?
 
         Log.i(TAG, "convertSMSToBudgetEntry: sms.adress = ${sms.sender}")
         Log.i(TAG, "convertSMSToBudgetEntry: sms.body = ${sms.body}")
-        Log.i(TAG, "convertSMSToBudgetEntry: sms.body = ${sms.date}")
-        var pattern = Pattern.compile("\\*\\d{4}")
+        Log.i(TAG, "convertSMSToBudgetEntry: sms.date = ${Date(sms.date)}")
+
+        val bank = banks.find { it.smsAddress.equals(sms.sender) }
+        if (bank == null) {
+            Log.i(TAG, "convertSMSToBudgetEntry: bank wasn't find for ${sms.sender}")
+            return null
+        }
+
+
+        var operationType = OperationType.EXPENSE
+        var pattern = Pattern.compile(bank.operationTypeEXPENSERegex)
         var matcher = pattern.matcher(sms.body)
-        var cardpan = ""
         if (matcher.find()) {
-            Log.i(TAG, "convertSMSToBudgetEntry: cardSpan = ${matcher.group()}")
-            cardpan = matcher.group()
+            operationType = OperationType.EXPENSE
         } else {
-            return null
+            pattern = Pattern.compile(bank.operationTypeINCOMERegex)
+            matcher = pattern.matcher(sms.body)
+            if (matcher.find()) {
+                operationType = OperationType.INCOME
+            }
         }
 
-        var amount = 0.0
+        val cardpan = smsMatcher(bank.cardPanRegex, sms.body)
 
-        val stringAfterCardPan = sms.body.substringAfter("$cardpan.")
-        Log.i(TAG, "convertSMSToBudgetEntry: $stringAfterCardPan")
-        pattern = Pattern.compile("\\d+\\.?\\d*")
-        matcher = pattern.matcher(stringAfterCardPan)
-        if (matcher.find()) {
-            Log.i(TAG, "convertSMSToBudgetEntry: matcher1 = ${matcher.group()}")
-            amount = matcher.group().toDouble()
-        } else{
+        val amount =
+            smsMatcher(bank.operationAmountRegex, sms.body)?.replace(COMMA, DOT)?.replace(SPACE, "")
+                ?.toDouble()
+
+        val balance =
+            smsMatcher(bank.balanceRegex, sms.body)?.replace(COMMA, DOT)?.replace(SPACE, "")
+                ?.toDouble()
+
+        val seller = smsMatcher(bank.sellerNameRegex, sms.body)
+
+        if (cardpan.isNullOrEmpty() or !(amount != null) or !(balance != null) or seller.isNullOrEmpty()) {
+            Log.i(TAG, "convertSMSToBudgetEntry: null $cardpan; $amount; $balance; $seller")
             return null
-        }
+        } else {
 
-        var balance = 0.0
-        if (matcher.find()) {
-            Log.i(TAG, "convertSMSToBudgetEntry: matcher2 = ${matcher.group()}")
-            balance = matcher.group().toDouble()
+            Log.i(TAG, "convertSMSToBudgetEntry: getKart $cardpan; $amount; $balance; $seller")
 
             bankAccounts.filter { it.cardPan.equals(cardpan) }.let { list ->
                 if (list.isEmpty()) {
                     val bankAccount = BankAccount(
                         0,
-                        cardPan =  cardpan,
+                        cardPan = cardpan!!,
                         bankSMSAddress = sms.sender,
-                        cardType= CardType.NOTYPE,
-                        cardLimit = .0,
-                        balance = balance
+                        cardType = CardType.NOTYPE,
+                        cardLimit = 0.0,
+                        balance = balance!!,
                     )?.let {
                         bankAccounts.add(it)
                         converter.bankAccountConverter(it)
@@ -80,64 +95,62 @@ class SmsDataMapper(val dbRepository: DBRepository) {
                     }
 
                 } else {
-                    list.first().balance= balance
+                    list.first().balance = balance!!
                     converter.bankAccountConverter(list.first())
                         ?.let { dbRepository.update(it) }//Update not insert
                 }
             }
-        } else{
-            return null
-        }
 
-        var sellerName = ""
-        pattern = Pattern.compile("[A-Za-z][A-Za-z0-9]{1}[-\\.A-Za-z0-9]{3,}")      //sellerName Regex Pattern
-        matcher = pattern.matcher(sms.body)
-        if (matcher.find()) {
-            Log.i(TAG, "convertSMSToBudgetEntry: SellerName = ${matcher.group()}")
-            sellerName = matcher.group()
-            if (sellerName in CURRENCYLIST) {
-                return null
+
+            var budgetGroup = BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО
+
+            sellers.filter { it.name.equals(seller) }.let { sellerList ->
+                if (sellerList.isEmpty()) {
+                    Seller(seller!!, BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО)?.let {
+                        sellers.add(it)
+                        converter.sellerConverter(it)
+                            ?.let { it1 -> dbRepository.insertSellerEntity(it1) }
+                    }
+                } else {
+                    budgetGroup = sellerList.first().budgetGroupName
+                }
             }
+
+
+            budgetEntry = BudgetEntry(
+                date = Date(sms.date),
+                operationType = operationType,
+                cardSPan = cardpan ?: "NoCard",
+                bankSMSAdress = sms.sender,
+                note = "",
+                operationAmount = amount ?: 0.0,
+                sellerName = seller ?: "NoSeller",
+                budgetGroup = budgetGroup,
+            )
+        }
+        return budgetEntry
+    }
+
+
+    private fun smsMatcher(
+        regex: String, strForMatch: String,
+    ): String? {
+        val pattern = regex.toRegex()
+        pattern.find(strForMatch)?.let { match ->
+
+            val value = match.groupValues[1]
+            Log.i(TAG, "smsMatcher: group[1] = $value")
+            return value
+        }
+        return null
+        /*val pattern = Pattern.compile(regex)
+        val matcher = pattern.matcher(strForMatch)
+        if (matcher.find()) {
+            Log.i(TAG, "smsMatcher: ${matcher.results(). .group()}")
+            return matcher.group()
         } else {
             return null
-        }
-
-
-        var budgetGroup = BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО
-
-        sellers.filter { it.name.equals(sellerName) }.let { sellerList ->
-            if (sellerList.isEmpty()) {
-               /* val budgetgroupentity = dbRepository.getBudgetGroupEntities()
-                delay(1000)
-                Log.i(TAG, "convertSMSToBudgetEntry: ${budgetgroupentity.size}")
-                for (bd in budgetgroupentity){
-                    Log.i(TAG, "convertSMSToBudgetEntry: ${bd.id}, ${bd.name}")
-                }*/
-
-                Seller(sellerName, BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО)?.let {
-                    sellers.add(it)
-
-                    converter.sellerConverter(it)
-                        ?.let { it1 -> dbRepository.insertSellerEntity(it1) }
-                }
-            } else {
-                budgetGroup = sellerList.first().budgetGroupName
-            }
-        }
-
-
-        budgetEntry = BudgetEntry(
-            date = Date(sms.date),
-            operationType = OperationType.EXPENSE,
-            cardSPan = cardpan,
-            bankSMSAdress = sms.sender,
-            note = "",
-            operationAmount = amount,
-            sellerName = sellerName,
-            budgetGroup = budgetGroup,
-        )
-
-        return budgetEntry
+        }*/
     }
 
     fun updateRules() {

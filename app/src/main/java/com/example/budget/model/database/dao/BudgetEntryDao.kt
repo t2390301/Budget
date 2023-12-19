@@ -29,4 +29,7 @@ interface BudgetEntryDao {
 
     @Delete
     suspend fun delete(entity: BudgetEntryEntity)
+
+    @Query("DELETE FROM budget_entry_table")
+    suspend fun deleteAll()
 }

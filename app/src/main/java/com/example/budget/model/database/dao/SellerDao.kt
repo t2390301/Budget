@@ -28,4 +28,7 @@ interface SellerDao {
 
     @Query("SELECT * FROM seller_table WHERE name =:sellerName")
     suspend fun getSellerIdBySellerName(sellerName: String): List<SellerEntity>
+
+    @Query("DELETE FROM seller_table")
+    suspend fun deleteAll()
 }

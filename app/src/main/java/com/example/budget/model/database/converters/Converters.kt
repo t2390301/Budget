@@ -6,10 +6,12 @@ import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.database.entity.SellerEntity
+import com.example.budget.model.database.entity.SmsDataEntity
 import com.example.budget.model.domain.Bank
 import com.example.budget.model.domain.BankAccount
 import com.example.budget.model.domain.BudgetEntry
 import com.example.budget.model.domain.Seller
+import com.example.budget.model.domain.SmsData
 import com.example.budget.repository.DBRepository
 
 class Converters (val dbRepository: DBRepository) {
@@ -19,7 +21,7 @@ class Converters (val dbRepository: DBRepository) {
 
     suspend fun bankAccountConverter(bankAccount: BankAccount): BankAccountEntity? {
         val bankId: Long = dbRepository.getBankEntityWithName(bankAccount.bankSMSAddress)
-        if (bankId >= 0) {
+        if (bankId > 0) {
             return BankAccountEntity(
                 id = bankAccount.id,
                 bankAccount.cardPan,
@@ -32,7 +34,8 @@ class Converters (val dbRepository: DBRepository) {
         return null
     }
     suspend fun bankAccountEntityConverter(bankAccountEntity: BankAccountEntity): BankAccount? {
-        val smsAddress = dbRepository.getBankSMSAdress(bankAccountEntity.id)
+        val smsAddress = dbRepository.getBankSMSAdress(bankAccountEntity.bankId)
+        Log.i(TAG, "bankAccountEntityConverter: ${bankAccountEntity.bankId} $smsAddress ")
         if (smsAddress.length >0) {
             return BankAccount(
                 bankAccountEntity.id,
@@ -98,7 +101,13 @@ class Converters (val dbRepository: DBRepository) {
         Bank(
             bankEntity.id,
             bankEntity.name,
-            bankEntity.smsAddress
+            bankEntity.smsAddress,
+            bankEntity.operationTypeEXPENSERegex,
+            bankEntity.operationTypeINCOMERegex,
+            bankEntity.cardPanRegex,
+            bankEntity.sellerNameRegex,
+            bankEntity.operationAmountRegex,
+            bankEntity.balanceRegex,
         )
 
     fun bankConverter(bank: Bank): BankEntity =
@@ -106,5 +115,13 @@ class Converters (val dbRepository: DBRepository) {
             bank.id,
             bank.name,
             bank.smsAddress, "", "", "", "","",""
+        )
+
+    fun smsDataConverter(smsData: SmsData): SmsDataEntity =
+        SmsDataEntity(
+            smsData.date,
+            smsData.sender,
+            smsData.body,
+            smsData.isCashed
         )
 }

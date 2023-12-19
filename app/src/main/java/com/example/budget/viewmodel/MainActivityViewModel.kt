@@ -63,10 +63,13 @@ class MainActivityViewModel : ViewModel() {
                         .toMutableList()
                 ))
             } catch (e: Throwable) {
+                e.printStackTrace()
                 sellerAppState.postValue(AppState.Error(e))
             }
+            Log.i(TAG, "getSellers: ${sellerAppState.value!!.javaClass}; ")
+
+                //    Log.i(TAG, "sellers size =  ${(sellerAppState.value as AppState.Success).data?.size}")
         }
-        Log.i(TAG, "getSellers: ${sellerAppState.value!!.javaClass}")
     }
 
     fun getBanks() {
@@ -107,16 +110,22 @@ class MainActivityViewModel : ViewModel() {
                     bankAccountsList = it.toMutableList()
                     Log.i(TAG, "getBankAccounts: size= ${it.size}")
                 }
+                for(account in bankAccountsList){
+                    (account)?.let{
+                    Log.i(TAG, "getBankAccounts: ${it.bankId}; ${it.cardPan} ; ${it.bankId}")
+                    }
+                }
 
-                bankAccountsAppState.value =
-                    AppState.Success(
-                        bankAccountsList
-                            .map { converter.bankAccountEntityConverter(it)!! }.toMutableList()
+                    bankAccountsAppState.value =
+                        AppState.Success(
+                            bankAccountsList
+                                .map { converter.bankAccountEntityConverter(it)!! }.toMutableList()
+                        )
+                    Log.i(
+                        TAG,
+                        "getBankAccounts: is Success ${bankAccountsAppState.value is AppState.Success}"
                     )
-                Log.i(
-                    TAG,
-                    "getBankAccounts: is Success ${bankAccountsAppState.value is AppState.Success}"
-                )
+
 
             } catch (e: Throwable) {
                 bankAccountsAppState.value = (AppState.Error(e))
@@ -142,14 +151,21 @@ class MainActivityViewModel : ViewModel() {
 
             try {
                 Log.i(TAG, "updateSMSList: start sms reading")
-
                 smsRepository.readSMSAfterData(lastSMSDate)
                     ?.filter { banksSMSAddress.contains(it.sender) }?.let {
                         smsListAppState.value = (AppState.Success(it.toMutableList()))
+                        if (!it.isNullOrEmpty()) {
+                            dbRepository.insertSMSDataEntityList(it.map { smsData ->
+                                converter.smsDataConverter(
+                                    smsData
+                                )
+                            })
+                        }
                         Log.i(
                             TAG,
                             "updateSMSList: smsList is Success ${smsListAppState.value is AppState.Success} and smsList.size = ${it.size}"
                         )
+
                     }
             } catch (e: Throwable) {
                 smsListAppState.postValue(AppState.Error(e))
@@ -164,7 +180,7 @@ class MainActivityViewModel : ViewModel() {
         viewModelScope.launch {
             budgetEntriesAppState.value = AppState.Loading(true)
             val budgetEntries = mutableListOf<BudgetEntry>()
-            delay(4000)
+            delay(8000)
 
             (banksAppState.value as AppState.Success).data?.let {
                 smsDataMapper.updateBanks(it)

@@ -8,6 +8,7 @@ import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.database.entity.SellerEntity
+import com.example.budget.model.database.entity.SmsDataEntity
 
 class DBRepository(db: DatabaseHelper) {
     companion object {
@@ -19,6 +20,8 @@ class DBRepository(db: DatabaseHelper) {
     private val budgetEntryDao = db.getBudgetEntryEntityDao()
     private val budgetGroupDao = db.getBudgetGroupEntityDao()
     private val sellerDao = db.getSellerDao()
+    private val smsDao = db.getSmsDataDao()
+
     suspend fun getBankAccountEntities(): List<BankAccountEntity> {
         Log.i(TAG, "getBankAccountEntities: here")
         return bankAccountDao.getAll()
@@ -54,17 +57,20 @@ class DBRepository(db: DatabaseHelper) {
 
     suspend fun getBankSMSAdress(id: Long): String {
         var smsAddress = ""
-        bankDao.getBankListWithID(id).first()?.let {
-            smsAddress = it.smsAddress
+        val bankEntities = bankDao.getBankListWithID(id)
+            if (!bankEntities.isEmpty()){
+                    smsAddress = bankEntities.first().smsAddress
         }
         return smsAddress
     }
 
     suspend fun getBudgetGroupNameById(id: Long): BudgetGroupEnum {
         var budgetGroup = BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО
-        budgetGroupDao.getBudgetGroupNameById(id).first()?.let {
+        val bugetGroupEntityList = budgetGroupDao.getBudgetGroupNameById(id)
+        if(!bugetGroupEntityList.isEmpty()){
+                bugetGroupEntityList.first()?.let {
             budgetGroup = it.name
-        }
+        }}
         return budgetGroup
     }
 
@@ -109,6 +115,10 @@ class DBRepository(db: DatabaseHelper) {
 
     suspend fun update(bankAccountEntity: BankAccountEntity) {
         bankAccountDao.update(bankAccountEntity)
+    }
+
+    suspend fun insertSMSDataEntityList(smsEntityList: List<SmsDataEntity>) {
+        smsDao.insertAll(smsEntityList)
     }
 
 }

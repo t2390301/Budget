@@ -31,7 +31,7 @@ import com.example.budget.model.database.entity.SmsDataEntity
         BankAccountEntity::class,
         BankEntity::class,
         SellerEntity::class],
-    version = 2
+    version = 4
 )
 @TypeConverters(
     OperationTypeConverter::class,
@@ -44,13 +44,30 @@ abstract class AppDatabase : RoomDatabase() {
         val MIGRATION_1_2 = object : Migration(1,2){
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE bank_table " +
-                        "ADD COLUMN cardPanRegex TEXT NOT NULL, " +
-                        "ADD COLUMN sellerNameRegex TEXT NOT NULL, " +
-                        "ADD COLUMN operationAmountRegex TEXT NOT NULL, " +
-                        "ADD COLUMN balanceRegex TEXT NOT NULL")
-            }
+                        "ADD COLUMN cardPanRegex VARCHAR(256) NOT NULL, " +
+                        "ADD COLUMN sellerNameRegex VARCHAR(256) NOT NULL, " +
+                        "ADD COLUMN operationAmountRegex VARCHAR(256) NOT NULL, " +
+                        "ADD COLUMN balanceRegex VARCHAR(256) NOT NULL;")
+                db.execSQL("ALTER TABLE sms_data_table " +
+                        "DROP COLUMN bankAccountFound," +
+                        "DROP COLUNM sellerFound;")
+                db.execSQL("TRUNCATE TABLE bank_account_table")
 
+            }
         }
+
+        val MIGRATION_2_3 = object : Migration(2,3){
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE seller_table CONSTRAINT budgetGroupId ON DELETE SET_DEFAULT ")
+            }
+        }
+
+        val MIGRATION_3_4 = object : Migration(3,4){
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE seller_table CONSTRAINT budgetGroupId ON DELETE SET_DEFAULT ")
+            }
+        }
+
     }
     abstract fun smsDataDao(): SmsDataDao
     abstract fun budgetGroupEntityDao(): BudgetGroupDao

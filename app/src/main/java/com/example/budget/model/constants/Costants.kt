@@ -11,8 +11,8 @@ val BANKSENTITY = listOf<BankEntity>(
         1L, "Альфа Банк", "AlfaBank",
         "Pokupka",
         "Postupleniye",
-        "^\\*\\*[\\d]{4}",
-        "\\/[A-Za-z\\s]+\\/(.[^:]+)[\\s][\\d]{2}[\\.]",
+        "(^\\*\\*[\\d]{4})",
+        "\\/[A-Za-z\\-\\s]+\\/([^:].+)[\\s][\\d]{2}[\\.]",
         "Summa: ([\\d\\s\\,]+) RUR",
         "Ostatok: ([\\d\\s\\,]+) RUR"
     ),
@@ -22,8 +22,8 @@ val BANKSENTITY = listOf<BankEntity>(
         "Поступление",     //"Проверить"
         "карта (\\*\\d{4}).",
         "RUB. (.+?). Доступно",
-        "\\d. ([\\d\\.]+) RUB.",
-        "Доступно ([\\d\\.]+) RUB."
+        "\\d\\. ([\\d\\.]+) RUB.", //не работает
+        "Доступно ([\\d\\.]+) RUB"
     ),
     BankEntity( 3L, "UniCredit", "UniCredit",
         "Pokupka",
@@ -39,7 +39,7 @@ val BANKSENTITY = listOf<BankEntity>(
         "Поступление",
         "карта (\\*\\d{4}).",
         "RUB. (.+?). Доступно",
-        "\\d. ([\\d\\.]+) RUB.",
+        "\\d\\. ([\\d\\.]+) RUB.",
         "Доступно ([\\d\\.]+) RUB."
     ),
     BankEntity(
@@ -47,10 +47,10 @@ val BANKSENTITY = listOf<BankEntity>(
         "MTS-Bank",
         "Oplata",
         "Postuplenie",       //Не уверен
-        "[\\*][\\d]{4}\\Z",
-        "RUB (.+) Ostatok",
-        "([\\d\\s\\.]+) RUB[^;]",  //убрать пробулы перед toDouble
-        "Ostatok: ([\\d\\s\\.]+) RUB"        //убрать пробелы перед toDouble
+        "([\\*][\\d]{4})\\s\\Z",
+        "RUB (.+)\\sOstatok",
+        "([\\d\\s\\,]+) RUB[^;]",  //убрать пробулы перед toDouble
+        "Ostatok: ([\\d\\s\\,]+) RUB"        //убрать пробелы перед toDouble
     )
 
 

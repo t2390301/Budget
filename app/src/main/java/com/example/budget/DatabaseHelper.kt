@@ -7,6 +7,8 @@ import com.example.budget.model.constants.BANKSENTITY
 import com.example.budget.model.constants.BUDGETGROUPS
 import com.example.budget.model.database.AppDatabase
 import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_1_2
+import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_2_3
+import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_3_4
 import com.example.budget.model.database.dao.BankAccountDao
 import com.example.budget.model.database.dao.BankDao
 import com.example.budget.model.database.dao.BudgetEntryDao
@@ -28,18 +30,30 @@ class DatabaseHelper {
         appDataBase =
             Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
                 .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_2_3)
+                .addMigrations(MIGRATION_3_4)
+                //.fallbackToDestructiveMigration()
                 .build()
 
 
         CoroutineScope(Dispatchers.IO).launch {
-            for (bank in BANKSENTITY) {
-                appDataBase!!.bankDao().insert(bank)
+
+            /*appDataBase!!.bankAccountDao().deleteAll()      //только для тестов
+            appDataBase!!.sellerDao().deleteAll()
+            appDataBase!!.budgetEntryEntityDao().deleteAll()*/
+
+            if (appDataBase!!.bankDao().getAll().isEmpty()) {
+                for (bank in BANKSENTITY) {
+                    appDataBase!!.bankDao().insert(bank)
+                }
+                Log.i(DB_NAME, "initDatabase: In BANKS")
             }
-            Log.i(DB_NAME, "initDatabase: In BANKS")
-            for (budgetGroupEntity in BUDGETGROUPS) {
-                appDataBase!!.budgetGroupEntityDao().insert(
-                   budgetGroupEntity
-                )
+            if (appDataBase!!.budgetEntryEntityDao().getAll().isEmpty()) {
+                for (budgetGroupEntity in BUDGETGROUPS) {
+                    appDataBase!!.budgetGroupEntityDao().insert(
+                        budgetGroupEntity
+                    )
+                }
             }
         }
     }

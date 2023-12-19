@@ -28,4 +28,7 @@ interface BankAccountDao {
 
     @Delete
     suspend fun delete(entity: BankAccountEntity)
+
+    @Query("DELETE FROM bank_account_table")
+    suspend fun deleteAll()
 }
