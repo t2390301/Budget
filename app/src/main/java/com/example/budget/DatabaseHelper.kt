@@ -32,13 +32,12 @@ class DatabaseHelper {
                 .addMigrations(MIGRATION_1_2)
                 .addMigrations(MIGRATION_2_3)
                 .addMigrations(MIGRATION_3_4)
-                //.fallbackToDestructiveMigration()
                 .build()
 
 
         CoroutineScope(Dispatchers.IO).launch {
 
-            /*appDataBase!!.bankAccountDao().deleteAll()      //только для тестов
+           /* appDataBase!!.bankAccountDao().deleteAll()      //только для тестов
             appDataBase!!.sellerDao().deleteAll()
             appDataBase!!.budgetEntryEntityDao().deleteAll()*/
 

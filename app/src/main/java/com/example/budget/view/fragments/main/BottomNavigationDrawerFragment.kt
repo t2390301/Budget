@@ -62,4 +62,8 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
             .replace(R.id.main_container, fragment).addToBackStack("").commit()
     }
 
+    private fun convertBudgetEntriesToExcel(){
+
+    }
+
 }
