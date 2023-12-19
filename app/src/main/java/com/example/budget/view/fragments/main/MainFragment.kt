@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
 import com.example.budget.view.activities.MainActivity
+import com.example.budget.view.fragments.planning.PlanningFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
@@ -34,9 +36,11 @@ class MainFragment : Fragment() {
         (requireActivity() as MainActivity).setSupportActionBar(binding.mainRecyclerBottomAppbar)
         setHasOptionsMenu(true)
 
+
         val behavior = BottomSheetBehavior.from(binding.included.bottomSheetContainer)
         var isMain = true
         binding.mainRecyclerFab.setOnClickListener {
+
             if (isMain) {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
                 binding.mainRecyclerBottomAppbar.navigationIcon = null

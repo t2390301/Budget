@@ -14,12 +14,14 @@ import com.example.budget.model.database.dao.BankDao
 import com.example.budget.model.database.dao.BudgetEntryDao
 import com.example.budget.model.database.dao.BudgetGroupDao
 import com.example.budget.model.database.dao.CombainTableDao
+import com.example.budget.model.database.dao.PlanningNoteDao
 import com.example.budget.model.database.dao.SellerDao
 import com.example.budget.model.database.dao.SmsDataDao
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.database.entity.BudgetGroupEntity
+import com.example.budget.model.database.entity.PlanningNote
 import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.database.entity.SmsDataEntity
 
@@ -30,8 +32,13 @@ import com.example.budget.model.database.entity.SmsDataEntity
         BudgetEntryEntity::class,
         BankAccountEntity::class,
         BankEntity::class,
-        SellerEntity::class],
+
+        SellerEntity::class,
+        PlanningNote::class
+    ],
+
     version = 4
+
 )
 @TypeConverters(
     OperationTypeConverter::class,
@@ -78,6 +85,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun bankAccountDao(): BankAccountDao
     abstract fun combainTableDao(): CombainTableDao
 
+    abstract fun getPlanningNoteDao(): PlanningNoteDao
 
 }
 

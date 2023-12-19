@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="com.example.budget.view.fragments.planning.PlanningFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@id/separator"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_planning_note" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <LinearLayout
+            android:id="@+id/income_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/center"
+            app:layout_constraintTop_toBottomOf="@id/list"
+            app:layout_constraintBottom_toTopOf="@id/balance_panel">
+
+            <TextView
+                android:id="@+id/income_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Доходы" />
+
+            <TextView
+                android:id="@+id/income_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_light_surfaceTint" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/expense_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/balance_panel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list">
+
+            <TextView
+                android:id="@+id/expense_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Расходы" />
+
+            <TextView
+                android:id="@+id/expense_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/balance_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/bottom_panel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/expense_panel">
+
+            <TextView
+                android:id="@+id/balance_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Текущий остаток" />
+
+            <TextView
+                android:id="@+id/balance_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_light_surfaceTint" />
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/bottom_panel"
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:background="@color/md_theme_light_surfaceTint"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_note"
+            style="?attr/floatingActionButtonTertiaryStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:backgroundTint="@color/md_theme_dark_surfaceTint"
+            android:contentDescription="@string/add_expense_or_income"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bottom_panel"
+            app:srcCompat="@drawable/ic_plus_fab" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/sheet_edit"
+        layout="@layout/bottom_sheet_planning_edit" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
