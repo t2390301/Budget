@@ -7,11 +7,13 @@
     <dimen name="recycler_item_text_size">24sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
     <dimen name="recycler_item_line_margin_end">20dp</dimen>
-     <dimen name="loading_margin_top">20sp</dimen>
+    <dimen name="loading_margin_top">20sp</dimen>
     <dimen name="loading_text_size">35sp</dimen>
     <dimen name="padding_vh">12dp</dimen>
     <dimen name="margin_note_edit">12dp</dimen>
     <dimen name="card_view_corner_radius">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="text_margin_small">8dp</dimen>
 
 
 </resources>

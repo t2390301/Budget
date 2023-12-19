@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +13,9 @@ import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
 import com.example.budget.model.constants.LAST_SAVED_SMS_Date
 import com.example.budget.model.domain.BudgetEntry
+import com.example.budget.view.fragments.main.BottomNavigationDrawerFragment
 import com.example.budget.view.fragments.main.MainFragment
+import com.example.budget.view.fragments.planning.PlanningFragment
 import com.example.budget.viewmodel.AppState
 import com.example.budget.viewmodel.MainActivityViewModel
 import java.util.Date
@@ -80,4 +84,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.planning -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_container, PlanningFragment.newInstance())
+                    .addToBackStack("planning")
+                    .commit()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        if (!supportFragmentManager.popBackStackImmediate())
+            super.onBackPressed()
+    }
 }

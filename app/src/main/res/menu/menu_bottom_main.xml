@@ -6,4 +6,10 @@
     android:icon="@drawable/ic_outline_sms_24"
     android:title="@string/sms_fragment"
     app:showAsAction="ifRoom"/>
+
+  <item
+      android:id="@+id/planning"
+      android:icon="@drawable/ic_planning"
+      android:title="@string/planning"
+      app:showAsAction="ifRoom"/>
 </menu>
