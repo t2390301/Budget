@@ -13,7 +13,11 @@ import androidx.fragment.app.Fragment
 import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
 import com.example.budget.view.activities.MainActivity
+import com.example.budget.view.fragments.exportandbackup.ExportAndBackupFragment
+import com.example.budget.view.fragments.sms.SMSFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import timber.log.Timber
 
 
 class MainFragment : Fragment() {
@@ -39,24 +43,24 @@ class MainFragment : Fragment() {
         binding.mainRecyclerFab.setOnClickListener {
             if (isMain) {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                binding.mainRecyclerBottomAppbar.menu.clear()
                 binding.mainRecyclerBottomAppbar.navigationIcon = null
                 binding.mainRecyclerFab.setImageResource(R.drawable.ic_back_fab)
             } else {
                 behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                binding.mainRecyclerBottomAppbar.menu.hasVisibleItems()
+                binding.mainRecyclerBottomAppbar.replaceMenu(R.menu.menu_bottom_main)
                 binding.mainRecyclerBottomAppbar.navigationIcon =
                     ContextCompat.getDrawable(requireContext(), R.drawable.ic_main_menu_bottom_bar)
                 binding.mainRecyclerFab.setImageResource(R.drawable.ic_plus_fab)
             }
             isMain = !isMain
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.main_recycler_fab -> {
-                Toast.makeText(requireContext(), "app_bar_fav", Toast.LENGTH_SHORT).show()
-            }
+            R.id.navigation_sms -> navigateTo(SMSFragment())
 
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(
@@ -68,6 +72,14 @@ class MainFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+
+    private fun navigateTo(fragment: BottomSheetDialogFragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out
+            )
+            .replace(R.id.main_container, fragment).addToBackStack(null).commit()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -82,7 +94,6 @@ class MainFragment : Fragment() {
     companion object {
         fun newInstance() = MainFragment()
     }
-
 }
 
 

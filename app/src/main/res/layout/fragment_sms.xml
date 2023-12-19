@@ -4,6 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="?attr/catalogToolbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sms_recycler_view"
         android:layout_width="match_parent"
@@ -11,8 +25,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/sms_recycler_bottom_appbar"
@@ -21,15 +34,6 @@
         android:layout_gravity="bottom"
         android:fitsSystemWindows="true"
         app:hideOnScroll="true"
-        app:navigationIcon="@drawable/ic_filter"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/sms_recycler_fab"
-        style="?attr/floatingActionButtonTertiaryStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/previous_fragment"
-        app:layout_anchor="@id/sms_recycler_bottom_appbar"
-        app:srcCompat="@drawable/ic_back_fab" />
+        app:navigationIcon="@drawable/ic_filter" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

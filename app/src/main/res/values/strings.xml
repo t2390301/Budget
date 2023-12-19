@@ -11,9 +11,9 @@
     <string name="APP_NIGHTMODE">NIGHTMODE</string>
     <string name="settings">Настройки</string>
     <string name="export_to_excel">Экспорт в Excel</string>
-    <string name="backup">Бэкап</string>
-    <string name="expense_items">Статьи расходов</string>
-    <string name="bills_list">Счета</string>
+    <string name="menu_export_and_backup">Экспорт и бэкап</string>
+    <string name="menu_expense_items">Статьи расходов</string>
+    <string name="menu_accounts">Счета</string>
     <string name="add_gain_and_expenses">Добавление расхода или дохода</string>
     <string name="add_expense_items">Добавление статьи расходов</string>
     <string name="food_products">Продукты питания</string>
@@ -69,7 +69,7 @@
     <string name="buy">Покупка</string>
     <string name="account_name_example">Тинькофф *8555</string>
     <string name="amount_example">57334,33</string>
-    <string name="sms_fragment">СМС фрагмент</string>
+    <string name="menu_sms_fragment">СМС фрагмент</string>
 
     <string-array name="expense_item_list" translatable="false">
         <item>Продукты</item>
