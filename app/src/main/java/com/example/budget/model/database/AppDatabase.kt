@@ -21,7 +21,7 @@ import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.database.entity.BudgetGroupEntity
-import com.example.budget.model.database.entity.PlanningNote
+import com.example.budget.model.database.entity.PlanningNoteEntity
 import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.database.entity.SmsDataEntity
 
@@ -34,7 +34,7 @@ import com.example.budget.model.database.entity.SmsDataEntity
         BankEntity::class,
 
         SellerEntity::class,
-        PlanningNote::class
+        PlanningNoteEntity::class
     ],
 
     version = 5

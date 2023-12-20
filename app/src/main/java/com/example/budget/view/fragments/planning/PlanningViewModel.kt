@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.dao.PlanningNoteDao
-import com.example.budget.model.database.entity.PlanningNote
+import com.example.budget.model.database.entity.PlanningNoteEntity
 import com.example.budget.model.domain.OperationType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,13 +14,13 @@ class PlanningViewModel : ViewModel() {
 
     private var dao: PlanningNoteDao? = null
 
-    private val mutableList = mutableListOf<PlanningNote>()
+    private val mutableList = mutableListOf<PlanningNoteEntity>()
     val notes get() = mutableList
 
     var operation: OperationType? = null
     var budgetGroup: BudgetGroupEnum? = null
 
-    var onUpdateListEvent: (List<PlanningNote>) -> Unit = { }
+    var onUpdateListEvent: (List<PlanningNoteEntity>) -> Unit = { }
 
     fun init(dao: PlanningNoteDao) {
         this.dao = dao
@@ -28,7 +28,7 @@ class PlanningViewModel : ViewModel() {
 
     fun loadNotes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val list = dao?.selectAll() ?: return@launch
+            val list = dao?.getAll() ?: return@launch
             notes.addAll(list)
             onUpdateListEvent.invoke(notes)
         }
@@ -43,7 +43,7 @@ class PlanningViewModel : ViewModel() {
         val budgetGroup = budgetGroup ?: return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val note = PlanningNote(
+            val note = PlanningNoteEntity(
                 id = 0,
                 date = date,
                 operationType = operationType,
