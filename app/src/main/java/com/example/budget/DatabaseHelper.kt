@@ -67,6 +67,9 @@ class DatabaseHelper {
     fun getBankAccountDao(): BankAccountDao = appDataBase!!.bankAccountDao()
     fun getSellerDao(): SellerDao = appDataBase!!.sellerDao()
     fun getPlanningNoteDao() = appDataBase!!.getPlanningNoteDao()
+    fun getCombainBudgetEntriesDao()=appDataBase!!.combainTableDao()
+
+
 
 
 }

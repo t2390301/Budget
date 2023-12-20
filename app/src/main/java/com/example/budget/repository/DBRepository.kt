@@ -9,6 +9,7 @@ import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.database.entity.SmsDataEntity
+import com.example.budget.model.domain.CombainBudgetEntry
 
 class DBRepository(db: DatabaseHelper) {
     companion object {
@@ -21,6 +22,7 @@ class DBRepository(db: DatabaseHelper) {
     private val budgetGroupDao = db.getBudgetGroupEntityDao()
     private val sellerDao = db.getSellerDao()
     private val smsDao = db.getSmsDataDao()
+    private val combainBudgetEntryDao = db.getCombainBudgetEntriesDao()
 
     suspend fun getBankAccountEntities(): List<BankAccountEntity> {
         Log.i(TAG, "getBankAccountEntities: here")
@@ -49,7 +51,7 @@ class DBRepository(db: DatabaseHelper) {
 
     suspend fun getBankEntityWithName(bankSMSAddress: String): Long {
         var id = -1L
-        bankDao.getBankListWithAddress(bankSMSAddress).first()?.let{
+        bankDao.getBankListWithAddress(bankSMSAddress).first()?.let {
             id = it.id
         }
         return id
@@ -58,8 +60,8 @@ class DBRepository(db: DatabaseHelper) {
     suspend fun getBankSMSAdress(id: Long): String {
         var smsAddress = ""
         val bankEntities = bankDao.getBankListWithID(id)
-            if (!bankEntities.isEmpty()){
-                    smsAddress = bankEntities.first().smsAddress
+        if (!bankEntities.isEmpty()) {
+            smsAddress = bankEntities.first().smsAddress
         }
         return smsAddress
     }
@@ -67,15 +69,16 @@ class DBRepository(db: DatabaseHelper) {
     suspend fun getBudgetGroupNameById(id: Long): BudgetGroupEnum {
         var budgetGroup = BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО
         val bugetGroupEntityList = budgetGroupDao.getBudgetGroupNameById(id)
-        if(!bugetGroupEntityList.isEmpty()){
-                bugetGroupEntityList.first()?.let {
-            budgetGroup = it.name
-        }}
+        if (!bugetGroupEntityList.isEmpty()) {
+            bugetGroupEntityList.first()?.let {
+                budgetGroup = it.name
+            }
+        }
         return budgetGroup
     }
 
     suspend fun getBudgetGroupIdByBudgetGroupName(budgetGroup: BudgetGroupEnum): Long {
-        var id = -1L
+        var id:Long = -1
         Log.i(TAG, "getBudgetGroupIdByBudgetGroupName: ${budgetGroup.name}")
 
         val bdlist = budgetGroupDao.getBudgetGroupNameByGroupName(budgetGroup)
@@ -120,5 +123,9 @@ class DBRepository(db: DatabaseHelper) {
     suspend fun insertSMSDataEntityList(smsEntityList: List<SmsDataEntity>) {
         smsDao.insertAll(smsEntityList)
     }
+
+    suspend fun getCombainBudgetEntitis(): List<CombainBudgetEntry> =
+        combainBudgetEntryDao.getAll()
+
 
 }
