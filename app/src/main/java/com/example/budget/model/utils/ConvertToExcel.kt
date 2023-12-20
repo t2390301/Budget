@@ -2,7 +2,7 @@ package com.example.budget.model.utils
 
 import android.content.Context
 import android.util.Log
-import com.example.budget.model.domain.BudgetEntry
+import com.example.budget.model.domain.CombainBudgetEntry
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.hssf.util.HSSFColor
 import org.apache.poi.ss.usermodel.*
@@ -10,6 +10,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.Date
 
 class ConvertToExcel(private val context: Context) {
     companion object {
@@ -19,26 +20,24 @@ class ConvertToExcel(private val context: Context) {
         const val SHEET_NAME = "Report"   // Excel sheet name
         val HEADER_LIST = listOf(
             "Date",
-            "Operation_Type",
+            "Bank",
+            "CardPan",
             "Operation_amount",
-            "transaction_source",
-            "Note",
-            "CardPan"
+            "Seller",
+            "Budget group",
         )
-        //val BUDGET_ENTRY = listOf(BudgetEntry())
-
     }
 
-    suspend fun convertBudgetEntryToExcel(
+    fun convertBudgetEntryToExcel(
         dirName: String = APP_DIRECTORY_NAME,
         fileName: String = FILE_NAME,
-        dataList: List<BudgetEntry>, //= BUDGET_ENTRY,
+        dataList: List<CombainBudgetEntry>, //= BUDGET_ENTRY,
         sheetName: String = SHEET_NAME,
         headerColNames: List<String> = HEADER_LIST,
     ) {
         //Get App Director, APP_DIRECTORY_NAME is a string
         val appDirectory = File(context.filesDir, dirName)  // context.getExternalFilesDir(dirName)
-        Log.i(TAG, "convertBudgetEntryToExcel: directoryexist ${appDirectory.exists()}")
+        Log.i(TAG, "convertBudgetEntryToExcel: directory exist ${appDirectory.exists()}")
         if (appDirectory != null && !appDirectory.exists()) {
             if (appDirectory.mkdir())
                 Log.i(TAG, "convertBudgetEntryToExcel: directory $appDirectory made")
@@ -69,7 +68,7 @@ class ConvertToExcel(private val context: Context) {
     private fun createWorkbook(
         sheetName: String = SHEET_NAME,
         headerColNames: List<String> = HEADER_LIST,
-        dataList: List<BudgetEntry>  // = /BUDGET_ENTRY
+        dataList: List<CombainBudgetEntry>  // = /BUDGET_ENTRY
     ): Workbook {
         // Creating excel workbook
         val workbook = HSSFWorkbook()
@@ -86,18 +85,17 @@ class ConvertToExcel(private val context: Context) {
         return workbook
     }
 
-    private fun addData(first_row: Int, sheet: Sheet, dataList: List<BudgetEntry>) {
+    private fun addData(first_row: Int, sheet: Sheet, dataList: List<CombainBudgetEntry>) {
         var rowNum = first_row
         for (entry in dataList) {
             val row = sheet.createRow(rowNum)
-            //createCell(row, 0, entry.id.toString())
-            //createCell(row, 1, entry.smsId.toString())
-            createCell(row, 1, entry.date.toString())
-            createCell(row, 2, entry.operationType.toString())
+            createCell(row, 0, Date(entry.date).toString())
+            createCell(row, 1, entry.bankName)
+
+            createCell(row, 2, entry.cardPan)
             createCell(row, 3, entry.operationAmount.toString())
-            //createCell(row, 5, entry.transactionSource.toString())
-            createCell(row, 4, entry.note)
-            createCell(row, 5, entry.cardSPan)
+            createCell(row, 4, entry.sellerName)
+            createCell(row, 5, entry.budgetGroupName)
             rowNum++
         }
     }
