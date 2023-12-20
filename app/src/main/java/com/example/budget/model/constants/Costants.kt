@@ -40,7 +40,7 @@ val BANKSENTITY = listOf<BankEntity>(
         "карта (\\*\\d{4}).",
         "RUB. (.+?). Доступно",
         "\\d\\. ([\\d\\.]+) RUB.",
-        "Доступно ([\\d\\.]+) RUB."
+        "Доступно ([\\d\\.]+) RUB"
     ),
     BankEntity(
         5L, "МТС Банк",

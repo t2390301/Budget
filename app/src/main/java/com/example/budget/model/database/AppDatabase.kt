@@ -37,7 +37,7 @@ import com.example.budget.model.database.entity.SmsDataEntity
         PlanningNoteEntity::class
     ],
 
-    version = 5
+    version = 4
 
 )
 @TypeConverters(
