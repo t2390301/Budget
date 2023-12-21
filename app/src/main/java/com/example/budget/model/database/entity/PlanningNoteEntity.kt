@@ -6,8 +6,10 @@ import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.domain.OperationType
 import java.util.Date
 
-@Entity(tableName = "planning_note")
-data class PlanningNote(
+@Entity(
+    tableName = "planning_note"
+)
+data class PlanningNoteEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val date: Date,

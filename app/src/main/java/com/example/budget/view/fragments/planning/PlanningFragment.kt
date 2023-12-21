@@ -13,10 +13,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budget.App
-import com.example.budget.R
 import com.example.budget.databinding.FragmentPlanningListBinding
 import com.example.budget.model.constants.BudgetGroupEnum
-import com.example.budget.model.database.entity.PlanningNote
+import com.example.budget.model.database.entity.PlanningNoteEntity
 import com.example.budget.model.domain.OperationType
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.CoroutineScope
@@ -171,7 +170,7 @@ class PlanningFragment : Fragment() {
         )
     }
 
-    private fun recalculateBalance(notes: List<PlanningNote>) {
+    private fun recalculateBalance(notes: List<PlanningNoteEntity>) {
         var income = 0L
         var expense = 0L
 
