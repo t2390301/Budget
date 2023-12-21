@@ -18,6 +18,7 @@ import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.PlanningNoteEntity
 import com.example.budget.model.domain.OperationType
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ import java.util.Locale
 import kotlin.math.abs
 
 
-class PlanningFragment : Fragment() {
+class PlanningFragment : BottomSheetDialogFragment() {
 
     private var binding: FragmentPlanningListBinding? = null
     private val viewModel by viewModels<PlanningViewModel>()
