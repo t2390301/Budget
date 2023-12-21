@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(arrayOf("android.permission.READ_SMS"), 2)
         }
 
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val sharedPref =  getPreferences(Context.MODE_PRIVATE)
 
 
         var lastSMSDate: Long = 0
 
-        val viewModel : MainActivityViewModel by viewModels()
 
+        val viewModel : MainActivityViewModel by viewModels()
 
 
         viewModel.updateSMSList(lastSMSDate = lastSMSDate)
