@@ -8,7 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budget.databinding.ItemMainFragmentBinding
+import com.example.budget.model.database.converters.Converters
+import com.example.budget.model.database.converters.OperationTypeConverter
 import com.example.budget.model.database.entity.BudgetEntryEntity
+import com.example.budget.model.domain.OperationType
 
 import java.util.Locale
 
@@ -33,23 +36,30 @@ class MainFragmentAdapter(
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val item = values[position]
         holder.textAccount.text = item.bankAccountId.toString()
+        holder.textExpense.text = item.sellerId.toString()
         holder.textDateAndTime.text = formatToRusShortDate.format(item.date)
-        holder.textAmount.text = item.operationAmount.formatToText()
+        holder.textAmount.text = item.operationAmount.formatToText(item.operationType)
+
 
     }
 
     private var formatToRusShortDate: DateFormat =
         DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale("ru"))
 
-    private fun Number.formatToText() =
-        decimalFormat.format(this).replace(",", " ") + " р."
+    private fun Number.formatToText(operationType: OperationType) =
+        if (operationType == OperationType.EXPENSE) {
+            "- " + decimalFormat.format(this).replace(",", " ") + " р."
+        } else {
+            "+ " + decimalFormat.format(this).replace(",", " ") + " р."
+        }
+
 
     inner class MainViewHolder(binding: ItemMainFragmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val textAccount: TextView = binding.textAccount
-        val textDateAndTime: TextView = binding.textDateAndTime
-        val textExpense: TextView = binding.textExpense
-        val textAmount: TextView = binding.textAmount
+        val textAccount: TextView = binding.textAccount          // Название счета
+        val textDateAndTime: TextView = binding.textDateAndTime  // Дата
+        val textExpense: TextView = binding.textExpense // Статья расходов
+        val textAmount: TextView = binding.textAmount   // Сумма р.
         val imgBank: ImageView = binding.imgBank
     }
 
