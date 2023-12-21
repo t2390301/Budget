@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +12,6 @@ import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
 import com.example.budget.model.constants.LAST_SAVED_SMS_Date
 import com.example.budget.model.domain.BudgetEntry
-import com.example.budget.view.fragments.main.BottomNavigationDrawerFragment
 import com.example.budget.view.fragments.main.MainFragment
 import com.example.budget.view.fragments.planning.PlanningFragment
 import com.example.budget.viewmodel.AppState
@@ -39,13 +37,12 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(arrayOf("android.permission.READ_SMS"), 2)
         }
 
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val sharedPref =  getPreferences(Context.MODE_PRIVATE)
 
 
-        var lastSMSDate: Long = sharedPref.getLong(LAST_SAVED_SMS_Date, 0)
+        var lastSMSDate: Long =  0  //sharedPref.getLong(LAST_SAVED_SMS_Date, 0)
 
         val viewModel : MainActivityViewModel by viewModels()
-
 
 
         viewModel.updateSMSList(lastSMSDate = lastSMSDate)
