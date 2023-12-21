@@ -127,5 +127,9 @@ class DBRepository(db: DatabaseHelper) {
     suspend fun getCombainBudgetEntitis(): List<CombainBudgetEntry> =
         combainBudgetEntryDao.getAll()
 
+    suspend fun getSMSList():List<SmsDataEntity> =
+        smsDao.getAll()
+
+
 
 }

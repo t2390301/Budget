@@ -34,6 +34,15 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/sms_sender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:gravity="end"
+                    android:text="@string/date_and_time_example" />
+
+                <TextView
                     android:id="@+id/sms_date_and_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
