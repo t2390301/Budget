@@ -1,5 +1,6 @@
 package com.example.budget.view.fragments.sms
 
+import android.icu.text.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.budget.R
 import com.example.budget.model.constants.DEFAULT_BANK_IMAGE
 import com.example.budget.model.domain.SmsData
-import java.util.Date
+import java.util.Locale
 
 class SMSFragmentAdapter(private var smslist: List<SmsData>?) : RecyclerView.Adapter<SMSFragmentAdapter.SMSViewHolder>(){
 
@@ -43,8 +44,8 @@ class SMSFragmentAdapter(private var smslist: List<SmsData>?) : RecyclerView.Ada
     override fun onBindViewHolder(holder: SMSViewHolder, position: Int) {
         //holder.smsAddress.text = smslist?.get(position)?.sender
         holder.smsBody.text = smslist?.get(position)?.body
-        holder.smsDate.text = Date(smslist?.get(position)?.date?:0).toString()
-        var image = smslist?.get(position)?.bankImage
+        holder.smsDate.text = formatToRusShortDate.format(smslist?.get(position)?.date?:0)
+        val image = smslist?.get(position)?.bankImage
         if (image != null){
             holder.bankImage.setImageResource(image)
         } else {
@@ -52,5 +53,6 @@ class SMSFragmentAdapter(private var smslist: List<SmsData>?) : RecyclerView.Ada
         }
     }
 
-
+    private var formatToRusShortDate: DateFormat =
+        DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale("ru"))
 }

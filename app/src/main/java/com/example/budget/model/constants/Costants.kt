@@ -18,7 +18,7 @@ val BANKSENTITY = listOf<BankEntity>(
         "\\/[A-Za-z\\-\\s]+\\/([^:].+)[\\s][\\d]{2}[\\.]",
         "Summa: ([\\d\\s\\,]+) RUR",
         "Ostatok: ([\\d\\s\\,]+) RUR",
-        null
+        R.drawable.ic_alfabank_72
     ),
     BankEntity(
         2L, "Тинькофф", "Tinkoff",
@@ -37,7 +37,7 @@ val BANKSENTITY = listOf<BankEntity>(
         "RUB (.+)$",
         "[^:] ([\\d\\.\\s]+) RUB",
         "Dostupno: ([\\d\\.\\s]+) RUB",
-        null
+        R.drawable.ic_unicredit_72
         ),
     BankEntity(
         4L, "Test Bank", "+71111111111",
@@ -47,7 +47,7 @@ val BANKSENTITY = listOf<BankEntity>(
         "RUB. (.+?). Доступно",
         "\\d\\. ([\\d\\.]+) RUB.",
         "Доступно ([\\d\\.]+) RUB",
-        null
+        R.drawable.ic_sberbank_72
     ),
     BankEntity(
         5L, "МТС Банк",
@@ -58,7 +58,7 @@ val BANKSENTITY = listOf<BankEntity>(
         "RUB (.+)\\sOstatok",
         "([\\d\\s\\,]+) RUB[^;]",  //убрать пробелы перед toDouble
         "Ostatok: ([\\d\\s\\,]+) RUB",        //убрать пробелы перед toDouble
-        null
+        R.drawable.ic_mtsbank_72
     )
 
 

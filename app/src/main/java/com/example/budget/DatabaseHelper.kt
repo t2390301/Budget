@@ -43,7 +43,7 @@ class DatabaseHelper {
             appDataBase!!.sellerDao().deleteAll()
             appDataBase!!.budgetEntryEntityDao().deleteAll()*/
             val banks = appDataBase!!.bankDao().getAll()
-            if (banks.isEmpty() or (banks.filter{  it.smsAddress.equals("Tinkoff") }.first().bankImage == null )) {
+            if (banks.isEmpty() or (banks.filter{  it.smsAddress.equals("AlfaBank") }.first().bankImage == null )) {
                 for (bank in BANKSENTITY) {
                     appDataBase!!.bankDao().update(bank)
                 }
