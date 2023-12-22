@@ -23,9 +23,10 @@ import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
-    companion object{
+    companion object {
         const val TAG = "MainActivityView"
     }
+
     private lateinit var binding: FragmentMainBinding
     lateinit var BudgetEntries: MutableLiveData<List<BudgetEntry>>
 
@@ -39,29 +40,30 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(arrayOf("android.permission.READ_SMS"), 2)
         }
 
-        val sharedPref =  getPreferences(Context.MODE_PRIVATE)
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
 
 
         var lastSMSDate: Long = 0 //  sharedPref.getLong(LAST_SAVED_SMS_Date, 0)//0 //
 
 
-        val viewModel : MainActivityViewModel by viewModels()
+        val viewModel: MainActivityViewModel by viewModels()
 
 
         viewModel.updateSMSList(lastSMSDate = lastSMSDate)
 
 
 
-        with(sharedPref.edit()){
+        with(sharedPref.edit()) {
             putLong(LAST_SAVED_SMS_Date, Date().time)
             apply()
         }
 
 
+
         viewModel.saveSMSListToBudgetEntries()
 
-        viewModel.budgetEntriesAppState.observe(this){budgets ->
-            if(budgets is AppState.Success){
+        viewModel.budgetEntriesAppState.observe(this) { budgets ->
+            if (budgets is AppState.Success) {
                 Log.i(TAG, "onCreate: Success")
                 budgets.data?.let { list ->
                     for (budget in list) {
@@ -86,13 +88,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.planning -> {
-/*                supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_container, PlanningFragment.newInstance())
-                    .addToBackStack("planning")
-                    .commit()*/
-                navigateTo(PlanningFragment())
-            }
+            R.id.planning -> navigateTo(PlanningFragment())
             R.id.navigation_sms -> navigateTo(SMSFragment())
         }
         return super.onOptionsItemSelected(item)

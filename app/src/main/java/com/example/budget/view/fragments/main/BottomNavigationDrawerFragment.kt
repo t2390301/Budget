@@ -54,16 +54,14 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     private fun navigateTo(fragment: BottomSheetDialogFragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .setCustomAnimations(
-                R.anim.slide_in,
-                R.anim.fade_out,
-                R.anim.fade_in,
-                R.anim.slide_out
+                R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out
             )
             .replace(R.id.main_container, fragment).addToBackStack("").commit()
     }
 
-    private fun convertBudgetEntriesToExcel(){
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

@@ -22,7 +22,7 @@
                 android:id="@+id/img_bank"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:padding="4dp"
+                android:padding="8dp"
                 app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
                 app:srcCompat="@drawable/ic_tinkoff_72"
                 app:strokeColor="?attr/colorSecondary" />
@@ -80,12 +80,5 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/material_card"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

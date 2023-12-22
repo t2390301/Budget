@@ -1,5 +1,6 @@
 package com.example.budget.view.fragments.main
 
+import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -11,6 +12,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.example.budget.App
 import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
@@ -50,10 +53,19 @@ class MainFragment : Fragment() {
         val listAdapter = MainFragmentAdapter(viewModel.budgetEntry)
         this.adapter = listAdapter
 
+        viewModel.onUpdateListEvent = { list ->
+            CoroutineScope(Dispatchers.Main).launch {
+                println(list)
+                listAdapter.notifyDataSetChanged()
+            }
+        }
 
+        binding.mainRecyclerView.run {
+            adapter = listAdapter
+            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+        }
 
-
-
+        viewModel.loadBudgetEntry()
 
 
 
@@ -83,7 +95,6 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-//            R.id.navigation_sms -> navigateTo(SMSFragment())
 
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(
@@ -93,15 +104,6 @@ class MainFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-
-    private fun navigateTo(fragment: BottomSheetDialogFragment) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .setCustomAnimations(
-                R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out
-            )
-            .replace(R.id.main_container, fragment).addToBackStack(null).commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
