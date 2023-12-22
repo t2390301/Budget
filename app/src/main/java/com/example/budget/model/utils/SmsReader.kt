@@ -52,9 +52,9 @@ class SmsReader(private val applicationContext: Context) {
                  val body: String =
                      cursor.getString(cursor.getColumnIndexOrThrow(Telephony.Sms.BODY))
 
-                 Log.i(TAG, "readSMS:  $number : $body")
+                 //Log.i(TAG, "readSMS:  $number : $body")
 
-                 smsList.add(SmsData(smsDate.toLong(), number, body, false))
+                 smsList.add(SmsData(smsDate.toLong(), number, body, false, null))
                  cursor.moveToNext()
              }
              cursor.close()

@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         val sharedPref =  getPreferences(Context.MODE_PRIVATE)
 
 
-        var lastSMSDate: Long = 0// sharedPref.getLong(LAST_SAVED_SMS_Date, 0)//0
+        var lastSMSDate: Long = 0 //  sharedPref.getLong(LAST_SAVED_SMS_Date, 0)//0 //
 
 
         val viewModel : MainActivityViewModel by viewModels()
@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
             putLong(LAST_SAVED_SMS_Date, Date().time)
             apply()
         }
-        Log.i("TAGMain", "onCreate: $lastSMSDate" )
 
 
         viewModel.saveSMSListToBudgetEntries()

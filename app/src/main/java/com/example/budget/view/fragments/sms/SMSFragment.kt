@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.budget.databinding.FragmentSmsBinding
-import com.example.budget.model.database.entity.SmsDataEntity
+import com.example.budget.model.domain.SmsData
 import com.example.budget.viewmodel.SMSFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import timber.log.Timber
@@ -36,7 +36,7 @@ class SMSFragment : BottomSheetDialogFragment() {
 
         val viewModel: SMSFragmentViewModel by viewModels()
 
-        var smsList: List<SmsDataEntity>?  = viewModel.SMSListLiveData.value
+        var smsList: List<SmsData>?  = viewModel.SMSListLiveData.value
 
         val smsAdapter = SMSFragmentAdapter(smsList)
 

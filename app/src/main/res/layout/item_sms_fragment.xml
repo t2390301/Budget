@@ -23,9 +23,11 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:padding="4dp"
-                app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
-                app:srcCompat="@drawable/ic_tinkoff_72"
-                app:strokeColor="?attr/colorSecondary" />
+                app:shapeAppearance="?attr/shapeAppearanceMediumComponent"/>
+            <!-- app:srcCompat="@drawable/ic_tinkoff_72"-->
+              <!--  app:strokeColor="?attr/colorSecondary" -->
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,14 +35,14 @@
                 android:layout_marginStart="@dimen/margin_12_dp"
                 android:orientation="vertical">
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/sms_sender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_marginEnd="@dimen/margin_12_dp"
                     android:gravity="end"
-                    android:text="@string/date_and_time_example" />
+                    android:text="@string/date_and_time_example" />-->
 
                 <TextView
                     android:id="@+id/sms_date_and_time"
