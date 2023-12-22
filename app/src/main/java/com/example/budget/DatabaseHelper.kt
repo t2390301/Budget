@@ -9,6 +9,7 @@ import com.example.budget.model.database.AppDatabase
 import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_1_2
 import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_2_3
 import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_3_4
+import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_4_5
 import com.example.budget.model.database.dao.BankAccountDao
 import com.example.budget.model.database.dao.BankDao
 import com.example.budget.model.database.dao.BudgetEntryDao
@@ -32,6 +33,7 @@ class DatabaseHelper {
                 .addMigrations(MIGRATION_1_2)
                 .addMigrations(MIGRATION_2_3)
                 .addMigrations(MIGRATION_3_4)
+                .addMigrations(MIGRATION_4_5)
                 .build()
 
 
@@ -40,10 +42,10 @@ class DatabaseHelper {
            /* appDataBase!!.bankAccountDao().deleteAll()      //только для тестов
             appDataBase!!.sellerDao().deleteAll()
             appDataBase!!.budgetEntryEntityDao().deleteAll()*/
-
-            if (appDataBase!!.bankDao().getAll().isEmpty()) {
+            val banks = appDataBase!!.bankDao().getAll()
+            if (banks.isEmpty() or (banks.filter{  it.smsAddress.equals("AlfaBank") }.first().bankImage == null )) {
                 for (bank in BANKSENTITY) {
-                    appDataBase!!.bankDao().insert(bank)
+                    appDataBase!!.bankDao().update(bank)
                 }
                 Log.i(DB_NAME, "initDatabase: In BANKS")
             }

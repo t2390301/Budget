@@ -1,5 +1,6 @@
 package com.example.budget.model.database.entity
 
+import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -17,7 +18,9 @@ data class BankEntity(
     var cardPanRegex: String,
     var sellerNameRegex: String,
     var operationAmountRegex: String,
-    var balanceRegex: String
+    var balanceRegex: String,
+    @DrawableRes
+    val bankImage : Int?
 
    // val bankAccountId: Long
 )

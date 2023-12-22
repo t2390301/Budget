@@ -5,16 +5,22 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.example.budget.R
+import androidx.fragment.app.viewModels
 import com.example.budget.databinding.FragmentSmsBinding
-import com.example.budget.view.fragments.main.MainFragment
+import com.example.budget.model.domain.SmsData
+import com.example.budget.viewmodel.SMSFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import timber.log.Timber
 
 class SMSFragment : BottomSheetDialogFragment() {
+    companion object{
+        const val TAG = "SMSFragment"
+    }
+
     private var _binding: FragmentSmsBinding? = null
 
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,8 +30,22 @@ class SMSFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val viewModel: SMSFragmentViewModel by viewModels()
+
+        var smsList: List<SmsData>?  = viewModel.SMSListLiveData.value
+
+        val smsAdapter = SMSFragmentAdapter(smsList)
+
+        binding.smsRecyclerView.adapter = smsAdapter
+
+
+        viewModel.SMSListLiveData.observe(viewLifecycleOwner){
+            smsAdapter.setList(it)
+        }
         Timber.i("onViewCreated SMSFragment")
     }
 

@@ -66,16 +66,14 @@ class Converters (val dbRepository: DBRepository) {
         Log.i(TAG, "sellerConverter: seller.bg = ${seller.budgetGroupName}")
         val groupId = dbRepository.getBudgetGroupIdByBudgetGroupName(seller.budgetGroupName)
         Log.i(TAG, "sellerConverter: $groupId")
-        if (groupId >=0) {
-            val seller = SellerEntity(
+        return if (groupId >=0) {
+            SellerEntity(
                 0L,
                 seller.name,
                 groupId
             )
-            Log.i(TAG, "sellerConverter: $seller")
-            return seller
         } else{
-            return null
+            null
         }
     }
 
@@ -114,7 +112,7 @@ class Converters (val dbRepository: DBRepository) {
         BankEntity(
             bank.id,
             bank.name,
-            bank.smsAddress, "", "", "", "","",""
+            bank.smsAddress, "", "", "", "","","", null
         )
 
     fun smsDataConverter(smsData: SmsData): SmsDataEntity =
@@ -124,4 +122,17 @@ class Converters (val dbRepository: DBRepository) {
             smsData.body,
             smsData.isCashed
         )
+
+    suspend fun smsDataEntityConverter(smsDataEntity: SmsDataEntity): SmsData {
+        val banks = dbRepository.getBankEntities()
+        return SmsData(
+            smsDataEntity.date,
+            smsDataEntity.sender,
+            smsDataEntity.body,
+            smsDataEntity.isCashed,
+            bankImage = banks.filter { it.smsAddress.equals(smsDataEntity.sender) }.first().bankImage
+
+            )
+
+    }
 }

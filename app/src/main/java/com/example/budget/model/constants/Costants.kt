@@ -1,10 +1,13 @@
 package com.example.budget.model.constants
 
+import com.example.budget.R
 import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetGroupEntity
 
 
 const val LAST_SAVED_SMS_Date = "last_saved_sms_date"
+
+val DEFAULT_BANK_IMAGE = R.drawable.ic_yandexdisk_64
 
 val BANKSENTITY = listOf<BankEntity>(
     BankEntity(
@@ -14,7 +17,8 @@ val BANKSENTITY = listOf<BankEntity>(
         "(^\\*\\*[\\d]{4})",
         "\\/[A-Za-z\\-\\s]+\\/([^:].+)[\\s][\\d]{2}[\\.]",
         "Summa: ([\\d\\s\\,]+) RUR",
-        "Ostatok: ([\\d\\s\\,]+) RUR"
+        "Ostatok: ([\\d\\s\\,]+) RUR",
+        R.drawable.ic_alfabank_72
     ),
     BankEntity(
         2L, "Тинькофф", "Tinkoff",
@@ -23,7 +27,8 @@ val BANKSENTITY = listOf<BankEntity>(
         "карта (\\*\\d{4}).",
         "RUB. (.+?). Доступно",
         "\\d\\. ([\\d\\.]+) RUB.", //не работает
-        "Доступно ([\\d\\.]+) RUB"
+        "Доступно ([\\d\\.]+) RUB",
+        R.drawable.ic_tinkoff_72
     ),
     BankEntity( 3L, "UniCredit", "UniCredit",
         "Pokupka",
@@ -31,7 +36,8 @@ val BANKSENTITY = listOf<BankEntity>(
         "Karta (\\d{4})",
         "RUB (.+)$",
         "[^:] ([\\d\\.\\s]+) RUB",
-        "Dostupno: ([\\d\\.\\s]+) RUB"
+        "Dostupno: ([\\d\\.\\s]+) RUB",
+        R.drawable.ic_unicredit_72
         ),
     BankEntity(
         4L, "Test Bank", "+71111111111",
@@ -40,7 +46,8 @@ val BANKSENTITY = listOf<BankEntity>(
         "карта (\\*\\d{4}).",
         "RUB. (.+?). Доступно",
         "\\d\\. ([\\d\\.]+) RUB.",
-        "Доступно ([\\d\\.]+) RUB"
+        "Доступно ([\\d\\.]+) RUB",
+        R.drawable.ic_sberbank_72
     ),
     BankEntity(
         5L, "МТС Банк",
@@ -49,8 +56,9 @@ val BANKSENTITY = listOf<BankEntity>(
         "Postuplenie",       //Не уверен
         "([\\*][\\d]{4})\\s\\Z",
         "RUB (.+)\\sOstatok",
-        "([\\d\\s\\,]+) RUB[^;]",  //убрать пробулы перед toDouble
-        "Ostatok: ([\\d\\s\\,]+) RUB"        //убрать пробелы перед toDouble
+        "([\\d\\s\\,]+) RUB[^;]",  //убрать пробелы перед toDouble
+        "Ostatok: ([\\d\\s\\,]+) RUB",        //убрать пробелы перед toDouble
+        R.drawable.ic_mtsbank_72
     )
 
 

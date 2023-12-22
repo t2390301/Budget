@@ -37,7 +37,7 @@ import com.example.budget.model.database.entity.SmsDataEntity
         PlanningNoteEntity::class
     ],
 
-    version = 4
+    version = 5
 
 )
 @TypeConverters(
@@ -73,6 +73,16 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE seller_table CONSTRAINT budgetGroupId ON DELETE SET_DEFAULT ")
             }
+        }
+
+        val MIGRATION_4_5 = object : Migration(4,5){
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    sql = "ALTER TABLE bank_table " +
+                            "ADD COLUMN bankImage INT NULL;"
+                )
+            }
+
         }
 
     }

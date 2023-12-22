@@ -6,5 +6,6 @@ data class SmsData(
     val sender: String,
     val body: String,
     var isCashed: Boolean,
+    val bankImage: Int?
 
 )
