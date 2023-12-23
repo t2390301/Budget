@@ -1,7 +1,7 @@
 package com.example.budget.repository
 
 import android.util.Log
-import com.example.budget.DatabaseHelper
+import com.example.budget.model.utils.DatabaseHelper
 import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
@@ -78,7 +78,7 @@ class DBRepository(db: DatabaseHelper) {
     }
 
     suspend fun getBudgetGroupIdByBudgetGroupName(budgetGroup: BudgetGroupEnum): Long {
-        var id:Long = -1
+        var id: Long = -1
         Log.i(TAG, "getBudgetGroupIdByBudgetGroupName: ${budgetGroup.name}")
 
         val bdlist = budgetGroupDao.getBudgetGroupNameByGroupName(budgetGroup)

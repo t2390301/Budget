@@ -1,4 +1,4 @@
-package com.example.budget
+package com.example.budget.model.utils
 
 import android.app.Application
 import android.util.Log
@@ -6,9 +6,6 @@ import androidx.room.Room
 import com.example.budget.model.constants.BANKSENTITY
 import com.example.budget.model.constants.BUDGETGROUPS
 import com.example.budget.model.database.AppDatabase
-import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_1_2
-import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_2_3
-import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_3_4
 import com.example.budget.model.database.dao.BankAccountDao
 import com.example.budget.model.database.dao.BankDao
 import com.example.budget.model.database.dao.BudgetEntryDao
@@ -29,9 +26,9 @@ class DatabaseHelper {
 
         appDataBase =
             Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
-                .addMigrations(MIGRATION_1_2)
+            /*    .addMigrations(MIGRATION_1_2)
                 .addMigrations(MIGRATION_2_3)
-                .addMigrations(MIGRATION_3_4)
+                .addMigrations(MIGRATION_3_4)*/
                 .build()
 
 

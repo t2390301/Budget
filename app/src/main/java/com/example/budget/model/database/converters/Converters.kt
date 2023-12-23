@@ -26,6 +26,7 @@ class Converters (val dbRepository: DBRepository) {
                 id = bankAccount.id,
                 bankAccount.cardPan,
                 bankId,
+                bankAccount.bankSMSAddress,
                 bankAccount.cardType,
                 bankAccount.cardLimit,
                 bankAccount.balance
@@ -96,7 +97,7 @@ class Converters (val dbRepository: DBRepository) {
             return null
         }
     }
-
+/*
     fun bankEntityConverter(bankEntity: BankEntity): Bank =
         Bank(
             bankEntity.id,
@@ -115,7 +116,7 @@ class Converters (val dbRepository: DBRepository) {
             bank.id,
             bank.name,
             bank.smsAddress, "", "", "", "","",""
-        )
+        )*/
 
     fun smsDataConverter(smsData: SmsData): SmsDataEntity =
         SmsDataEntity(

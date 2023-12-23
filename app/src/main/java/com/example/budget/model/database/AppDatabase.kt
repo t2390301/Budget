@@ -48,7 +48,7 @@ import com.example.budget.model.database.entity.SmsDataEntity
 )
 abstract class AppDatabase : RoomDatabase() {
     companion object{
-        val MIGRATION_1_2 = object : Migration(1,2){
+       /* val MIGRATION_1_2 = object : Migration(1,2){
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE bank_table " +
                         "ADD COLUMN cardPanRegex VARCHAR(256) NOT NULL, " +
@@ -73,7 +73,7 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE seller_table CONSTRAINT budgetGroupId ON DELETE SET_DEFAULT ")
             }
-        }
+        }*/
 
     }
     abstract fun smsDataDao(): SmsDataDao

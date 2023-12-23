@@ -1,7 +1,9 @@
 package com.example.budget
 
 import android.app.Application
-import timber.log.Timber
+import com.example.budget.model.utils.AppLogger
+import com.example.budget.model.utils.DatabaseHelper
+import org.koin.core.context.startKoin
 
 
 class App : Application() {
@@ -13,15 +15,15 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Timber.plant(Timber.DebugTree())
+        AppLogger.init()
         app = applicationContext as App
         initDatabase()
+        startKoin {
+
+        }
     }
 
     fun getDatabaseHelper(): DatabaseHelper {
-
-    //    initDatabase()
-
         return databaseHelper
     }
 
