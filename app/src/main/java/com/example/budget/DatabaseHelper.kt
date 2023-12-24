@@ -1,7 +1,6 @@
 package com.example.budget
 
 import android.app.Application
-import android.util.Log
 import androidx.room.Room
 import com.example.budget.model.constants.BANKSENTITY
 import com.example.budget.model.constants.BUDGETGROUPS
@@ -24,6 +23,7 @@ private const val DB_NAME = "AppDatabase.db"
 
 class DatabaseHelper {
 
+    private val TAG = "DatabaseHelper"
     private var appDataBase: AppDatabase? = null
 
     fun initDatabase(context: Application) {
@@ -39,15 +39,22 @@ class DatabaseHelper {
 
         CoroutineScope(Dispatchers.IO).launch {
 
-           /* appDataBase!!.bankAccountDao().deleteAll()      //только для тестов
+          /*  appDataBase!!.bankAccountDao().deleteAll()      //только для тестов
             appDataBase!!.sellerDao().deleteAll()
-            appDataBase!!.budgetEntryEntityDao().deleteAll()*/
+            appDataBase!!.budgetEntryEntityDao().deleteAll()
+            appDataBase!!.smsDataDao().deleteNull()*/
+
             val banks = appDataBase!!.bankDao().getAll()
-            if (banks.isEmpty() or (banks.filter{  it.smsAddress.equals("AlfaBank") }.first().bankImage == null )) {
+
+            if (banks.isEmpty() ) {
+                for (bank in BANKSENTITY) {
+                    appDataBase!!.bankDao().insert(bank)
+                }
+            }
+            if (banks.filter{  it.smsAddress.equals("AlfaBank") }.first().bankImage == null ){
                 for (bank in BANKSENTITY) {
                     appDataBase!!.bankDao().update(bank)
                 }
-                Log.i(DB_NAME, "initDatabase: In BANKS")
             }
             if (appDataBase!!.budgetEntryEntityDao().getAll().isEmpty()) {
                 for (budgetGroupEntity in BUDGETGROUPS) {
@@ -70,8 +77,6 @@ class DatabaseHelper {
     fun getSellerDao(): SellerDao = appDataBase!!.sellerDao()
     fun getPlanningNoteDao() = appDataBase!!.getPlanningNoteDao()
     fun getCombainBudgetEntriesDao()=appDataBase!!.combainTableDao()
-
-
 
 
 }

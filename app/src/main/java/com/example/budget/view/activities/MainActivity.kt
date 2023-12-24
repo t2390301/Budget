@@ -1,6 +1,8 @@
 package com.example.budget.view.activities
 
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +20,7 @@ import com.example.budget.view.fragments.sms.SMSFragment
 import com.example.budget.viewmodel.AppState
 import com.example.budget.viewmodel.MainActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.util.Date
+import android.content.BroadcastReceiver as BroadcastReceiver
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +31,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: FragmentMainBinding
     lateinit var BudgetEntries: MutableLiveData<List<BudgetEntry>>
+    private var broadcastReceiver: BroadcastReceiver? = null
+
+    val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,35 +44,21 @@ class MainActivity : AppCompatActivity() {
         if (checkSelfPermission("android.permission.READ_SMS") != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf("android.permission.READ_SMS"), 2)
         }
-
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
-
-
-        var lastSMSDate: Long = 0 //  sharedPref.getLong(LAST_SAVED_SMS_Date, 0)//0 //
-
-
-        val viewModel: MainActivityViewModel by viewModels()
-
-
-        viewModel.updateSMSList(lastSMSDate = lastSMSDate)
-
-
-
-        with(sharedPref.edit()) {
-            putLong(LAST_SAVED_SMS_Date, Date().time)
-            apply()
+        if (checkSelfPermission("android.permission.RECEIVE_SMS") != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf("android.permission.RECEIVE_SMS"), 2)
         }
 
+        registerReceiver()
 
+        viewModel.updateSMSList()
 
-        viewModel.saveSMSListToBudgetEntries()
 
         viewModel.budgetEntriesAppState.observe(this) { budgets ->
             if (budgets is AppState.Success) {
-                Log.i(TAG, "onCreate: Success")
+                //Log.i(TAG, "onCreate: Success")
                 budgets.data?.let { list ->
                     for (budget in list) {
-                        Log.i(
+                       Log.i(
                             TAG,
                             "onCreate: ${budget.date} ; ${budget.cardSPan} ; ${budget.sellerName} ; ${budget.operationAmount}"
                         )
@@ -84,6 +75,25 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if(broadcastReceiver != null){
+            unregisterReceiver(broadcastReceiver)
+        }
+    }
+
+    private fun registerReceiver() {
+        broadcastReceiver = object : BroadcastReceiver(){
+            override fun onReceive(context: Context, intent: Intent) {
+                viewModel.updateSMSList()
+
+            }
+
+        }
+
+        registerReceiver (broadcastReceiver, IntentFilter("com.example.budget"))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

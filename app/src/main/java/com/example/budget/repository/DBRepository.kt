@@ -130,6 +130,19 @@ class DBRepository(db: DatabaseHelper) {
     suspend fun getSMSList():List<SmsDataEntity> =
         smsDao.getAll()
 
+    suspend fun getSMSCount(): Long =
+        smsDao.getSMSCount()
+
+    suspend fun insertSMSEntity(smsDataEntity: SmsDataEntity) =
+        smsDao.insert(smsDataEntity)
+
+
+    suspend fun getLastUnSafeSMSDate(): Long =
+        smsDao.getLastUnsavedSMSDate()
+
+    suspend fun updateSMS(sms: SmsDataEntity) {
+        smsDao.update(sms)
+    }
 
 
 }

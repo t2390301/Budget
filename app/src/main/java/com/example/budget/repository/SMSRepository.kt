@@ -14,8 +14,9 @@ class SMSRepository(appContext: Context) {
     suspend fun readAllSMS(): List<SmsData?>? =
         smsReader.readAllSMS()
 
-    suspend fun readSMSAfterData(date: Long): List<SmsData>? =
+    suspend fun readSMSafterDate(date: Long): List<SmsData>? =
         smsReader.readSMSAfterDate(date)
+
 
     suspend fun readSMSFromSender(sender: String): List<SmsData>? =
         smsReader.readSMSFromSender(sender)

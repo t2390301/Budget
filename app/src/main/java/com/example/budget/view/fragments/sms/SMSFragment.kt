@@ -1,19 +1,27 @@
 package com.example.budget.view.fragments.sms
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.example.budget.broadcastreceiver.SMS_BODY
+import com.example.budget.broadcastreceiver.SMS_DATE
+import com.example.budget.broadcastreceiver.SMS_SENDER
 import com.example.budget.databinding.FragmentSmsBinding
+import com.example.budget.model.database.entity.SmsDataEntity
 import com.example.budget.model.domain.SmsData
 import com.example.budget.viewmodel.SMSFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import timber.log.Timber
 
 class SMSFragment : BottomSheetDialogFragment() {
-    companion object{
+    companion object {
         const val TAG = "SMSFragment"
     }
 
@@ -21,6 +29,9 @@ class SMSFragment : BottomSheetDialogFragment() {
 
     private val binding get() = _binding!!
 
+    val viewModel: SMSFragmentViewModel by viewModels()
+
+    var broadcastReceiver:BroadcastReceiver? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,19 +45,41 @@ class SMSFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel: SMSFragmentViewModel by viewModels()
 
-        var smsList: List<SmsData>?  = viewModel.SMSListLiveData.value
+        var smsList: List<SmsData>? = viewModel._smsDataList.value
 
         val smsAdapter = SMSFragmentAdapter(smsList)
 
         binding.smsRecyclerView.adapter = smsAdapter
 
+        registerReceiver()
 
-        viewModel.SMSListLiveData.observe(viewLifecycleOwner){
+        viewModel._smsDataList.observe(viewLifecycleOwner) {
             smsAdapter.setList(it)
         }
         Timber.i("onViewCreated SMSFragment")
+    }
+
+    private fun registerReceiver() {
+        broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                intent?.let {
+                    val date = it.getLongExtra(SMS_DATE, 0)
+                    val body = it.getStringExtra(SMS_BODY).toString()
+                    val sender = it.getStringExtra(SMS_SENDER).toString()
+                    viewModel.updateSMS(SmsDataEntity(date, sender, body, false))
+                }
+            }
+
+        }
+        context?.registerReceiver(broadcastReceiver, IntentFilter("com.example.budget"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (broadcastReceiver!=null){
+            activity?.unregisterReceiver(broadcastReceiver)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

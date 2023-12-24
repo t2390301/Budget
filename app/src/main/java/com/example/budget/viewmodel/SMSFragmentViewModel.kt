@@ -20,18 +20,49 @@ class SMSFragmentViewModel: ViewModel() {
     val dbRepository = DBRepository(application.getDatabaseHelper())
     val converter = Converters(dbRepository)
 
-    var SMSListLiveData = getAllSMS()
+  //  var SMSLiveData = getAllSMS()
 
-    fun getAllSMS(): LiveData<List<SmsData>>{
-        var smsList :List<SmsDataEntity> = listOf()
-        val liveData = MutableLiveData<List<SmsData>>()
+    private fun getAllSMS(): LiveData<List<SmsDataEntity>> {
+        val liveDataSMS = MutableLiveData<List<SmsDataEntity>>()
         viewModelScope.launch {
-            smsList = dbRepository.getSMSList()
+           val smsList = dbRepository.getSMSList()
             if(!smsList.isEmpty()){
-                liveData.value = smsList.map { converter.smsDataEntityConverter(it)}
+                liveDataSMS.value = smsList
+            }
+        }
+        return liveDataSMS
+    }
+
+    var _smsDataList:MutableLiveData<MutableList<SmsData>>  = getAllSMSData()
+
+    fun getAllSMSData(): MutableLiveData<MutableList<SmsData>>{
+        var smsList :MutableList<SmsDataEntity>
+        val liveData = MutableLiveData<MutableList<SmsData>>()
+        viewModelScope.launch {
+            val banks = dbRepository.getBankEntities()
+            smsList = dbRepository.getSMSList().toMutableList()
+            if(!smsList.isEmpty()){
+
+                liveData.value = smsList.map { converter.smsDataEntityConverter(it, banks)}.toMutableList()
             }
         }
         return liveData
     }
+
+    fun updateSMS(sms: SmsDataEntity) {                           //updateSMS: from broadcast receiver
+        viewModelScope.launch {
+            val banks = dbRepository.getBankEntities()
+            val bankSenderList = banks.map { it.smsAddress }
+            if (sms.sender in bankSenderList) {
+
+                val smsList = _smsDataList.value
+                smsList?.let {
+                    it.add(converter.smsDataEntityConverter(sms, banks))
+                    _smsDataList.value = it
+                }
+            }
+        }
+    }
+
 
 }

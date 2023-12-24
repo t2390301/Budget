@@ -25,4 +25,12 @@ interface SmsDataDao {
 
     @Delete
     suspend fun delete(entity: SmsDataEntity)
+
+    @Query("SELECT COUNT(*) FROM sms_data_table")
+    suspend fun getSMSCount(): Long
+
+    @Query("SELECT MAX(date) FROM sms_data_table ")
+    suspend fun getLastUnsavedSMSDate(): Long
+    @Query("DELETE FROM sms_data_table WHERE date = 1703421606276")
+    fun deleteNull()
 }
