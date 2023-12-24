@@ -1,6 +1,7 @@
 package com.example.budget.viewmodel
 
 
+import android.annotation.SuppressLint
 import android.util.Log
 
 import androidx.lifecycle.MutableLiveData
@@ -24,6 +25,7 @@ import kotlinx.coroutines.launch
 import java.util.Date
 
 
+@SuppressLint("LogNotTimber")
 class MainActivityViewModel : ViewModel() {
 
     val application = app

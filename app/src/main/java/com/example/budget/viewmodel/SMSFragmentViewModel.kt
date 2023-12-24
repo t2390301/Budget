@@ -11,24 +11,22 @@ import com.example.budget.model.domain.SmsData
 import com.example.budget.repository.DBRepository
 import kotlinx.coroutines.launch
 
-class SMSFragmentViewModel: ViewModel() {
-    companion object{
-        const val TAG = "SMSFragmentViewModel"
-    }
+class SMSFragmentViewModel : ViewModel() {
 
-    val application = App.app
-    val dbRepository = DBRepository(application.getDatabaseHelper())
-    val converter = Converters(dbRepository)
+    private val application = App.app
+    private val dbRepository = DBRepository(application.getDatabaseHelper())
+    private val converter = Converters(dbRepository)
 
     var SMSListLiveData = getAllSMS()
 
-    fun getAllSMS(): LiveData<List<SmsData>>{
-        var smsList :List<SmsDataEntity> = listOf()
+    private fun getAllSMS(): LiveData<List<SmsData>> {
+        var smsList: List<SmsDataEntity> = listOf()
         val liveData = MutableLiveData<List<SmsData>>()
         viewModelScope.launch {
             smsList = dbRepository.getSMSList()
-            if(!smsList.isEmpty()){
-                liveData.value = smsList.map { converter.smsDataEntityConverter(it)}
+            if (smsList.isNotEmpty()) {
+                smsList.map { converter.smsDataEntityConverter(it) }
+                    .also { liveData.value = it }
             }
         }
         return liveData

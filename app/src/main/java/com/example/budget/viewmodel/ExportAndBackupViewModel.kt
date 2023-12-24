@@ -17,19 +17,21 @@ class ExportAndBackupViewModel: ViewModel() {
     companion object{
         const val TAG = "ExportAndBackupViewModel"
     }
-    val application = App.app
-    val excelRepository = ExcelRepository(application)
-    val dbRepository = DBRepository(application.getDatabaseHelper())
+    private val application = App.app
+    private val excelRepository = ExcelRepository(application)
+    private val dbRepository = DBRepository(application.getDatabaseHelper())
 
     var _budgetEntitiesListForExcel =
         MutableLiveData<AppState<MutableList<CombainBudgetEntry>>>()
 
-    fun getBudgetEntitiesForExcel(): LiveData<AppState<MutableList<CombainBudgetEntry>>> =
-        _budgetEntitiesListForExcel
+    fun getBudgetEntitiesForExcel(): LiveData<AppState<MutableList<CombainBudgetEntry>>> {
+        return _budgetEntitiesListForExcel
+    }
+
     fun updateBudgetEntitiesForExcel(){
         viewModelScope.launch {
             _budgetEntitiesListForExcel.value = AppState.Loading(true)
-            val combainList = dbRepository.getCombainBudgetEntitis()
+            val combainList = dbRepository.getCombainBudgetEntities()
             if (combainList.isEmpty()) {
                 Log.i(TAG, "getBudgetEntitiesForExcel: CombainListIsEmpty")
             } else{

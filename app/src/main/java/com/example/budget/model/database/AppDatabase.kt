@@ -12,6 +12,7 @@ import com.example.budget.model.database.converters.StringListConverter
 import com.example.budget.model.database.dao.BankAccountDao
 import com.example.budget.model.database.dao.BankDao
 import com.example.budget.model.database.dao.BudgetEntryDao
+import com.example.budget.model.database.dao.BudgetEntryEntitiesTableDao
 import com.example.budget.model.database.dao.BudgetGroupDao
 import com.example.budget.model.database.dao.CombainTableDao
 import com.example.budget.model.database.dao.PlanningNoteDao
@@ -94,6 +95,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun sellerDao(): SellerDao
     abstract fun bankAccountDao(): BankAccountDao
     abstract fun combainTableDao(): CombainTableDao
+    abstract fun budgetEntryTableDao(): BudgetEntryEntitiesTableDao
 
     abstract fun getPlanningNoteDao(): PlanningNoteDao
 

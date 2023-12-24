@@ -14,11 +14,10 @@ import timber.log.Timber
 
 class SMSFragment : BottomSheetDialogFragment() {
     companion object{
-        const val TAG = "SMSFragment"
+        const val TAG = "!!! SMSFragment"
     }
 
     private var _binding: FragmentSmsBinding? = null
-
     private val binding get() = _binding!!
 
 
@@ -36,15 +35,17 @@ class SMSFragment : BottomSheetDialogFragment() {
 
         val viewModel: SMSFragmentViewModel by viewModels()
 
-        var smsList: List<SmsData>?  = viewModel.SMSListLiveData.value
+        val smsList: List<SmsData>?  = viewModel.SMSListLiveData.value
+        Timber.tag(TAG).i("smsList = $smsList")
 
         val smsAdapter = SMSFragmentAdapter(smsList)
+        Timber.tag(TAG).i("smsAdapter = $smsAdapter")
 
         binding.smsRecyclerView.adapter = smsAdapter
 
-
         viewModel.SMSListLiveData.observe(viewLifecycleOwner){
             smsAdapter.setList(it)
+            Timber.tag(TAG).i("viewModel.SMSListLiveData   smsAdapter = $smsAdapter")
         }
         Timber.i("onViewCreated SMSFragment")
     }
@@ -59,5 +60,8 @@ class SMSFragment : BottomSheetDialogFragment() {
         return super.onOptionsItemSelected(item)
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

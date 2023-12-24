@@ -36,8 +36,8 @@ class Converters (val dbRepository: DBRepository) {
     suspend fun bankAccountEntityConverter(bankAccountEntity: BankAccountEntity): BankAccount? {
         val smsAddress = dbRepository.getBankSMSAdress(bankAccountEntity.bankId)
         Log.i(TAG, "bankAccountEntityConverter: ${bankAccountEntity.bankId} $smsAddress ")
-        if (smsAddress.length >0) {
-            return BankAccount(
+        return if (smsAddress.isNotEmpty()) {
+            BankAccount(
                 bankAccountEntity.id,
                 bankAccountEntity.cardPan,
                 smsAddress,
@@ -46,19 +46,19 @@ class Converters (val dbRepository: DBRepository) {
                 bankAccountEntity.balance
             )
         } else{
-            return null
+            null
         }
     }
 
     suspend fun sellerEntityConverter(sellerEntity: SellerEntity): Seller? {
         val budgetGroup = dbRepository.getBudgetGroupNameById(sellerEntity.id)
-        if(budgetGroup in BudgetGroupEnum.entries) {
-            return Seller(
+        return if(budgetGroup in BudgetGroupEnum.entries) {
+            Seller(
                 sellerEntity.name,
                 budgetGroup
             )
         } else{
-            return null
+            null
         }
     }
 
@@ -74,24 +74,6 @@ class Converters (val dbRepository: DBRepository) {
             )
         } else{
             null
-        }
-    }
-
-    suspend fun budgetEntryConverter(budgetEntry: BudgetEntry): BudgetEntryEntity? {
-        val bankAccountId = dbRepository.getBankAccountIdBySMSAddressAndCardSpan(budgetEntry.bankSMSAdress, budgetEntry.cardSPan)
-        val sellerId = dbRepository.getSellerIdBySellerName(budgetEntry.sellerName)
-        if (bankAccountId >= 0) {
-            return BudgetEntryEntity(
-                id = 0L,
-                date = budgetEntry.date,
-                operationType = budgetEntry.operationType,
-                bankAccountId = bankAccountId,
-                note = budgetEntry.note,
-                operationAmount = budgetEntry.operationAmount,
-                sellerId = sellerId
-            )
-        } else{
-            return null
         }
     }
 
@@ -131,8 +113,24 @@ class Converters (val dbRepository: DBRepository) {
             smsDataEntity.body,
             smsDataEntity.isCashed,
             bankImage = banks.filter { it.smsAddress.equals(smsDataEntity.sender) }.first().bankImage
-
             )
+    }
 
+    suspend fun budgetEntryConverter(budgetEntry: BudgetEntry): BudgetEntryEntity? {
+        val bankAccountId = dbRepository.getBankAccountIdBySMSAddressAndCardSpan(budgetEntry.bankSMSAdress, budgetEntry.cardSPan)
+        val sellerId = dbRepository.getSellerIdBySellerName(budgetEntry.sellerName)
+        return if (bankAccountId >= 0) {
+            BudgetEntryEntity(
+                id = 0L,
+                date = budgetEntry.date,
+                operationType = budgetEntry.operationType,
+                bankAccountId = bankAccountId,
+                note = budgetEntry.note,
+                operationAmount = budgetEntry.operationAmount,
+                sellerId = sellerId
+            )
+        } else{
+            null
+        }
     }
 }
