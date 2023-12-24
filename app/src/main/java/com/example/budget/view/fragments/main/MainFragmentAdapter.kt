@@ -12,6 +12,7 @@ import com.example.budget.R
 import com.example.budget.databinding.ItemMainFragmentBinding
 import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.model.domain.OperationType
+import timber.log.Timber
 import java.util.Locale
 
 class MainFragmentAdapter(
@@ -57,7 +58,9 @@ class MainFragmentAdapter(
             holder.textExpense.text = item.budgetGroupName
             holder.textDateAndTime.text = formatToRusShortDate.format(item.date)
             holder.textAmount.text = item.operationAmount.formatToText(item.operationType)
-            holder.imgBank.setImageResource(item.bankImageId)
+            holder.imgBank.setBackgroundResource(item.bankImageId)
+//            holder.imgBank.setImageResource(item.bankImageId)
+            holder.imgBank.setBackgroundColor(com.google.android.material.R.color.m3_ref_palette_white)
         }
    }
 

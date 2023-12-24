@@ -54,8 +54,7 @@
             <TextView
                 android:id="@+id/income_value"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/md_theme_light_surfaceTint" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
 
@@ -101,8 +100,7 @@
             <TextView
                 android:id="@+id/balance_value"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/md_theme_light_surfaceTint" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
 
@@ -110,7 +108,6 @@
             android:id="@+id/bottom_panel"
             android:layout_width="match_parent"
             android:layout_height="76dp"
-            android:background="@color/md_theme_light_surfaceTint"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -119,7 +116,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="14dp"
-            android:backgroundTint="@color/md_theme_dark_surfaceTint"
             android:contentDescription="@string/add_expense_or_income"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

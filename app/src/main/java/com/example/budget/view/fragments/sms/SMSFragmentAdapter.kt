@@ -13,6 +13,7 @@ import com.example.budget.databinding.ItemMainFragmentBinding
 import com.example.budget.databinding.ItemSmsFragmentBinding
 import com.example.budget.model.constants.DEFAULT_BANK_IMAGE
 import com.example.budget.model.domain.SmsData
+import timber.log.Timber
 import java.util.Locale
 
 class SMSFragmentAdapter(
@@ -56,6 +57,7 @@ class SMSFragmentAdapter(
         holder.smsBody.text = smslist?.get(position)?.body
         holder.smsDate.text = formatToRusShortDate.format(smslist?.get(position)?.date ?: 0)
         val image = smslist?.get(position)?.bankImage
+        Timber.tag("!!! SMSFragmentAdapter").i("image = %s", image)
         if (image != null) {
             holder.bankImage.setImageResource(image)
         } else {
