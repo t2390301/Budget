@@ -7,28 +7,23 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.example.budget.App
 import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
 import com.example.budget.view.activities.MainActivity
-import com.example.budget.view.fragments.planning.PlanningFragment
 import com.example.budget.viewmodel.MainFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import timber.log.Timber
+import org.koin.android.ext.android.inject
 
 
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<MainFragmentViewModel>()
+
+    //private val viewModel by viewModels<MainFragmentViewModel>()
+    val viewModel: MainFragmentViewModel by inject()
     private var adapter: MainFragmentAdapter? = null
 
     override fun onCreateView(
@@ -41,11 +36,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.init(
-            (requireContext().applicationContext as App)
-                .getDatabaseHelper().getBudgetEntryEntityDao()
-        )
 
         val listAdapter = MainFragmentAdapter(viewModel.budgetEntry)
         this.adapter = listAdapter

@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.budget.R
 import com.example.budget.databinding.ItemPlanningNoteBinding
 import com.example.budget.model.constants.BudgetGroupEnum
-import com.example.budget.model.database.entity.PlanningNoteEntity
+import com.example.budget.model.domain.PlanningNote
 
 class PlanningItemsAdapter(
-    private val values: List<PlanningNoteEntity>
+    private val values: List<PlanningNote>
 ) : RecyclerView.Adapter<PlanningItemsAdapter.ViewHolder>() {
 
     var decimalFormat = DecimalFormat("#,###,###")
@@ -35,7 +35,7 @@ class PlanningItemsAdapter(
             .capitalizeFirstCharacter()
         holder.value.text = item.value.formatToText()
 
-        val iconId = when(item.budgetGroup) {
+        val iconId = when (item.budgetGroup) {
             BudgetGroupEnum.ПРОДУКТЫ -> R.drawable.ic_fastfood
             else -> R.drawable.ic_bills_list
             /*

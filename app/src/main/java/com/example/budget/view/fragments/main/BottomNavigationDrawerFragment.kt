@@ -2,16 +2,13 @@ package com.example.budget.view.fragments.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.budget.R
 import com.example.budget.databinding.BottomNavigationLayoutBinding
 import com.example.budget.view.fragments.accounts.AccountsFragment
 import com.example.budget.view.fragments.expenseItem.ExpenseItemsFragment
 import com.example.budget.view.fragments.exportandbackup.ExportAndBackupFragment
-import com.example.budget.view.fragments.sms.SMSFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import timber.log.Timber
 
@@ -62,7 +59,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
             .replace(R.id.main_container, fragment).addToBackStack("").commit()
     }
 
-    private fun convertBudgetEntriesToExcel(){
+    private fun convertBudgetEntriesToExcel() {
 
     }
 

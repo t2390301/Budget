@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.example.budget.databinding.FragmentExpenseItemsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class ExpenseItemsFragment : BottomSheetDialogFragment(){
+class ExpenseItemsFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentExpenseItemsBinding? = null
     private val binding get() = _binding!!
 

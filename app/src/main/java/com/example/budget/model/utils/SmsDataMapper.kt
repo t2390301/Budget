@@ -88,7 +88,7 @@ class SmsDataMapper(val dbRepository: DBRepository) {
                         cardType = CardType.NOTYPE,
                         cardLimit = 0.0,
                         balance = balance!!,
-                    )?.let {
+                    ).let {
                         bankAccounts.add(it)
                         converter.bankAccountConverter(it)
                             ?.let { it1 -> dbRepository.insertBankAccountEntity(it1) }
@@ -106,7 +106,7 @@ class SmsDataMapper(val dbRepository: DBRepository) {
 
             sellers.filter { it.name.equals(seller) }.let { sellerList ->
                 if (sellerList.isEmpty()) {
-                    Seller(seller!!, BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО)?.let {
+                    Seller(seller!!, BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО).let {
                         sellers.add(it)
                         converter.sellerConverter(it)
                             ?.let { it1 -> dbRepository.insertSellerEntity(it1) }

@@ -3,19 +3,17 @@ package com.example.budget.model.database.converters
 import android.util.Log
 import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BankAccountEntity
-import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.database.entity.SmsDataEntity
-import com.example.budget.model.domain.Bank
 import com.example.budget.model.domain.BankAccount
 import com.example.budget.model.domain.BudgetEntry
 import com.example.budget.model.domain.Seller
 import com.example.budget.model.domain.SmsData
 import com.example.budget.repository.DBRepository
 
-class Converters (val dbRepository: DBRepository) {
-    companion object{
+class Converters(val dbRepository: DBRepository) {
+    companion object {
         const val TAG = "Converters"
     }
 
@@ -34,10 +32,11 @@ class Converters (val dbRepository: DBRepository) {
         }
         return null
     }
+
     suspend fun bankAccountEntityConverter(bankAccountEntity: BankAccountEntity): BankAccount? {
         val smsAddress = dbRepository.getBankSMSAdress(bankAccountEntity.bankId)
         Log.i(TAG, "bankAccountEntityConverter: ${bankAccountEntity.bankId} $smsAddress ")
-        if (smsAddress.length >0) {
+        if (smsAddress.length > 0) {
             return BankAccount(
                 bankAccountEntity.id,
                 bankAccountEntity.cardPan,
@@ -46,19 +45,19 @@ class Converters (val dbRepository: DBRepository) {
                 bankAccountEntity.cardLimit,
                 bankAccountEntity.balance
             )
-        } else{
+        } else {
             return null
         }
     }
 
     suspend fun sellerEntityConverter(sellerEntity: SellerEntity): Seller? {
         val budgetGroup = dbRepository.getBudgetGroupNameById(sellerEntity.id)
-        if(budgetGroup in BudgetGroupEnum.entries) {
+        if (budgetGroup in BudgetGroupEnum.entries) {
             return Seller(
                 sellerEntity.name,
                 budgetGroup
             )
-        } else{
+        } else {
             return null
         }
     }
@@ -67,7 +66,7 @@ class Converters (val dbRepository: DBRepository) {
         Log.i(TAG, "sellerConverter: seller.bg = ${seller.budgetGroupName}")
         val groupId = dbRepository.getBudgetGroupIdByBudgetGroupName(seller.budgetGroupName)
         Log.i(TAG, "sellerConverter: $groupId")
-        if (groupId >=0) {
+        if (groupId >= 0) {
             val seller = SellerEntity(
                 0L,
                 seller.name,
@@ -75,13 +74,16 @@ class Converters (val dbRepository: DBRepository) {
             )
             Log.i(TAG, "sellerConverter: $seller")
             return seller
-        } else{
+        } else {
             return null
         }
     }
 
     suspend fun budgetEntryConverter(budgetEntry: BudgetEntry): BudgetEntryEntity? {
-        val bankAccountId = dbRepository.getBankAccountIdBySMSAddressAndCardSpan(budgetEntry.bankSMSAdress, budgetEntry.cardSPan)
+        val bankAccountId = dbRepository.getBankAccountIdBySMSAddressAndCardSpan(
+            budgetEntry.bankSMSAdress,
+            budgetEntry.cardSPan
+        )
         val sellerId = dbRepository.getSellerIdBySellerName(budgetEntry.sellerName)
         if (bankAccountId >= 0) {
             return BudgetEntryEntity(
@@ -93,30 +95,30 @@ class Converters (val dbRepository: DBRepository) {
                 operationAmount = budgetEntry.operationAmount,
                 sellerId = sellerId
             )
-        } else{
+        } else {
             return null
         }
     }
-/*
-    fun bankEntityConverter(bankEntity: BankEntity): Bank =
-        Bank(
-            bankEntity.id,
-            bankEntity.name,
-            bankEntity.smsAddress,
-            bankEntity.operationTypeEXPENSERegex,
-            bankEntity.operationTypeINCOMERegex,
-            bankEntity.cardPanRegex,
-            bankEntity.sellerNameRegex,
-            bankEntity.operationAmountRegex,
-            bankEntity.balanceRegex,
-        )
+    /*
+        fun bankEntityConverter(bankEntity: BankEntity): Bank =
+            Bank(
+                bankEntity.id,
+                bankEntity.name,
+                bankEntity.smsAddress,
+                bankEntity.operationTypeEXPENSERegex,
+                bankEntity.operationTypeINCOMERegex,
+                bankEntity.cardPanRegex,
+                bankEntity.sellerNameRegex,
+                bankEntity.operationAmountRegex,
+                bankEntity.balanceRegex,
+            )
 
-    fun bankConverter(bank: Bank): BankEntity =
-        BankEntity(
-            bank.id,
-            bank.name,
-            bank.smsAddress, "", "", "", "","",""
-        )*/
+        fun bankConverter(bank: Bank): BankEntity =
+            BankEntity(
+                bank.id,
+                bank.name,
+                bank.smsAddress, "", "", "", "","",""
+            )*/
 
     fun smsDataConverter(smsData: SmsData): SmsDataEntity =
         SmsDataEntity(

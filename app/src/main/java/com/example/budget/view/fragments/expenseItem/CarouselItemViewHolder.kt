@@ -23,7 +23,7 @@ internal class CarouselItemViewHolder(itemView: View, listener: CarouselItemList
         itemView.setOnClickListener(View.OnClickListener { v: View? ->
             listener.onItemClicked(
                 item,
-                getBindingAdapterPosition()
+                bindingAdapterPosition
             )
         })
     }

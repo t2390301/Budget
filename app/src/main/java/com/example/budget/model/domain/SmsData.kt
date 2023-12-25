@@ -7,4 +7,4 @@ data class SmsData(
     val body: String,
     var isCashed: Boolean,
 
-)
+    )

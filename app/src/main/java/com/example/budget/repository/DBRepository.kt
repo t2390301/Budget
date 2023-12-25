@@ -1,7 +1,6 @@
 package com.example.budget.repository
 
 import android.util.Log
-import com.example.budget.model.utils.DatabaseHelper
 import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
@@ -10,6 +9,7 @@ import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.database.entity.SmsDataEntity
 import com.example.budget.model.domain.CombainBudgetEntry
+import com.example.budget.model.utils.DatabaseHelper
 
 class DBRepository(db: DatabaseHelper) {
     companion object {
@@ -51,7 +51,7 @@ class DBRepository(db: DatabaseHelper) {
 
     suspend fun getBankEntityWithName(bankSMSAddress: String): Long {
         var id = -1L
-        bankDao.getBankListWithAddress(bankSMSAddress).first()?.let {
+        bankDao.getBankListWithAddress(bankSMSAddress).first().let {
             id = it.id
         }
         return id
@@ -70,7 +70,7 @@ class DBRepository(db: DatabaseHelper) {
         var budgetGroup = BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО
         val bugetGroupEntityList = budgetGroupDao.getBudgetGroupNameById(id)
         if (!bugetGroupEntityList.isEmpty()) {
-            bugetGroupEntityList.first()?.let {
+            bugetGroupEntityList.first().let {
                 budgetGroup = it.name
             }
         }

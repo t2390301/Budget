@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.example.budget.R
 import com.example.budget.databinding.FragmentSmsBinding
-import com.example.budget.view.fragments.main.MainFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import timber.log.Timber
 

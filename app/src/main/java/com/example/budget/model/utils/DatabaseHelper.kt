@@ -26,17 +26,17 @@ class DatabaseHelper {
 
         appDataBase =
             Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
-            /*    .addMigrations(MIGRATION_1_2)
-                .addMigrations(MIGRATION_2_3)
-                .addMigrations(MIGRATION_3_4)*/
+                /*    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_2_3)
+                    .addMigrations(MIGRATION_3_4)*/
                 .build()
 
 
         CoroutineScope(Dispatchers.IO).launch {
 
-           /* appDataBase!!.bankAccountDao().deleteAll()      //только для тестов
-            appDataBase!!.sellerDao().deleteAll()
-            appDataBase!!.budgetEntryEntityDao().deleteAll()*/
+            /* appDataBase!!.bankAccountDao().deleteAll()      //только для тестов
+             appDataBase!!.sellerDao().deleteAll()
+             appDataBase!!.budgetEntryEntityDao().deleteAll()*/
 
             if (appDataBase!!.bankDao().getAll().isEmpty()) {
                 for (bank in BANKSENTITY) {
@@ -64,9 +64,7 @@ class DatabaseHelper {
     fun getBankAccountDao(): BankAccountDao = appDataBase!!.bankAccountDao()
     fun getSellerDao(): SellerDao = appDataBase!!.sellerDao()
     fun getPlanningNoteDao() = appDataBase!!.getPlanningNoteDao()
-    fun getCombainBudgetEntriesDao()=appDataBase!!.combainTableDao()
-
-
+    fun getCombainBudgetEntriesDao() = appDataBase!!.combainTableDao()
 
 
 }

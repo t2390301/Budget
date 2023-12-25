@@ -21,7 +21,6 @@ interface BankDao {
     suspend fun getBankListWithID(id: Long): List<BankEntity>
 
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: BankEntity)
 
@@ -30,6 +29,7 @@ interface BankDao {
 
     @Update
     suspend fun update(entity: BankEntity)
+
     @Delete
     suspend fun delete(entity: BankEntity)
 }

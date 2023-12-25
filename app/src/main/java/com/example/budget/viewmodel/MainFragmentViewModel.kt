@@ -3,14 +3,14 @@ package com.example.budget.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.budget.model.constants.BudgetGroupEnum
-import com.example.budget.model.database.dao.BudgetEntryDao
 import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.domain.OperationType
+import com.example.budget.repository.DBRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainFragmentViewModel : ViewModel() {
-    private var dao: BudgetEntryDao? = null
+class MainFragmentViewModel(private val dbRepository: DBRepository) : ViewModel() {
+
 
     private val mutableList = mutableListOf<BudgetEntryEntity>()
 
@@ -21,13 +21,10 @@ class MainFragmentViewModel : ViewModel() {
 
     var onUpdateListEvent: (List<BudgetEntryEntity>) -> Unit = {}
 
-    fun init(dao: BudgetEntryDao) {
-        this.dao = dao
-    }
 
     fun loadBudgetEntry() {
         viewModelScope.launch(Dispatchers.IO) {
-            val list = dao?.getAll() ?: return@launch
+            val list = dbRepository.getBudgetEntities()
             budgetEntry.addAll(list)
             onUpdateListEvent.invoke(budgetEntry)
         }

@@ -2,7 +2,6 @@ package com.example.budget.model.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.budget.model.domain.BudgetEntry
 import com.example.budget.model.domain.OperationType
 import java.util.Date
 

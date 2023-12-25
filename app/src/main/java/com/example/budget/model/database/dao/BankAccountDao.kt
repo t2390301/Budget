@@ -15,7 +15,10 @@ interface BankAccountDao {
     suspend fun getAll(): List<BankAccountEntity>
 
     @Query("SELECT * FROM bank_account_table WHERE cardPan =:cardSpan AND bankId = :bankId")
-    suspend fun getBankAccountIdBySMSAddressAndCardSpan(bankId: Long, cardSpan: String): List<BankAccountEntity>
+    suspend fun getBankAccountIdBySMSAddressAndCardSpan(
+        bankId: Long,
+        cardSpan: String
+    ): List<BankAccountEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: BankAccountEntity)

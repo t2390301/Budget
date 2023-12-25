@@ -1,11 +1,11 @@
 package com.example.budget.repository
 
-import com.example.budget.model.utils.DatabaseHelper
 import com.example.budget.model.database.entity.toSmsData
 import com.example.budget.model.database.entity.toSmsDataEntity
 import com.example.budget.model.domain.SmsData
+import com.example.budget.model.utils.DatabaseHelper
 
-class SmsDataRepository (databaseHelper: DatabaseHelper) {
+class SmsDataRepository(databaseHelper: DatabaseHelper) {
 
     private val smsDataDao = databaseHelper.getSmsDataDao()
 

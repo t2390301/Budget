@@ -17,10 +17,11 @@ import com.example.budget.viewmodel.ExportAndBackupViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ExportAndBackupFragment : BottomSheetDialogFragment() {
-    companion object{
+    companion object {
         const val TAG = "ExportAndBackupFragment"
 
     }
+
     private var _binding: FragmentExportAndBackupBinding? = null
     private val binding get() = _binding!!
 
@@ -43,8 +44,8 @@ class ExportAndBackupFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val budgetEntriesLiveData = viewModel.getBudgetEntitiesForExcel()
-        binding.exportButton.setOnClickListener() {
-           viewModel.updateBudgetEntitiesForExcel()
+        binding.exportButton.setOnClickListener {
+            viewModel.updateBudgetEntitiesForExcel()
             convertBudgetEntriesToExcel()
 
 
@@ -52,27 +53,30 @@ class ExportAndBackupFragment : BottomSheetDialogFragment() {
     }
 
     private fun convertBudgetEntriesToExcel() {
-            viewModel._budgetEntitiesListForExcel.observe(viewLifecycleOwner, {appState ->
-                Log.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.")
+        viewModel._budgetEntitiesListForExcel.observe(viewLifecycleOwner, { appState ->
+            Log.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.")
 
-                if (appState is AppState.Success){
-                    Log.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.Success")
-                    val listBudgetEnties = (appState as AppState.Success).data
-                    Log.i(TAG, "convertBudgetEntriesToExcel: listBudgetEntries.size = ${listBudgetEnties?.size}")
-                    if (!listBudgetEnties.isNullOrEmpty()){
-                        viewModel.convertBudgetEntriesToExcel(listBudgetEnties)
-                        openSendActivity(viewModel.getUri())
-                    } else{
-                        Toast.makeText(activity, "No Data For Excel", Toast.LENGTH_SHORT).show()
-                    }
+            if (appState is AppState.Success) {
+                Log.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.Success")
+                val listBudgetEnties = appState.data
+                Log.i(
+                    TAG,
+                    "convertBudgetEntriesToExcel: listBudgetEntries.size = ${listBudgetEnties?.size}"
+                )
+                if (!listBudgetEnties.isNullOrEmpty()) {
+                    viewModel.convertBudgetEntriesToExcel(listBudgetEnties)
+                    openSendActivity(viewModel.getUri())
+                } else {
+                    Toast.makeText(activity, "No Data For Excel", Toast.LENGTH_SHORT).show()
                 }
-            })
+            }
+        })
     }
 
-    private fun openSendActivity(fileUri: Uri?){
-        if (fileUri != null){
+    private fun openSendActivity(fileUri: Uri?) {
+        if (fileUri != null) {
             val intent = Intent(Intent.ACTION_SEND)
-            intent.setType("application/xls")
+            intent.type = "application/xls"
             intent.putExtra(Intent.EXTRA_SUBJECT, "Share file report.xls ")
             intent.putExtra(Intent.EXTRA_STREAM, fileUri)
             context?.startActivity(intent)

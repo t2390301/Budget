@@ -1,9 +1,9 @@
 package com.example.budget.repository
 
-import com.example.budget.model.utils.DatabaseHelper
 import com.example.budget.model.database.entity.toBank
 import com.example.budget.model.database.entity.toBankEntity
 import com.example.budget.model.domain.Bank
+import com.example.budget.model.utils.DatabaseHelper
 
 class BankRepository(databaseHelper: DatabaseHelper) {
 

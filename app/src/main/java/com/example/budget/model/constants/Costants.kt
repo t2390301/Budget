@@ -25,14 +25,15 @@ val BANKSENTITY = listOf<BankEntity>(
         "\\d\\. ([\\d\\.]+) RUB.", //не работает
         "Доступно ([\\d\\.]+) RUB"
     ),
-    BankEntity( 3L, "UniCredit", "UniCredit",
+    BankEntity(
+        3L, "UniCredit", "UniCredit",
         "Pokupka",
         "uvelichen",
         "Karta (\\d{4})",
         "RUB (.+)$",
         "[^:] ([\\d\\.\\s]+) RUB",
         "Dostupno: ([\\d\\.\\s]+) RUB"
-        ),
+    ),
     BankEntity(
         4L, "Test Bank", "+71111111111",
         "Покупка",         //Такие как у tinkoff
@@ -57,17 +58,17 @@ val BANKSENTITY = listOf<BankEntity>(
 )
 
 val BUDGETGROUPS = listOf<BudgetGroupEntity>(
-    BudgetGroupEntity(1,BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО, "", 0L),
-    BudgetGroupEntity(2,BudgetGroupEnum.ПРОДУКТЫ, "", 0L),
-    BudgetGroupEntity(3,BudgetGroupEnum.ТРАНСПОРТ, "", 0L),
-    BudgetGroupEntity(4,BudgetGroupEnum.РАЗВЛЕЧЕНИЯ, "", 0L),
-    BudgetGroupEntity(5,BudgetGroupEnum.УСЛУГИ, "", 0L),
-    BudgetGroupEntity(6,BudgetGroupEnum.ДОМАШНЕЕ_ХОЗЯЙСТВО, "", 0L),
-    BudgetGroupEntity(7,BudgetGroupEnum.ЕДА_ВНЕ_ДОМА, "", 0L),
+    BudgetGroupEntity(1, BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО, "", 0L),
+    BudgetGroupEntity(2, BudgetGroupEnum.ПРОДУКТЫ, "", 0L),
+    BudgetGroupEntity(3, BudgetGroupEnum.ТРАНСПОРТ, "", 0L),
+    BudgetGroupEntity(4, BudgetGroupEnum.РАЗВЛЕЧЕНИЯ, "", 0L),
+    BudgetGroupEntity(5, BudgetGroupEnum.УСЛУГИ, "", 0L),
+    BudgetGroupEntity(6, BudgetGroupEnum.ДОМАШНЕЕ_ХОЗЯЙСТВО, "", 0L),
+    BudgetGroupEntity(7, BudgetGroupEnum.ЕДА_ВНЕ_ДОМА, "", 0L),
 
-)
+    )
 
-enum class BudgetGroupEnum(val id : Int){
+enum class BudgetGroupEnum(val id: Int) {
     НЕ_ОПРЕДЕЛЕНО(1),
     ПРОДУКТЫ(2),
     ТРАНСПОРТ(3),

@@ -38,8 +38,10 @@ class ExcelRepository(val applicationContext: Context) {
         )
     }
 
-    fun getFileUri(fromDirectory: String = "reports",
-                   fileName: String ="EntryReport.xls"): Uri? {
+    fun getFileUri(
+        fromDirectory: String = "reports",
+        fileName: String = "EntryReport.xls"
+    ): Uri? {
         val fileUri: Uri?
         val reportPath = File(applicationContext.filesDir, fromDirectory)
         Log.i(TAG, "onCreate: path exist ${reportPath.exists()}")
