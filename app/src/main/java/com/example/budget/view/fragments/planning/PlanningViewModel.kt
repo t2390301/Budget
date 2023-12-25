@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.domain.OperationType
 import com.example.budget.model.domain.PlanningNote
+import com.example.budget.model.utils.AppLogger
 import com.example.budget.repository.PlanningNoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,8 +20,10 @@ class PlanningViewModel(private val planningNoteRepository: PlanningNoteReposito
     var onUpdateListEvent: (List<PlanningNote>) -> Unit = { }
 
     init {
+        AppLogger.i("init : PlanningViewModel")
         viewModelScope.launch(Dispatchers.IO) {
             planningNotes.addAll(planningNoteRepository.getPlanningNotes())
+            AppLogger.i("init : planningNoteRepository")
         }
     }
 

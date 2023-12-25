@@ -3,18 +3,18 @@ package com.example.budget.view.fragments.exportandbackup
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.example.budget.databinding.FragmentExportAndBackupBinding
 import com.example.budget.model.domain.CombainBudgetEntry
+import com.example.budget.model.utils.AppLogger
 import com.example.budget.viewmodel.AppState
 import com.example.budget.viewmodel.ExportAndBackupViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.android.ext.android.inject
 
 class ExportAndBackupFragment : BottomSheetDialogFragment() {
     companion object {
@@ -24,8 +24,7 @@ class ExportAndBackupFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentExportAndBackupBinding? = null
     private val binding get() = _binding!!
-
-    val viewModel: ExportAndBackupViewModel by viewModels()
+    val viewModel: ExportAndBackupViewModel by inject()
 
     val budgetEntriesLiveData = MutableLiveData<AppState<MutableList<CombainBudgetEntry>>>()
     /*    get() {
@@ -53,13 +52,13 @@ class ExportAndBackupFragment : BottomSheetDialogFragment() {
     }
 
     private fun convertBudgetEntriesToExcel() {
-        viewModel._budgetEntitiesListForExcel.observe(viewLifecycleOwner, { appState ->
-            Log.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.")
+        viewModel._budgetEntitiesListForExcel.observe(viewLifecycleOwner) { appState ->
+            AppLogger.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.")
 
             if (appState is AppState.Success) {
-                Log.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.Success")
+                AppLogger.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.Success")
                 val listBudgetEnties = appState.data
-                Log.i(
+                AppLogger.i(
                     TAG,
                     "convertBudgetEntriesToExcel: listBudgetEntries.size = ${listBudgetEnties?.size}"
                 )
@@ -70,7 +69,7 @@ class ExportAndBackupFragment : BottomSheetDialogFragment() {
                     Toast.makeText(activity, "No Data For Excel", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
     }
 
     private fun openSendActivity(fileUri: Uri?) {

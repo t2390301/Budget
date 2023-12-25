@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.budget.R
 import com.example.budget.databinding.BottomNavigationLayoutBinding
+import com.example.budget.model.utils.AppLogger
 import com.example.budget.view.fragments.accounts.AccountsFragment
 import com.example.budget.view.fragments.expenseItem.ExpenseItemsFragment
 import com.example.budget.view.fragments.exportandbackup.ExportAndBackupFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import timber.log.Timber
 
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -35,7 +35,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.i("onViewCreated BottomNavigationDrawerFragment")
+        AppLogger.i("onViewCreated BottomNavigationDrawerFragment")
 
         binding.navigationView.setNavigationItemSelectedListener { menu ->
             when (menu.itemId) {

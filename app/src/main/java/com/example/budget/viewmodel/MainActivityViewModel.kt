@@ -1,7 +1,6 @@
 package com.example.budget.viewmodel
 
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,20 +21,19 @@ import com.example.budget.repository.SMSRepository
 import com.example.budget.repository.SellerRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
+
 import java.util.Date
 
 
-class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel() {
-    val application = app
-    private val TAG = "MainActivityViewModel"
+class MainActivityViewModel(
+    private val dbRepository: DBRepository,
+    private val bankRepository: BankRepository,
+    private val bankAccountRepository: BankAccountRepository,
+    private val sellerRepository: SellerRepository
+) : ViewModel() {
+    private val application = app
 
-    val smsRepository = SMSRepository(application)
-
-    val bankAccountRepository = BankAccountRepository(application.getDatabaseHelper())
-    val bankRepository = BankRepository(application.getDatabaseHelper())
-    val sellerRepository = SellerRepository(application.getDatabaseHelper())
-
+    private val smsRepository = SMSRepository(application)
 
     var converter: Converters
     var smsDataMapper: SmsDataMapper
@@ -46,7 +44,6 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
     val banksAppState: MutableLiveData<AppState<MutableList<Bank>>>
 
     init {
-        //  Log.i(TAG, "init : MainActivityViewModel")
         AppLogger.i("init : MainActivityViewModel")
 
 
@@ -72,9 +69,7 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
                 e.printStackTrace()
                 sellerAppState.postValue(AppState.Error(e))
             }
-            Log.i(TAG, "getSellers: ${sellerAppState.value!!.javaClass}; ")
-
-            //    Log.i(TAG, "sellers size =  ${(sellerAppState.value as AppState.Success).data?.size}")
+            AppLogger.i("getSellers: ${sellerAppState.value!!.javaClass}; ")
         }
     }
 
@@ -82,21 +77,20 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
         viewModelScope.launch {
             banksAppState.value = (AppState.Loading(true))
             try {
-                Timber.tag(TAG).i("getBanks: here")
+                AppLogger.i("getBanks: here")
                 val banksList = bankRepository.getBanks()
-                Timber.tag(TAG).i("getBanks: Banks =  " + banksList.size)
+                AppLogger.i("getBanks: Banks =  " + banksList.size)
                 banksAppState.value = (AppState.Success(
                     bankRepository.getBanks()
                         .toMutableList()
                 ))
-                Log.i(
-                    TAG,
+                AppLogger.i(
                     "getBanks:  banksAppState is ${banksAppState.value is AppState.Success} "
                 )
             } catch (e: Throwable) {
                 banksAppState.value = (AppState.Error(e))
                 e.printStackTrace()
-                Log.i(TAG, "getBanks:  banksAppState is ${banksAppState.value is AppState.Error} ")
+                AppLogger.i("getBanks:  banksAppState is ${banksAppState.value is AppState.Error} ")
             }
         }
     }
@@ -105,23 +99,22 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
 
         viewModelScope.launch {
             bankAccountsAppState.value = (AppState.Loading(true))
-            Log.i(
-                TAG,
+            AppLogger.i(
                 "getBankAccounts: is Loading ${bankAccountsAppState.value is AppState.Loading}"
             )
             try {
                 var bankAccountsList = mutableListOf<BankAccountEntity>()
                 dbRepository.getBankAccountEntities().let {
                     bankAccountsList = it.toMutableList()
-                    Log.i(TAG, "getBankAccounts: size= ${it.size}")
+                    AppLogger.i("getBankAccounts: size= ${it.size}")
                 }
                 /*   var bankAccountsList = mutableListOf<BankAccount>()
            var bankAccountsList = bankAccountRepository.getBankAccounts().toMutableList()
-                Log.i(TAG, "getBankAccounts: size= ${bankAccountsList.size}")*/
+                AppLogger.i( "getBankAccounts: size= ${bankAccountsList.size}")*/
 
                 for (account in bankAccountsList) {
                     (account).let {
-                        Log.i(TAG, "getBankAccounts: ${it.bankId}; ${it.cardPan} ; ${it.bankId}")
+                        AppLogger.i("getBankAccounts: ${it.bankId}; ${it.cardPan} ; ${it.bankId}")
                     }
                 }
 
@@ -131,8 +124,8 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
                             .map { converter.bankAccountEntityConverter(it)!! }.toMutableList()
 
                     )
-                Log.i(
-                    TAG,
+                AppLogger.i(
+
                     "getBankAccounts: is Success ${bankAccountsAppState.value is AppState.Success}"
                 )
 
@@ -140,8 +133,7 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
             } catch (e: Throwable) {
                 bankAccountsAppState.value = (AppState.Error(e))
                 e.printStackTrace()
-                Log.i(
-                    TAG,
+                AppLogger.i(
                     "getBankAccounts: is Error ${bankAccountsAppState.value is AppState.Error}"
                 )
             }
@@ -153,14 +145,14 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
         viewModelScope.launch {
 
             smsListAppState.value = (AppState.Loading(true))
-            Log.i(
-                TAG,
+            AppLogger.i(
+
                 "updateSMSList: smsList is Loading ${smsListAppState.value is AppState.Loading}"
             )
             val banksSMSAddress = dbRepository.getBankEntities().map { it.smsAddress }.distinct()
 
             try {
-                Log.i(TAG, "updateSMSList: start sms reading")
+                AppLogger.i("updateSMSList: start sms reading")
                 smsRepository.readSMSAfterData(lastSMSDate)
                     ?.filter { banksSMSAddress.contains(it.sender) }?.let {
                         smsListAppState.value = (AppState.Success(it.toMutableList()))
@@ -171,8 +163,8 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
                                 )
                             })
                         }
-                        Log.i(
-                            TAG,
+                        AppLogger.i(
+
                             "updateSMSList: smsList is Success ${smsListAppState.value is AppState.Success} and smsList.size = ${it.size}"
                         )
 
@@ -182,7 +174,7 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
             }
 
         }
-        Log.i(TAG, "updateSMSList: ${Date(lastSMSDate)}")
+        AppLogger.i("updateSMSList: ${Date(lastSMSDate)}")
 
     }
 
@@ -205,12 +197,12 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
 
             if (smsListAppState.value is AppState.Success) {
                 (smsListAppState.value as AppState.Success).data?.let { listSMS ->
-                    Log.i(TAG, "saveSMSListToBudgetEntries: smsList.size = ${listSMS.size}")
+                    AppLogger.i("saveSMSListToBudgetEntries: smsList.size = ${listSMS.size}")
                     for (sms in listSMS.filter { it.isCashed == false }) {
 
                         val budgetEntry = smsDataMapper.convertSMSToBudgetEntry(sms)
-                        Log.i(
-                            TAG,
+                        AppLogger.i(
+
                             "saveSMSListToBudgetEntries: returned budgetEntry is ${budgetEntry?.sellerName}"
                         )
                         budgetEntry?.let {
@@ -227,11 +219,11 @@ class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel(
                 }
             }
 
-            Log.i(TAG, "saveSMSListToBudgetEntries: ${budgetEntries.size}")
+            AppLogger.i("saveSMSListToBudgetEntries: ${budgetEntries.size}")
 
             for (bde in budgetEntries) {
-                Log.i(
-                    TAG,
+                AppLogger.i(
+
                     "saveSMSListToBudgetEntries: ${bde.bankSMSAdress}; ${bde.cardSPan}; ${bde.operationAmount}; ${bde.sellerName}"
                 )
             }

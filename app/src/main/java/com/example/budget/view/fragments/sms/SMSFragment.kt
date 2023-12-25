@@ -6,8 +6,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.example.budget.databinding.FragmentSmsBinding
+import com.example.budget.model.utils.AppLogger
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import timber.log.Timber
+
 
 class SMSFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentSmsBinding? = null
@@ -24,7 +25,7 @@ class SMSFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.i("onViewCreated SMSFragment")
+        AppLogger.i("onViewCreated SMSFragment")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
