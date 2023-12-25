@@ -16,9 +16,9 @@ import com.example.budget.broadcastreceiver.SMS_SENDER
 import com.example.budget.databinding.FragmentSmsBinding
 import com.example.budget.model.database.entity.SmsDataEntity
 import com.example.budget.model.domain.SmsData
+import com.example.budget.viewmodel.AppState
 import com.example.budget.viewmodel.SMSFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import timber.log.Timber
 
 class SMSFragment : BottomSheetDialogFragment() {
     companion object {
@@ -31,7 +31,7 @@ class SMSFragment : BottomSheetDialogFragment() {
 
     val viewModel: SMSFragmentViewModel by viewModels()
 
-    var broadcastReceiver:BroadcastReceiver? = null
+    var broadcastReceiver: BroadcastReceiver? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +46,11 @@ class SMSFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        var smsList: List<SmsData>? = viewModel._smsDataList.value
+        var smsList= mutableListOf<SmsData>()
+
+        if (viewModel.smsDataList.value is AppState.Success) {
+             (viewModel.smsDataList.value as AppState.Success).data?.let { smsList= it }
+        }
 
         val smsAdapter = SMSFragmentAdapter(smsList)
 
@@ -54,10 +58,21 @@ class SMSFragment : BottomSheetDialogFragment() {
 
         registerReceiver()
 
-        viewModel._smsDataList.observe(viewLifecycleOwner) {
-            smsAdapter.setList(it)
+        viewModel.smsDataList.observe(viewLifecycleOwner) { appState ->
+            when (appState) {
+                is AppState.Success -> {
+                    binding.smsFragmentLoadingLayout.visibility = View.GONE
+                    appState.data?.let { smsAdapter.setList(it) }
+                }
+                is AppState.Loading ->{
+                    binding.smsFragmentLoadingLayout.visibility = View.VISIBLE
+                }
+                is AppState.Error -> {
+                    binding.smsFragmentLoadingLayout.visibility = View.GONE
+
+                }
+            }
         }
-        Timber.i("onViewCreated SMSFragment")
     }
 
     private fun registerReceiver() {
@@ -77,7 +92,7 @@ class SMSFragment : BottomSheetDialogFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (broadcastReceiver!=null){
+        if (broadcastReceiver != null) {
             activity?.unregisterReceiver(broadcastReceiver)
         }
     }
