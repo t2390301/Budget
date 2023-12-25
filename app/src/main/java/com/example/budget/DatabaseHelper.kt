@@ -79,6 +79,7 @@ class DatabaseHelper {
     fun getSellerDao(): SellerDao = appDataBase!!.sellerDao()
     fun getPlanningNoteDao() = appDataBase!!.getPlanningNoteDao()
     fun getCombainBudgetEntriesDao()=appDataBase!!.combainTableDao()
+    fun getBudgetEntriesTableDao()=appDataBase!!.budgetEntryTableDao()
 
 
 }

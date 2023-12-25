@@ -19,6 +19,7 @@ import com.example.budget.model.domain.SmsData
 import com.example.budget.viewmodel.AppState
 import com.example.budget.viewmodel.SMSFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import timber.log.Timber
 
 class SMSFragment : BottomSheetDialogFragment() {
     companion object {
@@ -95,6 +96,7 @@ class SMSFragment : BottomSheetDialogFragment() {
         if (broadcastReceiver != null) {
             activity?.unregisterReceiver(broadcastReceiver)
         }
+        _binding = null
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

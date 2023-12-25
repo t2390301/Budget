@@ -9,7 +9,9 @@ import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.database.entity.SmsDataEntity
+import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.model.domain.CombainBudgetEntry
+import timber.log.Timber
 
 class DBRepository(db: DatabaseHelper) {
     companion object {
@@ -17,6 +19,7 @@ class DBRepository(db: DatabaseHelper) {
     }
 
     private val bankAccountDao = db.getBankAccountDao()
+    private val budgetEntriesTableDao = db.getBudgetEntriesTableDao()
     private val bankDao = db.getBanksDAO()
     private val budgetEntryDao = db.getBudgetEntryEntityDao()
     private val budgetGroupDao = db.getBudgetGroupEntityDao()
@@ -24,16 +27,25 @@ class DBRepository(db: DatabaseHelper) {
     private val smsDao = db.getSmsDataDao()
     private val combainBudgetEntryDao = db.getCombainBudgetEntriesDao()
 
+    suspend fun getBankEntities(): List<BankEntity> = bankDao.getAll()
+
+
+    suspend fun getBudgetEntities(): List<BudgetEntryEntity> = budgetEntryDao.getAll()
+    suspend fun getBudgetGroupEntities(): List<BudgetGroupEntity> = budgetGroupDao.getAll()
+    suspend fun getCombainBudgetEntities(): List<CombainBudgetEntry> = combainBudgetEntryDao.getAll()
+    suspend fun getBudgetEntryList(): List<BudgetEntryEntity> = budgetEntryDao.getAll()
+    suspend fun getSellerEntities(): List<SellerEntity> = sellerDao.getAll()
+    suspend fun getSMSList(): List<SmsDataEntity> = smsDao.getAll()
+    suspend fun getBudgetEntriesTableDao(): List<BudgetEntryTable> {
+        Timber.i("getBudgetEntriesTableDao: here")
+        return budgetEntriesTableDao.getAll()
+    }
+
     suspend fun getBankAccountEntities(): List<BankAccountEntity> {
-        Log.i(TAG, "getBankAccountEntities: here")
+        Timber.i("getBankAccountEntities: here")
         return bankAccountDao.getAll()
     }
 
-
-    suspend fun getBankEntities(): List<BankEntity> = bankDao.getAll()
-    suspend fun getBudgetEntities(): List<BudgetEntryEntity> = budgetEntryDao.getAll()
-    suspend fun getBudgetGroupEntities(): List<BudgetGroupEntity> = budgetGroupDao.getAll()
-    suspend fun getSellerEntities(): List<SellerEntity> = sellerDao.getAll()
     suspend fun insertBankAccountEntity(bankAccountEntity: BankAccountEntity) =
         bankAccountDao.insert(bankAccountEntity)
 
@@ -89,6 +101,7 @@ class DBRepository(db: DatabaseHelper) {
         }
         return id
     }
+
 
     suspend fun getBankAccountIdBySMSAddressAndCardSpan(
         smsAddress: String,

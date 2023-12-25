@@ -1,5 +1,6 @@
 package com.example.budget.model.database.converters
 
+import android.util.Log
 import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
@@ -133,10 +134,26 @@ class Converters(private val dbRepository: DBRepository) {
             smsDataEntity.sender,
             smsDataEntity.body,
             smsDataEntity.isCashed,
-            
+
             bankImage = banks.filter { it.smsAddress.equals(smsDataEntity.sender) }
                 .first().bankImage
         )
 
+    suspend fun budgetEntryConverter(budgetEntry: BudgetEntry): BudgetEntryEntity? {
+        val bankAccountId = dbRepository.getBankAccountIdBySMSAddressAndCardSpan(budgetEntry.bankSMSAdress, budgetEntry.cardSPan)
+        val sellerId = dbRepository.getSellerIdBySellerName(budgetEntry.sellerName)
+        return if (bankAccountId >= 0) {
+            BudgetEntryEntity(
+                id = 0L,
+                date = budgetEntry.date,
+                operationType = budgetEntry.operationType,
+                bankAccountId = bankAccountId,
+                note = budgetEntry.note,
+                operationAmount = budgetEntry.operationAmount,
+                sellerId = sellerId
+            )
+        } else{
+            null
+        }
     }
 }

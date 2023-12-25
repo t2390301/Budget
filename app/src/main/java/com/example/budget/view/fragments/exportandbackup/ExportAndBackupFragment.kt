@@ -3,7 +3,6 @@ package com.example.budget.view.fragments.exportandbackup
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,31 +41,26 @@ class ExportAndBackupFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val budgetEntriesLiveData = viewModel.getBudgetEntitiesForExcel()
+//        val budgetEntriesLiveData = viewModel.getBudgetEntitiesForExcel()
+
         binding.exportButton.setOnClickListener() {
            viewModel.updateBudgetEntitiesForExcel()
             convertBudgetEntriesToExcel()
-
-
         }
     }
 
     private fun convertBudgetEntriesToExcel() {
-            viewModel._budgetEntitiesListForExcel.observe(viewLifecycleOwner, {appState ->
-                Log.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.")
-
-                if (appState is AppState.Success){
-                    Log.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.Success")
-                    val listBudgetEnties = (appState as AppState.Success).data
-                    Log.i(TAG, "convertBudgetEntriesToExcel: listBudgetEntries.size = ${listBudgetEnties?.size}")
-                    if (!listBudgetEnties.isNullOrEmpty()){
-                        viewModel.convertBudgetEntriesToExcel(listBudgetEnties)
+            viewModel._budgetEntitiesListForExcel.observe(viewLifecycleOwner) { appState ->
+                if (appState is AppState.Success) {
+                    val listBudgetEntities = (appState as AppState.Success).data
+                    if (!listBudgetEntities.isNullOrEmpty()) {
+                        viewModel.convertBudgetEntriesToExcel(listBudgetEntities)
                         openSendActivity(viewModel.getUri())
-                    } else{
+                    } else {
                         Toast.makeText(activity, "No Data For Excel", Toast.LENGTH_SHORT).show()
                     }
                 }
-            })
+            }
     }
 
     private fun openSendActivity(fileUri: Uri?){
