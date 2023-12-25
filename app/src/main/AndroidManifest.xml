@@ -2,10 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-     <uses-feature
-         android:name="android.hardware.telephony"
-         android:required="false" />
-     <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
         android:name=".App"
@@ -30,12 +32,21 @@
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.geekbrain.budget.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths"/>
+                android:resource="@xml/filepaths" />
         </provider>
+        <receiver android:name=".broadcastreceiver.SMSMonitor"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+        
+
+        <service android:name=".service.SmsService"></service>
     </application>
 
 </manifest>

@@ -1,6 +1,5 @@
 package com.example.budget.model.database.converters
 
-import android.util.Log
 import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
@@ -14,8 +13,8 @@ import com.example.budget.model.domain.Seller
 import com.example.budget.model.domain.SmsData
 import com.example.budget.repository.DBRepository
 
-class Converters (val dbRepository: DBRepository) {
-    companion object{
+class Converters(private val dbRepository: DBRepository) {
+    companion object {
         const val TAG = "Converters"
     }
 
@@ -33,10 +32,11 @@ class Converters (val dbRepository: DBRepository) {
         }
         return null
     }
+
     suspend fun bankAccountEntityConverter(bankAccountEntity: BankAccountEntity): BankAccount? {
         val smsAddress = dbRepository.getBankSMSAdress(bankAccountEntity.bankId)
-        Log.i(TAG, "bankAccountEntityConverter: ${bankAccountEntity.bankId} $smsAddress ")
-        if (smsAddress.length >0) {
+
+        if (smsAddress.length > 0) {
             return BankAccount(
                 bankAccountEntity.id,
                 bankAccountEntity.cardPan,
@@ -45,40 +45,41 @@ class Converters (val dbRepository: DBRepository) {
                 bankAccountEntity.cardLimit,
                 bankAccountEntity.balance
             )
-        } else{
+        } else {
             return null
         }
     }
 
     suspend fun sellerEntityConverter(sellerEntity: SellerEntity): Seller? {
         val budgetGroup = dbRepository.getBudgetGroupNameById(sellerEntity.id)
-        if(budgetGroup in BudgetGroupEnum.entries) {
+        if (budgetGroup in BudgetGroupEnum.entries) {
             return Seller(
                 sellerEntity.name,
                 budgetGroup
             )
-        } else{
+        } else {
             return null
         }
     }
 
     suspend fun sellerConverter(seller: Seller): SellerEntity? {
-        Log.i(TAG, "sellerConverter: seller.bg = ${seller.budgetGroupName}")
         val groupId = dbRepository.getBudgetGroupIdByBudgetGroupName(seller.budgetGroupName)
-        Log.i(TAG, "sellerConverter: $groupId")
-        return if (groupId >=0) {
+        return if (groupId >= 0) {
             SellerEntity(
                 0L,
                 seller.name,
                 groupId
             )
-        } else{
+        } else {
             null
         }
     }
 
     suspend fun budgetEntryConverter(budgetEntry: BudgetEntry): BudgetEntryEntity? {
-        val bankAccountId = dbRepository.getBankAccountIdBySMSAddressAndCardSpan(budgetEntry.bankSMSAdress, budgetEntry.cardSPan)
+        val bankAccountId = dbRepository
+            .getBankAccountIdBySMSAddressAndCardSpan(
+            budgetEntry.bankSMSAdress,budgetEntry.cardSPan
+        )
         val sellerId = dbRepository.getSellerIdBySellerName(budgetEntry.sellerName)
         if (bankAccountId >= 0) {
             return BudgetEntryEntity(
@@ -90,7 +91,7 @@ class Converters (val dbRepository: DBRepository) {
                 operationAmount = budgetEntry.operationAmount,
                 sellerId = sellerId
             )
-        } else{
+        } else {
             return null
         }
     }
@@ -112,7 +113,7 @@ class Converters (val dbRepository: DBRepository) {
         BankEntity(
             bank.id,
             bank.name,
-            bank.smsAddress, "", "", "", "","","", null
+            bank.smsAddress, "", "", "", "", "", "", null
         )
 
     fun smsDataConverter(smsData: SmsData): SmsDataEntity =
@@ -123,16 +124,19 @@ class Converters (val dbRepository: DBRepository) {
             smsData.isCashed
         )
 
-    suspend fun smsDataEntityConverter(smsDataEntity: SmsDataEntity): SmsData {
-        val banks = dbRepository.getBankEntities()
+    suspend fun smsDataEntityConverter(
+        smsDataEntity: SmsDataEntity,
+        banks: List<BankEntity>
+    ): SmsData {
         return SmsData(
             smsDataEntity.date,
             smsDataEntity.sender,
             smsDataEntity.body,
             smsDataEntity.isCashed,
-            bankImage = banks.filter { it.smsAddress.equals(smsDataEntity.sender) }.first().bankImage
-
-            )
+            
+            bankImage = banks.filter { it.smsAddress.equals(smsDataEntity.sender) }
+                .first().bankImage
+        )
 
     }
 }
