@@ -1,5 +1,6 @@
 package com.example.budget.view.activities
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -12,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
-import com.example.budget.model.constants.LAST_SAVED_SMS_Date
 import com.example.budget.model.domain.BudgetEntry
 import com.example.budget.view.fragments.main.MainFragment
 import com.example.budget.view.fragments.planning.PlanningFragment
@@ -20,7 +20,6 @@ import com.example.budget.view.fragments.sms.SMSFragment
 import com.example.budget.viewmodel.AppState
 import com.example.budget.viewmodel.MainActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import android.content.BroadcastReceiver as BroadcastReceiver
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,17 +39,22 @@ class MainActivity : AppCompatActivity() {
 
         binding = FragmentMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
+        var permissions = mutableListOf<String>()
 
         if (checkSelfPermission("android.permission.READ_SMS") != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf("android.permission.READ_SMS"), 2)
+            permissions .add("android.permission.READ_SMS")
         }
         if (checkSelfPermission("android.permission.RECEIVE_SMS") != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf("android.permission.RECEIVE_SMS"), 2)
+            permissions.add("android.permission.RECEIVE_SMS")
+        }
+        if (permissions.isNotEmpty()) {
+
+            requestPermissions(permissions.toTypedArray(), 2)
+        } else{
+            smsActions()
         }
 
-        registerReceiver()
 
-        viewModel.updateSMSList()
 
 
         viewModel.budgetEntriesAppState.observe(this) { budgets ->
@@ -77,11 +81,41 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            2 -> {
+                var isPerpermissionForAllGranted = true
+                if (grantResults.size >0 && permissions.size == grantResults.size) {
+                    for (result in grantResults){
+                        isPerpermissionForAllGranted =
+                            (result == PackageManager.PERMISSION_GRANTED) && isPerpermissionForAllGranted
+                    }
+                } else {
+                    isPerpermissionForAllGranted = true
+                }
+                if (isPerpermissionForAllGranted) {
+                    smsActions()
+                }
+            }
+        }
+    }
+
     override fun onStop() {
         super.onStop()
         if(broadcastReceiver != null){
             unregisterReceiver(broadcastReceiver)
         }
+    }
+
+    private fun smsActions(){
+        registerReceiver()
+
+        viewModel.updateSMSList()
     }
 
     private fun registerReceiver() {

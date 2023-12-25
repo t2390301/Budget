@@ -125,7 +125,7 @@ class MainActivityViewModel : ViewModel() {
             try {
 
                 val lastSMSDate = dbRepository.getLastUnSafeSMSDate()
-
+                Log.i(TAG, "updateSMSList: $lastSMSDate")
                 smsRepository.readSMSafterDate(lastSMSDate)
                     ?.filter { banksSMSAddress.contains(it.sender) }?.let {
                         smsListAppState.value = (AppState.Success(it.toMutableList()))
@@ -138,6 +138,8 @@ class MainActivityViewModel : ViewModel() {
 
                     }
             } catch (e: Throwable) {
+                Log.i(TAG, "updateSMSList: error")
+                e.printStackTrace()
                 smsListAppState.postValue(AppState.Error(e))
             }
 

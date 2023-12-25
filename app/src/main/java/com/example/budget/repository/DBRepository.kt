@@ -78,7 +78,7 @@ class DBRepository(db: DatabaseHelper) {
     }
 
     suspend fun getBudgetGroupIdByBudgetGroupName(budgetGroup: BudgetGroupEnum): Long {
-        var id:Long = -1
+        var id: Long = -1
         Log.i(TAG, "getBudgetGroupIdByBudgetGroupName: ${budgetGroup.name}")
 
         val bdlist = budgetGroupDao.getBudgetGroupNameByGroupName(budgetGroup)
@@ -127,7 +127,7 @@ class DBRepository(db: DatabaseHelper) {
     suspend fun getCombainBudgetEntitis(): List<CombainBudgetEntry> =
         combainBudgetEntryDao.getAll()
 
-    suspend fun getSMSList():List<SmsDataEntity> =
+    suspend fun getSMSList(): List<SmsDataEntity> =
         smsDao.getAll()
 
     suspend fun getSMSCount(): Long =
@@ -138,7 +138,9 @@ class DBRepository(db: DatabaseHelper) {
 
 
     suspend fun getLastUnSafeSMSDate(): Long =
-        smsDao.getLastUnsavedSMSDate()
+        smsDao.getLastUnsavedSMSDate()?:0
+
+
 
     suspend fun updateSMS(sms: SmsDataEntity) {
         smsDao.update(sms)

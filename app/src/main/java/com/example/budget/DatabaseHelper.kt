@@ -44,13 +44,15 @@ class DatabaseHelper {
             appDataBase!!.budgetEntryEntityDao().deleteAll()
             appDataBase!!.smsDataDao().deleteNull()*/
 
-            val banks = appDataBase!!.bankDao().getAll()
+            var banks = appDataBase!!.bankDao().getAll()
 
             if (banks.isEmpty() ) {
                 for (bank in BANKSENTITY) {
                     appDataBase!!.bankDao().insert(bank)
+                    banks = appDataBase!!.bankDao().getAll()
                 }
             }
+
             if (banks.filter{  it.smsAddress.equals("AlfaBank") }.first().bankImage == null ){
                 for (bank in BANKSENTITY) {
                     appDataBase!!.bankDao().update(bank)
