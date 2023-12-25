@@ -26,14 +26,4 @@ class App : Application() {
             modules(listOf(application, planningNote, budgetEntry, exportAndBackup))
         }
     }
-
-   /* fun getDatabaseHelper(): DatabaseHelper {
-        return databaseHelper
-    }*/
-
-    /*private fun initDatabase() {
-        databaseHelper = DatabaseHelper()
-        databaseHelper.initDatabase(this)
-    }*/
-
 }

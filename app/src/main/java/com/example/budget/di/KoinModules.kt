@@ -32,7 +32,6 @@ val budgetEntry = module {
 val planningNote = module {
     single { PlanningNoteRepository(get()) }
     factory { PlanningViewModel(get()) }
-    factory { ExportAndBackupViewModel(get()) }
 }
 
 val exportAndBackup = module {

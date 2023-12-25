@@ -17,10 +17,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.ext.android.inject
 
 class ExportAndBackupFragment : BottomSheetDialogFragment() {
-    companion object {
-        const val TAG = "ExportAndBackupFragment"
-
-    }
 
     private var _binding: FragmentExportAndBackupBinding? = null
     private val binding get() = _binding!!
@@ -53,13 +49,12 @@ class ExportAndBackupFragment : BottomSheetDialogFragment() {
 
     private fun convertBudgetEntriesToExcel() {
         viewModel._budgetEntitiesListForExcel.observe(viewLifecycleOwner) { appState ->
-            AppLogger.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.")
+            AppLogger.i( "convertBudgetEntriesToExcel: Observer AppState.")
 
             if (appState is AppState.Success) {
-                AppLogger.i(TAG, "convertBudgetEntriesToExcel: Observer AppState.Success")
+                AppLogger.i( "convertBudgetEntriesToExcel: Observer AppState.Success")
                 val listBudgetEnties = appState.data
                 AppLogger.i(
-                    TAG,
                     "convertBudgetEntriesToExcel: listBudgetEntries.size = ${listBudgetEnties?.size}"
                 )
                 if (!listBudgetEnties.isNullOrEmpty()) {

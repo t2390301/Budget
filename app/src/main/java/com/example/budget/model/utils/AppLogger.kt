@@ -1,12 +1,18 @@
 package com.example.budget.model.utils
 
 import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
+import com.orhanobut.logger.PrettyFormatStrategy
 
 
 object AppLogger : ILogger {
     override fun init() {
-        Logger.addLogAdapter(AndroidLogAdapter())
+        val formatStrategy: FormatStrategy = PrettyFormatStrategy.newBuilder()
+            .showThreadInfo(false)
+            .methodCount(0)
+            .build()
+        Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
     }
 
     override fun v(message: String, vararg args: Any) {
