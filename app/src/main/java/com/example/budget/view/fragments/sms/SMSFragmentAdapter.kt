@@ -1,7 +1,6 @@
 package com.example.budget.view.fragments.sms
 
 import android.icu.text.DateFormat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +33,7 @@ class SMSFragmentAdapter(private var smslist: List<SmsData>?) : RecyclerView.Ada
     }
 
     fun setList(list: List<SmsData>){
-        Log.i(TAG, "setList: ")
+
         this.smslist = list
         notifyDataSetChanged()
     }

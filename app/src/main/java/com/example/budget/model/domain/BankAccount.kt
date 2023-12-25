@@ -9,4 +9,5 @@ data class BankAccount(
     val cardType: CardType, //кредитная дебетовая
     val cardLimit: Double, //доступный лимит
     var balance: Double,
+    val bankImageId: Int?
 )

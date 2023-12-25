@@ -100,6 +100,7 @@ class SmsDataMapper(private val dbRepository: DBRepository) {
                         cardType = CardType.NOTYPE,
                         cardLimit = 0.0,
                         balance = balance!!,
+                        bank.bankImage
                     )?.let {
                         bankAccounts.add(it)
                         converter.bankAccountConverter(it)
