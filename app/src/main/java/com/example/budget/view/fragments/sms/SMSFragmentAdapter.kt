@@ -1,6 +1,7 @@
 package com.example.budget.view.fragments.sms
 
 import android.icu.text.DateFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,21 +17,13 @@ import com.example.budget.model.domain.SmsData
 import timber.log.Timber
 import java.util.Locale
 
-class SMSFragmentAdapter(
-    private var smslist: List<SmsData>?
-) : RecyclerView.Adapter<SMSFragmentAdapter.SMSViewHolder>() {
+class SMSFragmentAdapter(private var smslist: List<SmsData>?) : RecyclerView.Adapter<SMSFragmentAdapter.SMSViewHolder>(){
 
-    /*        class SMSViewHolder(binding: ItemSmsFragmentBinding) :
-                RecyclerView.ViewHolder(binding.root) {
-                val bankImage: ImageView = binding.imgBank
-                val smsBody: TextView = binding.smsText
-                val smsDate: TextView = binding.smsDateAndTime
-            }*/
+    companion object{
+        const val TAG ="SMSFragmentAdapter"
 
-
-    class SMSViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        //val smsAddress = itemView.findViewById<TextView>(R.id.sms_sender)
+    }
+    class SMSViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val bankImage = itemView.findViewById<ImageView>(R.id.img_bank)
         val smsBody = itemView.findViewById<TextView>(R.id.sms_text)
         val smsDate = itemView.findViewById<TextView>(R.id.sms_date_and_time)
@@ -42,9 +35,11 @@ class SMSFragmentAdapter(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_sms_fragment, parent, false)
         return SMSViewHolder(itemView)
+
     }
 
-    fun setList(list: List<SmsData>) {
+    fun setList(list: List<SmsData>){
+        Log.i(TAG, "setList: ")
         this.smslist = list
         notifyDataSetChanged()
     }
@@ -53,17 +48,16 @@ class SMSFragmentAdapter(
 
 
     override fun onBindViewHolder(holder: SMSViewHolder, position: Int) {
-        //holder.smsAddress.text = smslist?.get(position)?.sender
         holder.smsBody.text = smslist?.get(position)?.body
         holder.smsDate.text = formatToRusShortDate.format(smslist?.get(position)?.date ?: 0)
         val image = smslist?.get(position)?.bankImage
-        Timber.tag("!!! SMSFragmentAdapter").i("image = %s", image)
-        if (image != null) {
+        if (image != null){
             holder.bankImage.setImageResource(image)
         } else {
             holder.bankImage.setImageResource(DEFAULT_BANK_IMAGE)
         }
     }
+
 
     private var formatToRusShortDate: DateFormat =
         DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale("ru"))

@@ -6,31 +6,46 @@ import com.example.budget.model.database.converters.Converters
 import com.example.budget.model.domain.Bank
 import com.example.budget.model.domain.BankAccount
 import com.example.budget.model.domain.BudgetEntry
-import com.example.budget.model.domain.BudgetGroup
+import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.domain.CardType
 import com.example.budget.model.domain.OperationType
 import com.example.budget.model.domain.Seller
 import com.example.budget.model.domain.SmsData
 import com.example.budget.repository.DBRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.regex.Pattern
 
 
-class SmsDataMapper(val dbRepository: DBRepository) {
+class SmsDataMapper(private val dbRepository: DBRepository) {
     companion object {
         const val TAG = "SmsDataMapper"
         val CURRENCYLIST = listOf("RUB", "USD")
         const val SPACE = " "
         const val COMMA = ","
         const val DOT = "."
+
     }
 
-    private lateinit var banks: MutableList<Bank>
-    private lateinit var sellers: MutableList<Seller>
-    private lateinit var bankAccounts: MutableList<BankAccount>
-    private lateinit var budgetGroups: MutableList<BudgetGroup>
-
     val converter = Converters(dbRepository)
+
+    private var banks = mutableListOf<Bank>()
+    private var  sellers = mutableListOf<Seller>()
+    private var bankAccounts = mutableListOf<BankAccount>()
+    private var budgetGroups = mutableListOf<BudgetGroupEntity>()
+
+    init {
+        CoroutineScope(SupervisorJob()).launch {
+            banks = dbRepository.getBankEntities().map { converter.bankEntityConverter(it) }
+                .toMutableList()
+            sellers= dbRepository.getSellerEntities().map { converter.sellerEntityConverter(it)} as MutableList<Seller>
+            bankAccounts = dbRepository.getBankAccountEntities().map { converter.bankAccountEntityConverter(it) } as MutableList<BankAccount>
+            budgetGroups = dbRepository.getBudgetGroupEntities().toMutableList() as MutableList<BudgetGroupEntity>
+            }
+        }
+
 
     suspend fun convertSMSToBudgetEntry(sms: SmsData): BudgetEntry? {
 
@@ -73,11 +88,8 @@ class SmsDataMapper(val dbRepository: DBRepository) {
         val seller = smsMatcher(bank.sellerNameRegex, sms.body)
 
         if (cardpan.isNullOrEmpty() or !(amount != null) or !(balance != null) or seller.isNullOrEmpty()) {
-            Log.i(TAG, "convertSMSToBudgetEntry: null $cardpan; $amount; $balance; $seller")
             return null
         } else {
-
-            Log.i(TAG, "convertSMSToBudgetEntry: getKart $cardpan; $amount; $balance; $seller")
 
             bankAccounts.filter { it.cardPan.equals(cardpan) }.let { list ->
                 if (list.isEmpty()) {
@@ -143,14 +155,7 @@ class SmsDataMapper(val dbRepository: DBRepository) {
             return value
         }
         return null
-        /*val pattern = Pattern.compile(regex)
-        val matcher = pattern.matcher(strForMatch)
-        if (matcher.find()) {
-            Log.i(TAG, "smsMatcher: ${matcher.results(). .group()}")
-            return matcher.group()
-        } else {
-            return null
-        }*/
+
     }
 
     fun updateRules() {
@@ -165,8 +170,8 @@ class SmsDataMapper(val dbRepository: DBRepository) {
         sellers = newSellers as MutableList<Seller>
     }
 
-    fun updateBudgetGroup(newBudgetGroups: List<BudgetGroup>) {
-        budgetGroups = newBudgetGroups as MutableList<BudgetGroup>
+    fun updateBudgetGroup(newBudgetGroups: List<BudgetGroupEntity>) {
+        budgetGroups = newBudgetGroups as MutableList<BudgetGroupEntity>
     }
 
     fun updateBankAccounts(newBankAcounts: List<BankAccount>) {

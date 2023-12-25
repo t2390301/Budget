@@ -119,6 +119,7 @@ class DBRepository(db: DatabaseHelper) {
         return id
     }
 
+
     suspend fun getSellerIdBySellerName(sellerName: String): Long {
         var id = -1L
         val sellerEntityList = sellerDao.getSellerIdBySellerName(sellerName)
@@ -134,6 +135,28 @@ class DBRepository(db: DatabaseHelper) {
 
     suspend fun insertSMSDataEntityList(smsEntityList: List<SmsDataEntity>) {
         smsDao.insertAll(smsEntityList)
+    }
+
+    suspend fun getCombainBudgetEntitis(): List<CombainBudgetEntry> =
+        combainBudgetEntryDao.getAll()
+
+    suspend fun getSMSList(): List<SmsDataEntity> =
+        smsDao.getAll()
+
+    suspend fun getSMSCount(): Long =
+        smsDao.getSMSCount()
+
+    suspend fun insertSMSEntity(smsDataEntity: SmsDataEntity) =
+        smsDao.insert(smsDataEntity)
+
+
+    suspend fun getLastUnSafeSMSDate(): Long =
+        smsDao.getLastUnsavedSMSDate()?:0
+
+
+
+    suspend fun updateSMS(sms: SmsDataEntity) {
+        smsDao.update(sms)
     }
 
 

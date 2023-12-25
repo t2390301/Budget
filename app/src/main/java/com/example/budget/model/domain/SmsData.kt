@@ -2,9 +2,9 @@ package com.example.budget.model.domain
 
 
 data class SmsData(
-    val date: Long,
-    val sender: String,
-    val body: String,
+    var date: Long,
+    var sender: String,
+    var body: String,
     var isCashed: Boolean,
     val bankImage: Int?
 

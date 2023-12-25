@@ -5,13 +5,14 @@ import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetGroupEntity
 
 
-const val LAST_SAVED_SMS_Date = "last_saved_sms_date"
 
 val DEFAULT_BANK_IMAGE = R.drawable.ic_yandexdisk_64
 
 val BANKSENTITY = listOf<BankEntity>(
     BankEntity(
-        1L, "Альфа Банк", "AlfaBank",
+        1L,
+        "Альфа Банк",
+        "AlfaBank",
         "Pokupka",
         "Postupleniye",
         "(^\\*\\*[\\d]{4})",
@@ -21,7 +22,9 @@ val BANKSENTITY = listOf<BankEntity>(
         R.drawable.ic_alfabank_72
     ),
     BankEntity(
-        2L, "Тинькофф", "Tinkoff",
+        2L,
+        "Тинькофф",
+        "Tinkoff",
         "Покупка",
         "Поступление",     //"Проверить"
         "карта (\\*\\d{4}).",
