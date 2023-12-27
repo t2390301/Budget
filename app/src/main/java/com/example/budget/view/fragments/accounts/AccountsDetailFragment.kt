@@ -1,7 +1,6 @@
 package com.example.budget.view.fragments.accounts
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,13 +54,7 @@ class AccountsDetailFragment : Fragment() {
             accountTypeSpinner.setSelection(account.cardType.ordinal)
             accountTypeSpinner.onItemSelectedListener = itemSelectedListener
             accountCreditLimit.setText(account.cardLimit.toString(),TextView.BufferType.SPANNABLE)
-            if (account.cardType == CardType.CREDIT) {
-                accountCreditLimit.isFocusable = true
-                accountCreditLimit.isFocusableInTouchMode = true
-            } else{
-                accountCreditLimit.isFocusable = false
-                accountCreditLimit.isFocusableInTouchMode = false
-            }
+            creditCardLimitFocus(account)
             saveItem.setOnClickListener {
                 account.cardLimit = accountCreditLimit.text.toString().toDouble()
                 account.balance = accountBalance.text.toString().toDouble()
@@ -70,10 +63,23 @@ class AccountsDetailFragment : Fragment() {
         }
     }
 
+    private fun creditCardLimitFocus(account: BankAccount) {
+        binding.apply {
+            if (bankAccount.cardType == CardType.CREDIT) {
+                accountCreditLimit.isFocusable = true
+                accountCreditLimit.isFocusableInTouchMode = true
+            } else {
+                accountCreditLimit.isFocusable = false
+                accountCreditLimit.isFocusableInTouchMode = false
+            }
+        }
+    }
+
 
     private val itemSelectedListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             bankAccount.cardType = CardType.values().get(position)
+            creditCardLimitFocus(bankAccount)
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {

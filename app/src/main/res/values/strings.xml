@@ -130,6 +130,7 @@
     <string name="card_pan">Шаблон</string>
     <string name="card_balance">Баланс карты</string>
     <string name="save">Сохранить</string>
+    <string name="menu_sellers">Продавцы</string>
 
 
 </resources>
