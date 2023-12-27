@@ -19,7 +19,7 @@ class SMSFragmentAdapter(private var smslist: List<SmsData>?) : RecyclerView.Ada
 
     }
     class SMSViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val bankImage = itemView.findViewById<ImageView>(R.id.img_bank)
+        val bankImage = itemView.findViewById<ImageView>(R.id.account_img_bank)
         val smsBody = itemView.findViewById<TextView>(R.id.sms_text)
         val smsDate = itemView.findViewById<TextView>(R.id.sms_date_and_time)
     }

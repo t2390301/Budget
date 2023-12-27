@@ -8,11 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budget.databinding.ItemMainFragmentBinding
-import com.example.budget.model.database.converters.Converters
-import com.example.budget.model.database.converters.OperationTypeConverter
 import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.domain.OperationType
-
 import java.util.Locale
 
 class MainFragmentAdapter(
@@ -60,7 +57,7 @@ class MainFragmentAdapter(
         val textDateAndTime: TextView = binding.textDateAndTime  // Дата
         val textExpense: TextView = binding.textExpense // Статья расходов
         val textAmount: TextView = binding.textAmount   // Сумма р.
-        val imgBank: ImageView = binding.imgBank
+        val imgBank: ImageView = binding.accountImgBank
     }
 
 }

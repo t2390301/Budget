@@ -55,15 +55,6 @@ class SMSFragmentViewModel : ViewModel() {
             }
         }
     }
-    /*    private fun getAllSMS(): LiveData<List<SmsDataEntity>> {
-            val liveDataSMS = MutableLiveData<List<SmsDataEntity>>()
-            viewModelScope.launch {
-                val smsList = dbRepository.getSMSList()
-                if (!smsList.isEmpty()) {
-                    liveDataSMS.value = smsList
-                }
-            }
-            return liveDataSMS
-        }*/
+
 
 }

@@ -121,6 +121,15 @@
         <item>Суббота</item>
         <item>Воскресенье</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete">Delete Account</string>
+    <string name="add_account">Add Account</string>
+    <string name="card_type">Тип карты</string>
+    <string name="card_limit">Кредитный лимит</string>
+    <string name="card_pan">Шаблон</string>
+    <string name="card_balance">Баланс карты</string>
+    <string name="save">Сохранить</string>
 
 
 </resources>

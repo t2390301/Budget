@@ -51,13 +51,10 @@ class SmsDataMapper(private val dbRepository: DBRepository) {
 
         val budgetEntry: BudgetEntry?
 
-        Log.i(TAG, "convertSMSToBudgetEntry: sms.adress = ${sms.sender}")
-        Log.i(TAG, "convertSMSToBudgetEntry: sms.body = ${sms.body}")
-        Log.i(TAG, "convertSMSToBudgetEntry: sms.date = ${Date(sms.date)}")
+
 
         val bank = banks.find { it.smsAddress.equals(sms.sender) }
         if (bank == null) {
-            Log.i(TAG, "convertSMSToBudgetEntry: bank wasn't find for ${sms.sender}")
             return null
         }
 
@@ -110,7 +107,7 @@ class SmsDataMapper(private val dbRepository: DBRepository) {
                 } else {
                     list.first().balance = balance!!
                     converter.bankAccountConverter(list.first())
-                        ?.let { dbRepository.update(it) }//Update not insert
+                        ?.let { dbRepository.updatebankAccountEntity(it) }//Update not insert
                 }
             }
 

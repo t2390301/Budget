@@ -10,7 +10,6 @@ import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.database.entity.SmsDataEntity
 import com.example.budget.model.domain.CombainBudgetEntry
-
 class DBRepository(db: DatabaseHelper) {
     companion object {
         const val TAG = "DBRepository"
@@ -25,7 +24,6 @@ class DBRepository(db: DatabaseHelper) {
     private val combainBudgetEntryDao = db.getCombainBudgetEntriesDao()
 
     suspend fun getBankAccountEntities(): List<BankAccountEntity> {
-        Log.i(TAG, "getBankAccountEntities: here")
         return bankAccountDao.getAll()
     }
 
@@ -79,7 +77,6 @@ class DBRepository(db: DatabaseHelper) {
 
     suspend fun getBudgetGroupIdByBudgetGroupName(budgetGroup: BudgetGroupEnum): Long {
         var id: Long = -1
-        Log.i(TAG, "getBudgetGroupIdByBudgetGroupName: ${budgetGroup.name}")
 
         val bdlist = budgetGroupDao.getBudgetGroupNameByGroupName(budgetGroup)
         if (bdlist.isEmpty()) {
@@ -116,7 +113,7 @@ class DBRepository(db: DatabaseHelper) {
         return id
     }
 
-    suspend fun update(bankAccountEntity: BankAccountEntity) {
+    suspend fun updatebankAccountEntity (bankAccountEntity: BankAccountEntity) {
         bankAccountDao.update(bankAccountEntity)
     }
 
@@ -145,6 +142,17 @@ class DBRepository(db: DatabaseHelper) {
     suspend fun updateSMS(sms: SmsDataEntity) {
         smsDao.update(sms)
     }
+
+    suspend fun getBankAccountEntityById(id: Long): BankAccountEntity? {
+        val list = bankAccountDao.getBankAccountEntityById(id)
+        Log.i(TAG, "getBankAccountEntityById: ${list.size}")
+        if(list.isNotEmpty()){
+            return  list.first()
+        }
+        return null
+    }
+
+
 
 
 }
