@@ -2,7 +2,6 @@ package com.example.budget.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.dao.BudgetEntryDao
 import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.domain.OperationType
@@ -17,7 +16,6 @@ class MainFragmentViewModel : ViewModel() {
     val budgetEntry get() = mutableList
 
     var operation: OperationType? = null
-    var budgetGroup: BudgetGroupEnum? = null
 
     var onUpdateListEvent: (List<BudgetEntryEntity>) -> Unit = {}
 

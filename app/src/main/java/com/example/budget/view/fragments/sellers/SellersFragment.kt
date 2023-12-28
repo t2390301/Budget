@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.budget.R
 import com.example.budget.databinding.FragmentSellersBinding
+import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.domain.Seller
 import com.example.budget.viewmodel.AppState
 import com.example.budget.viewmodel.SellerFragmentViewMode
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class SellersFragment : BottomSheetDialogFragment(){
+class SellersFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentSellersBinding? = null
 
@@ -37,23 +38,43 @@ class SellersFragment : BottomSheetDialogFragment(){
 
         var sellersList = mutableListOf<Seller>()
 
-        val sellersAdapter = SellerFragmentAdapter(sellersList){
-            viewModel.updateSeller(it)
-            requireActivity().supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.slide_in,R.anim.fade_out,R.anim.fade_in, R.anim.slide_out)
-                .replace(R.id.main_container, SellerDetailFragment())
-                .addToBackStack("")
-                .commit()
+        var budgetGroups: List<BudgetGroupEntity> = listOf()
 
-        }
+
+        val sellersAdapter =
+            SellerFragmentAdapter(sellersList, budgetGroups) {
+                viewModel.updateSeller(it)
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.slide_out
+                    )
+                    .replace(R.id.main_container, SellerDetailFragment())
+                    .addToBackStack("")
+                    .commit()
+
+            }
 
         binding.sellersRecyclerView.adapter = sellersAdapter
 
-        viewModel.sellersViewModel.observe(viewLifecycleOwner){appState ->
-            if (appState != null && appState is AppState.Success){
+        viewModel.budgetGroupEntityLiveData.observe(viewLifecycleOwner) { appState ->
+            if (appState != null && appState is AppState.Success) {
                 appState.data?.let {
-                sellersList = it
-                sellersAdapter.setData(sellersList)}
+                    budgetGroups = it
+
+                    sellersAdapter.setGroups(budgetGroups)
+                }
+            }
+        }
+
+        viewModel.sellersViewModel.observe(viewLifecycleOwner) { appState ->
+            if (appState != null && appState is AppState.Success) {
+                appState.data?.let {
+                    sellersList = it
+                    sellersAdapter.setData(sellersList)
+                }
             }
         }
 
@@ -63,6 +84,7 @@ class SellersFragment : BottomSheetDialogFragment(){
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
         const val TAG = "SellersFragment"
     }

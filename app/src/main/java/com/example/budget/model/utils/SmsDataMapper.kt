@@ -1,7 +1,6 @@
 package com.example.budget.model.utils
 
 import android.util.Log
-import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.converters.Converters
 import com.example.budget.model.domain.Bank
 import com.example.budget.model.domain.BankAccount
@@ -112,11 +111,11 @@ class SmsDataMapper(private val dbRepository: DBRepository) {
             }
 
 
-            var budgetGroup = BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО
+            var budgetGroup = "НЕ_ОПРЕДЕЛЕНО"
 
             sellers.filter { it.name.equals(seller) }.let { sellerList ->
                 if (sellerList.isEmpty()) {
-                    Seller(seller!!, BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО)?.let {
+                    Seller(seller!!, budgetGroup)?.let {
                         sellers.add(it)
                         converter.sellerConverter(it)
                             ?.let { it1 -> dbRepository.insertSellerEntity(it1) }

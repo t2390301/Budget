@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BudgetGroupEntity
 
 @Dao
@@ -19,7 +18,7 @@ interface BudgetGroupDao {
     suspend fun getBudgetGroupNameById(id: Long): List<BudgetGroupEntity>
 
     @Query("SELECT * FROM budget_group_table WHERE name =:groupName")
-    suspend fun getBudgetGroupNameByGroupName(groupName: BudgetGroupEnum): List<BudgetGroupEntity>
+    suspend fun getBudgetGroupNameByGroupName(groupName: String): List<BudgetGroupEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: BudgetGroupEntity)

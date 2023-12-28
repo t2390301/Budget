@@ -1,6 +1,5 @@
 package com.example.budget.model.database.converters
 
-import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetEntryEntity
@@ -57,26 +56,22 @@ class Converters(private val dbRepository: DBRepository) {
 
     suspend fun sellerEntityConverter(sellerEntity: SellerEntity): Seller? {
         val budgetGroup = dbRepository.getBudgetGroupNameById(sellerEntity.id)
-        if (budgetGroup in BudgetGroupEnum.entries) {
-            return Seller(
+        return Seller(
                 sellerEntity.name,
-                budgetGroup
+                budgetGroup.name
             )
-        } else {
-            return null
-        }
     }
 
-    suspend fun sellerConverter(seller: Seller): SellerEntity? {
+    suspend fun sellerConverter(seller: Seller): SellerEntity?  {
         val groupId = dbRepository.getBudgetGroupIdByBudgetGroupName(seller.budgetGroupName)
-        return if (groupId >= 0) {
-            SellerEntity(
+        if (groupId > 0) {
+            return SellerEntity(
                 0L,
                 seller.name,
                 groupId
             )
-        } else {
-            null
+        } else{
+            return null
         }
     }
 
@@ -139,7 +134,7 @@ class Converters(private val dbRepository: DBRepository) {
             smsDataEntity.sender,
             smsDataEntity.body,
             smsDataEntity.isCashed,
-            
+
             bankImage = banks.filter { it.smsAddress.equals(smsDataEntity.sender) }
                 .first().bankImage
         )

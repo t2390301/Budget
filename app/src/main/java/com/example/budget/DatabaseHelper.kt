@@ -9,6 +9,7 @@ import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_1_2
 import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_2_3
 import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_3_4
 import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_4_5
+import com.example.budget.model.database.AppDatabase.Companion.MIGRATION_5_6
 import com.example.budget.model.database.dao.BankAccountDao
 import com.example.budget.model.database.dao.BankDao
 import com.example.budget.model.database.dao.BudgetEntryDao
@@ -34,6 +35,7 @@ class DatabaseHelper {
                 .addMigrations(MIGRATION_2_3)
                 .addMigrations(MIGRATION_3_4)
                 .addMigrations(MIGRATION_4_5)
+                .addMigrations(MIGRATION_5_6)
                 .build()
 
 

@@ -2,7 +2,6 @@ package com.example.budget.repository
 
 import android.util.Log
 import com.example.budget.DatabaseHelper
-import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetEntryEntity
@@ -10,6 +9,7 @@ import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.database.entity.SmsDataEntity
 import com.example.budget.model.domain.CombainBudgetEntry
+
 class DBRepository(db: DatabaseHelper) {
     companion object {
         const val TAG = "DBRepository"
@@ -64,21 +64,19 @@ class DBRepository(db: DatabaseHelper) {
         return smsAddress
     }
 
-    suspend fun getBudgetGroupNameById(id: Long): BudgetGroupEnum {
-        var budgetGroup = BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО
+    suspend fun getBudgetGroupNameById(id: Long): BudgetGroupEntity {
+        var budgetGroup = BudgetGroupEntity(1L,"НЕ ОПРЕДЕЛЕНО", "", 0L)
         val bugetGroupEntityList = budgetGroupDao.getBudgetGroupNameById(id)
         if (!bugetGroupEntityList.isEmpty()) {
-            bugetGroupEntityList.first()?.let {
-                budgetGroup = it.name
-            }
+            budgetGroup= bugetGroupEntityList.first()
         }
         return budgetGroup
     }
 
-    suspend fun getBudgetGroupIdByBudgetGroupName(budgetGroup: BudgetGroupEnum): Long {
-        var id: Long = -1
+    suspend fun getBudgetGroupIdByBudgetGroupName(budgetGroupName: String): Long {
+        var id: Long
 
-        val bdlist = budgetGroupDao.getBudgetGroupNameByGroupName(budgetGroup)
+        val bdlist = budgetGroupDao.getBudgetGroupNameByGroupName(budgetGroupName)
         if (bdlist.isEmpty()) {
             id = 1
         } else {
