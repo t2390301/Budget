@@ -1,6 +1,5 @@
 package com.example.budget.repository
 
-import android.util.Log
 import com.example.budget.DatabaseHelper
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
@@ -143,7 +142,6 @@ class DBRepository(db: DatabaseHelper) {
 
     suspend fun getBankAccountEntityById(id: Long): BankAccountEntity? {
         val list = bankAccountDao.getBankAccountEntityById(id)
-        Log.i(TAG, "getBankAccountEntityById: ${list.size}")
         if(list.isNotEmpty()){
             return  list.first()
         }
@@ -151,6 +149,10 @@ class DBRepository(db: DatabaseHelper) {
     }
 
 
+    suspend fun updateSellersEntity(sellersEntityList: List<SellerEntity>) {
+
+        sellerDao.updateAll(sellersEntityList)
+    }
 
 
 }

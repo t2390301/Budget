@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.example.budget.R
 import com.example.budget.databinding.FragmentSellersBinding
 import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.domain.Seller
@@ -23,6 +22,8 @@ class SellersFragment : BottomSheetDialogFragment() {
 
     val viewModel: SellerFragmentViewMode by activityViewModels()
 
+    var sellersList = mutableListOf<Seller>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +37,7 @@ class SellersFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var sellersList = mutableListOf<Seller>()
+
 
         var budgetGroups: List<BudgetGroupEntity> = listOf()
 
@@ -44,7 +45,7 @@ class SellersFragment : BottomSheetDialogFragment() {
         val sellersAdapter =
             SellerFragmentAdapter(sellersList, budgetGroups) {
                 viewModel.updateSeller(it)
-                requireActivity().supportFragmentManager.beginTransaction()
+                /*requireActivity().supportFragmentManager.beginTransaction()
                     .setCustomAnimations(
                         R.anim.slide_in,
                         R.anim.fade_out,
@@ -53,7 +54,7 @@ class SellersFragment : BottomSheetDialogFragment() {
                     )
                     .replace(R.id.main_container, SellerDetailFragment())
                     .addToBackStack("")
-                    .commit()
+                    .commit()*/
 
             }
 
@@ -80,12 +81,21 @@ class SellersFragment : BottomSheetDialogFragment() {
 
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    override fun onStop() {
+        viewModel.sellersViewModel.value = AppState.Success(this.sellersList)
+        viewModel.updateSellersEntity()
+        super.onStop()
+
+    }
+
     companion object {
         const val TAG = "SellersFragment"
     }
+
 }
