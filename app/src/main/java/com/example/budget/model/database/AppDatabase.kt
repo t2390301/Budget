@@ -3,6 +3,7 @@ package com.example.budget.model.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.Update
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.budget.model.database.converters.BudgetGroupConverter
@@ -38,7 +39,7 @@ import com.example.budget.model.database.entity.SmsDataEntity
         PlanningNoteEntity::class
     ],
 
-    version = 5
+    version = 6
 
 )
 @TypeConverters(
@@ -82,6 +83,25 @@ abstract class AppDatabase : RoomDatabase() {
                     sql = "ALTER TABLE bank_table " +
                             "ADD COLUMN bankImage INT NULL;"
                 )
+            }
+
+        }
+
+        val MIGRATION_5_6 = object : Migration(5,6){
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "ALTER TABLE budget_group_table " +
+                    "ADD COLUMN name_str VARCHAR(256)"
+                )
+
+                db.execSQL("UPDATE budget_group_table SET name_str = name")
+                db.execSQL("ALTER TABLE budget_group_table " +
+                        "DROP COLUMN name")
+                db.execSQL("ALTER TABLE budget_group_table " +
+                        "RENAME COLUMN name_str TO name")
+
+
+
             }
 
         }

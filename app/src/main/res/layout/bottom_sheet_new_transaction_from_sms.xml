@@ -35,7 +35,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img_bank"
+                android:id="@+id/account_img_bank"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:padding="4dp"

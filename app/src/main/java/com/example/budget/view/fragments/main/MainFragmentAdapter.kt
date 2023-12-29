@@ -10,10 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budget.R
 import com.example.budget.databinding.ItemMainFragmentBinding
-import com.example.budget.model.domain.BudgetEntryTable
+import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.domain.OperationType
 import java.util.Locale
-
 
 class MainFragmentAdapter(
     private var budgetEntitiesTableList: List<BudgetEntryTable>?
@@ -67,13 +66,22 @@ class MainFragmentAdapter(
     private var formatToRusShortDate: DateFormat =
         DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale("ru"))
 
-
     private fun Number.formatToText(operationType: OperationType) =
         if (operationType == OperationType.EXPENSE) {
             "- " + decimalFormat.format(this).replace(",", " ") + " р."
         } else {
             "+ " + decimalFormat.format(this).replace(",", " ") + " р."
         }
+
+
+    inner class MainViewHolder(binding: ItemMainFragmentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val textAccount: TextView = binding.textAccount          // Название счета
+        val textDateAndTime: TextView = binding.textDateAndTime  // Дата
+        val textExpense: TextView = binding.textExpense // Статья расходов
+        val textAmount: TextView = binding.textAmount   // Сумма р.
+        val imgBank: ImageView = binding.accountImgBank
+    }
 
 }
 

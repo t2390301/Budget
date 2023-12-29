@@ -31,4 +31,6 @@ interface BankAccountDao {
 
     @Query("DELETE FROM bank_account_table")
     suspend fun deleteAll()
+    @Query("SELECT * FROM bank_account_table WHERE id = :id")
+    suspend fun getBankAccountEntityById(id: Long) : List<BankAccountEntity>
 }

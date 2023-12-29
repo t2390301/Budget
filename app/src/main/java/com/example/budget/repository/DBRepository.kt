@@ -2,7 +2,6 @@ package com.example.budget.repository
 
 import android.util.Log
 import com.example.budget.DatabaseHelper
-import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetEntryEntity
@@ -27,6 +26,11 @@ class DBRepository(db: DatabaseHelper) {
     private val smsDao = db.getSmsDataDao()
     private val combainBudgetEntryDao = db.getCombainBudgetEntriesDao()
 
+    suspend fun getBankAccountEntities(): List<BankAccountEntity> {
+        return bankAccountDao.getAll()
+    }
+
+
     suspend fun getBankEntities(): List<BankEntity> = bankDao.getAll()
 
 
@@ -39,11 +43,6 @@ class DBRepository(db: DatabaseHelper) {
     suspend fun getBudgetEntriesTableDao(): List<BudgetEntryTable> {
         Timber.i("getBudgetEntriesTableDao: here")
         return budgetEntriesTableDao.getAll()
-    }
-
-    suspend fun getBankAccountEntities(): List<BankAccountEntity> {
-        Timber.i("getBankAccountEntities: here")
-        return bankAccountDao.getAll()
     }
 
     suspend fun insertBankAccountEntity(bankAccountEntity: BankAccountEntity) =
@@ -78,22 +77,19 @@ class DBRepository(db: DatabaseHelper) {
         return smsAddress
     }
 
-    suspend fun getBudgetGroupNameById(id: Long): BudgetGroupEnum {
-        var budgetGroup = BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО
+    suspend fun getBudgetGroupNameById(id: Long): BudgetGroupEntity {
+        var budgetGroup = BudgetGroupEntity(1L,"НЕ ОПРЕДЕЛЕНО", "", 0L)
         val bugetGroupEntityList = budgetGroupDao.getBudgetGroupNameById(id)
         if (!bugetGroupEntityList.isEmpty()) {
-            bugetGroupEntityList.first()?.let {
-                budgetGroup = it.name
-            }
+            budgetGroup= bugetGroupEntityList.first()
         }
         return budgetGroup
     }
 
-    suspend fun getBudgetGroupIdByBudgetGroupName(budgetGroup: BudgetGroupEnum): Long {
-        var id: Long = -1
-        Log.i(TAG, "getBudgetGroupIdByBudgetGroupName: ${budgetGroup.name}")
+    suspend fun getBudgetGroupIdByBudgetGroupName(budgetGroupName: String): Long {
+        var id: Long
 
-        val bdlist = budgetGroupDao.getBudgetGroupNameByGroupName(budgetGroup)
+        val bdlist = budgetGroupDao.getBudgetGroupNameByGroupName(budgetGroupName)
         if (bdlist.isEmpty()) {
             id = 1
         } else {
@@ -129,7 +125,7 @@ class DBRepository(db: DatabaseHelper) {
         return id
     }
 
-    suspend fun update(bankAccountEntity: BankAccountEntity) {
+    suspend fun updatebankAccountEntity (bankAccountEntity: BankAccountEntity) {
         bankAccountDao.update(bankAccountEntity)
     }
 
@@ -155,6 +151,17 @@ class DBRepository(db: DatabaseHelper) {
     suspend fun updateSMS(sms: SmsDataEntity) {
         smsDao.update(sms)
     }
+
+    suspend fun getBankAccountEntityById(id: Long): BankAccountEntity? {
+        val list = bankAccountDao.getBankAccountEntityById(id)
+        Log.i(TAG, "getBankAccountEntityById: ${list.size}")
+        if(list.isNotEmpty()){
+            return  list.first()
+        }
+        return null
+    }
+
+
 
 
 }

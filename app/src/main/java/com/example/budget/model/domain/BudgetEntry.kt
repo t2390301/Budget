@@ -1,6 +1,5 @@
 package com.example.budget.model.domain
 
-import com.example.budget.model.constants.BudgetGroupEnum
 import java.util.Date
 
 data class BudgetEntry(
@@ -14,5 +13,5 @@ data class BudgetEntry(
     var operationAmount: Double,
     //var sellerId: Long,
     val sellerName: String,
-    val budgetGroup: BudgetGroupEnum
+    val budgetGroup: String
 )

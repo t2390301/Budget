@@ -14,5 +14,10 @@
             android:icon="@drawable/ic_bills_list"
             android:title="@string/menu_accounts" />
 
+        <item
+            android:id="@+id/navigation_sellers"
+            android:icon="@drawable/ic_bills_list"
+            android:title="@string/menu_sellers" />
+
     </group>
 </menu>

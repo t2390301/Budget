@@ -1,6 +1,5 @@
 package com.example.budget.model.database.converters
 
-import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
 import com.example.budget.model.database.entity.BudgetEntryEntity
@@ -35,7 +34,11 @@ class Converters(private val dbRepository: DBRepository) {
 
     suspend fun bankAccountEntityConverter(bankAccountEntity: BankAccountEntity): BankAccount? {
         val smsAddress = dbRepository.getBankSMSAdress(bankAccountEntity.bankId)
-
+        val banks = dbRepository.getBankEntities()
+        var bankImageId: Int? = null
+        if (banks.isNotEmpty() && banks.filter { it.smsAddress.equals(smsAddress) }.isNotEmpty() ) {
+            bankImageId = banks.filter { it.smsAddress.equals(smsAddress) }.first().bankImage
+        }
         if (smsAddress.length > 0) {
             return BankAccount(
                 bankAccountEntity.id,
@@ -43,7 +46,8 @@ class Converters(private val dbRepository: DBRepository) {
                 smsAddress,
                 bankAccountEntity.cardType,
                 bankAccountEntity.cardLimit,
-                bankAccountEntity.balance
+                bankAccountEntity.balance,
+                bankImageId
             )
         } else {
             return null
@@ -52,26 +56,22 @@ class Converters(private val dbRepository: DBRepository) {
 
     suspend fun sellerEntityConverter(sellerEntity: SellerEntity): Seller? {
         val budgetGroup = dbRepository.getBudgetGroupNameById(sellerEntity.id)
-        if (budgetGroup in BudgetGroupEnum.entries) {
-            return Seller(
+        return Seller(
                 sellerEntity.name,
-                budgetGroup
+                budgetGroup.name
             )
-        } else {
-            return null
-        }
     }
 
-    suspend fun sellerConverter(seller: Seller): SellerEntity? {
+    suspend fun sellerConverter(seller: Seller): SellerEntity?  {
         val groupId = dbRepository.getBudgetGroupIdByBudgetGroupName(seller.budgetGroupName)
-        return if (groupId >= 0) {
-            SellerEntity(
+        if (groupId > 0) {
+            return SellerEntity(
                 0L,
                 seller.name,
                 groupId
             )
-        } else {
-            null
+        } else{
+            return null
         }
     }
 
@@ -107,6 +107,7 @@ class Converters(private val dbRepository: DBRepository) {
             bankEntity.sellerNameRegex,
             bankEntity.operationAmountRegex,
             bankEntity.balanceRegex,
+            bankEntity.bankImage
         )
 
 /*    fun bankConverter(bank: Bank): BankEntity =

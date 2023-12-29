@@ -43,8 +43,6 @@ class MainActivityViewModel : ViewModel() {
     val banksAppState: MutableLiveData<AppState<MutableList<Bank>>>
 
     init {
-        Log.i(TAG, "init : MainActivityViewModel")
-
         converter = Converters(dbRepository)
         smsDataMapper = SmsDataMapper(dbRepository)
         banksAppState = MutableLiveData()
@@ -127,7 +125,6 @@ class MainActivityViewModel : ViewModel() {
             try {
 
                 val lastSMSDate = dbRepository.getLastUnSafeSMSDate()
-                Log.i(TAG, "updateSMSList: $lastSMSDate")
                 smsRepository.readSMSafterDate(lastSMSDate)
                     ?.filter { banksSMSAddress.contains(it.sender) }?.let {
                         smsListAppState.value = (AppState.Success(it.toMutableList()))

@@ -6,7 +6,8 @@ data class BankAccount(
     val cardPan: String, //номер карты
     // val bankId: Long,
     val bankSMSAddress: String,
-    val cardType: CardType, //кредитная дебетовая
-    val cardLimit: Double, //доступный лимит
+    var cardType: CardType, //кредитная дебетовая
+    var cardLimit: Double, //доступный лимит
     var balance: Double,
+    val bankImageId: Int?
 )

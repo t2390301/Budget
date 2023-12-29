@@ -10,5 +10,6 @@ data class Bank(
     var cardPanRegex: String,
     var sellerNameRegex: String,
     var operationAmountRegex: String,
-    var balanceRegex: String
+    var balanceRegex: String,
+    val bankImage : Int?
 )

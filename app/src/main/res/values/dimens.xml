@@ -14,6 +14,8 @@
     <dimen name="card_view_corner_radius">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="text_margin_small">8dp</dimen>
+    <dimen name="margin">16dp</dimen>
+    <dimen name="margin_between_elements">8dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
 
 
