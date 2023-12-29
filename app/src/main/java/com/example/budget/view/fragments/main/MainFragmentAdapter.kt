@@ -12,15 +12,15 @@ import com.example.budget.R
 import com.example.budget.databinding.ItemMainFragmentBinding
 import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.model.domain.OperationType
-import timber.log.Timber
 import java.util.Locale
+
 
 class MainFragmentAdapter(
     private var budgetEntitiesTableList: List<BudgetEntryTable>?
 ) : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
 
     private var _binding: ItemMainFragmentBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
     private var decimalFormat = DecimalFormat("#,###,###")
 
     class MainViewHolder(itemView: View) :
@@ -58,9 +58,9 @@ class MainFragmentAdapter(
             holder.textExpense.text = item.budgetGroupName
             holder.textDateAndTime.text = formatToRusShortDate.format(item.date)
             holder.textAmount.text = item.operationAmount.formatToText(item.operationType)
-            holder.imgBank.setBackgroundResource(item.bankImageId)
-//            holder.imgBank.setImageResource(item.bankImageId)
-            holder.imgBank.setBackgroundColor(com.google.android.material.R.color.m3_ref_palette_white)
+//            holder.imgBank.setBackgroundResource(item.bankImageId)
+            holder.imgBank.setImageResource(item.bankImageId)
+//            holder.imgBank.setBackgroundColor(com.google.android.material.R.color.m3_ref_palette_white)
         }
    }
 

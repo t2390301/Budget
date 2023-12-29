@@ -23,7 +23,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginEnd="@dimen/margin_12_dp"
-                android:padding="4dp"
+                android:padding="@dimen/padding_8dp"
                 app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
                 app:srcCompat="@drawable/ic_fastfood"
                 app:strokeColor="?attr/colorSecondary" />
