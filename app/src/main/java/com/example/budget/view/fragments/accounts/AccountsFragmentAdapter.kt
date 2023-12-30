@@ -18,9 +18,10 @@ class AccountsFragmentAdapter(
     class BankAccountViewHolder(val binding: ItemAccountFragmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(bankAccount: BankAccount) {
-            binding.accountImgBank.setImageDrawable(
+            binding.accountImgBank.         //setImageBitmap(BitmapFactory.decodeResource(itemView.resources, bankAccount.bankImageId?: DEFAULT_BANK_IMAGE, null))
+            setImageDrawable(
                 bankAccount.bankImageId?.let {
-                    ResourcesCompat.getDrawable(itemView.context.resources,
+                    ResourcesCompat.getDrawable(itemView.resources,
                          it, null)
                 })
             //binding.accountImgBank.setImageResource(bankAccount.bankImageId ?: DEFAULT_BANK_IMAGE)
