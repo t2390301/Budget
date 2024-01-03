@@ -19,14 +19,15 @@
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/account_img_bank"
+                android:id="@+id/budget_group_image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginEnd="@dimen/margin_12_dp"
                 android:padding="4dp"
                 app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
-                app:srcCompat="@drawable/ic_fastfood"
+                android:background="@color/cardview_light_background"
                 app:strokeColor="?attr/colorSecondary" />
+            <!--  app:srcCompat="@drawable/ic_fastfood"-->
 
             <TextView
                 android:id="@+id/text_expense"
@@ -36,9 +37,15 @@
                 android:gravity="center|start"
                 android:text="@string/food_products"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/total_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
         </LinearLayout>
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
+        <!--<com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/expense_circular_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +59,7 @@
             android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/margin_12_dp"
             android:layout_marginEnd="@dimen/margin_12_dp"
-            android:indeterminate="true" />
+            android:indeterminate="true" />-->
 
     </com.google.android.material.card.MaterialCardView>
 

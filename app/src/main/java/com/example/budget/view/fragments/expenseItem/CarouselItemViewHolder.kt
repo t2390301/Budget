@@ -20,6 +20,8 @@ internal class CarouselItemViewHolder(itemView: View, listener: CarouselItemList
     fun bind(item: CarouselItem) {
         Glide.with(imageView.context).load(item.drawableRes).centerCrop().into(imageView)
         imageView.contentDescription = imageView.resources.getString(item.contentDescRes)
+
+
         itemView.setOnClickListener(View.OnClickListener { v: View? ->
             listener.onItemClicked(
                 item,
