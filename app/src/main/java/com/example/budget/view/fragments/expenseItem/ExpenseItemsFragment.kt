@@ -1,14 +1,13 @@
 package com.example.budget.view.fragments.expenseItem
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.budget.databinding.FragmentExpenseItemsBinding
+import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.database.entity.SellerEntity
-import com.example.budget.model.domain.BudgetGroup
 import com.example.budget.model.domain.BudgetGroupWithAmount
 import com.example.budget.viewmodel.AppState
 import com.example.budget.viewmodel.ExpenseItemViewModel
@@ -20,6 +19,8 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentExpenseItemsBinding? = null
 
     private val binding get() = _binding!!
+
+    private var newBudgetGroupId = -1L
 
     val viewModel: ExpenseItemViewModel by activityViewModels()
 
@@ -53,6 +54,7 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
 
         val adapter = ExpenseViewAdapter(budgetGroupWithAmount, sellers ){budgetGroup, sellersList ->
             with(binding.included) {
+                newBudgetGroupId = budgetGroup.id
                 editTextExpenseItem.editText?.setText(budgetGroup.name)
                 editTextNote.editText?.setText(budgetGroup.description)
                 val sellersString =
@@ -66,27 +68,11 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
 
         binding.expenseItemRecyclerView.adapter = adapter
 
-
-        binding.included.saveButton.setOnClickListener {
-            with(binding.included) {
-                editTextExpenseItem.editText?.text?.let {
-                    if (it.length > 0) {
-                        val name = it.toString()
-                        val description = editTextNote.editText?.text.toString()
-                        insertNewBudgetGroup(
-                            BudgetGroup(
-                                name, description, null
-                            )
-                        )
-                    }
-                }
-            }
-        }
-
         binding.expenseItemRecyclerFab.setOnClickListener {
             if (recyclerViewVisible) {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
                 binding.expenseItemRecyclerView.visibility = View.GONE
+                newBudgetGroupId = -1L
                 recyclerViewVisible = false
             } else {
                 behavior.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -95,6 +81,26 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
             }
 
         }
+
+        binding.included.saveButton.setOnClickListener {
+            with(binding.included) {
+                editTextExpenseItem.editText?.text?.let {
+                    if (it.length > 0) {
+
+                        val name = it.toString()
+                        val description = editTextNote.editText?.text.toString()
+
+                        insertBudgetGroup(
+                            BudgetGroupEntity(
+                                newBudgetGroupId,
+                                name, description, null
+                            )
+                        )
+                    }
+                }
+            }
+        }
+
 
 
 
@@ -114,9 +120,9 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
     }
 
 
-    fun insertNewBudgetGroup(budgetGroup: BudgetGroup) {
-        if (budgetGroup.name.length > 0) {
-            viewModel.updateBudgetGroup(budgetGroup)
+    fun insertBudgetGroup(budgetGroupEntity: BudgetGroupEntity) {
+        if (budgetGroupEntity.name.length > 0) {
+            viewModel.updateBudgetGroupEntity(budgetGroupEntity)
         }
     }
 

@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:indeterminate="true" />
+            android:indeterminate="true" />-->
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/expense_linear_indicator"
@@ -59,7 +59,8 @@
             android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/margin_12_dp"
             android:layout_marginEnd="@dimen/margin_12_dp"
-            android:indeterminate="true" />-->
+            android:progress="10"
+            android:indeterminate="true" />
 
     </com.google.android.material.card.MaterialCardView>
 

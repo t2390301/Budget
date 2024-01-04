@@ -60,5 +60,19 @@ class ExpenseItemViewModel : ViewModel() {
         }
     }
 
+    fun updateBudgetGroupEntity(budgetGroupEntity: BudgetGroupEntity){
+        viewModelScope.launch {
+            if (budgetGroupEntity.id == -1L) {
+                budgetGroupEntity.id = 0L
+                dbRepository.insertBudgetGroupEntity(budgetGroupEntity)
+            } else{
+                dbRepository.updateBudgetGroupEntity(budgetGroupEntity)
+            }
+            val budgetGroupList = dbRepository.getBudgetGroupWithAmount()
+
+            budgetGroupsWithAmount.value = AppState.Success(budgetGroupList.toMutableList())
+        }
+    }
+
 
 }

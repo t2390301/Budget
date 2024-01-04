@@ -160,5 +160,9 @@ class DBRepository(db: DatabaseHelper) {
         return budgetGroupWithAmountDao.getAll()
     }
 
+    suspend fun updateBudgetGroupEntity(budgetGroupEntity: BudgetGroupEntity) {
+        budgetGroupDao.update(budgetGroupEntity)
+    }
+
 
 }

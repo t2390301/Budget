@@ -10,8 +10,11 @@ import com.example.budget.model.domain.BudgetGroupWithAmount
 
 class ExpenseViewAdapter(private var budgetGroupWithAmounts: List<BudgetGroupWithAmount>,
                          private var sellers: List<SellerEntity>,
-                         private val onItemClickListener: (budgetGroup: BudgetGroupWithAmount, sellers: List<SellerEntity>)->Unit)
+                         private val onItemClickListener: (budgetGroup: BudgetGroupWithAmount, sellers: List<SellerEntity>) -> Unit
+)
     : RecyclerView.Adapter<ExpenseViewAdapter.ExpenseViewHolder>() {
+    var totalOperationAmount = 0L
+
     class ExpenseViewHolder(val binding:ItemExpenseItemsBinding):RecyclerView.ViewHolder(binding.root) {
 
 
@@ -22,11 +25,13 @@ class ExpenseViewAdapter(private var budgetGroupWithAmounts: List<BudgetGroupWit
                 budgetGroupImage.setImageResource(budgetGroupWithAmount.iconResId?: R.drawable.ic_yandexdisk_64)
 
                 totalAmount.text = String.format("%.2f р", budgetGroupWithAmount.totalAmount)
+
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder {
+        totalOperationAmount = budgetGroupWithAmounts.map{it.totalAmount?.toLong()}.mapNotNull { it }. sum()
         val binding = ItemExpenseItemsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ExpenseViewHolder(binding)
     }
