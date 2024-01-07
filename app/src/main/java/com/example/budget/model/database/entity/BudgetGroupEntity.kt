@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 )
 data class BudgetGroupEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-    val name: String,
-    val description: String,
-    val iconResId: Long
+    var id: Long = 0,
+    var name: String,
+    var description: String,
+    var iconResId: Int?
 )

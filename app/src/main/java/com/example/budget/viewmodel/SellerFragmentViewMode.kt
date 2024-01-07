@@ -7,11 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.budget.App
 import com.example.budget.model.database.converters.Converters
 import com.example.budget.model.database.entity.BudgetGroupEntity
+import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.domain.Seller
 import com.example.budget.repository.DBRepository
 import kotlinx.coroutines.launch
 
 class SellerFragmentViewMode : ViewModel() {
+    
+    companion object{
+        const val TAG = "SellerFragmentViewMode"
+    }
 
     val dbRepository = DBRepository(App.app.getDatabaseHelper())
     val converter = Converters(dbRepository)
@@ -51,6 +56,32 @@ class SellerFragmentViewMode : ViewModel() {
     fun updateSeller(position : Int){
         if (sellersViewModel.value is AppState.Success) {
             seller.value = (sellersViewModel.value as AppState.Success<MutableList<Seller>>).data?.get(position)
+        }
+    }
+
+    fun updateSellersList(seller: Seller) {
+        var sellers = (sellersViewModel.value as AppState.Success<MutableList<Seller>>).data
+        if(!sellers.isNullOrEmpty()){
+            sellers.filter { it.name.equals(seller.name) }.first()?.let {
+                it.budgetGroupName = seller.budgetGroupName
+            }
+            sellersViewModel.value = AppState.Success(sellers)
+        }
+    }
+
+    fun updateSellersEntity(){
+        viewModelScope.launch {
+            val sellersEntityList = mutableListOf<SellerEntity>()
+            val sellerList = (sellersViewModel.value as AppState.Success)?.data
+            sellerList?.let {
+                for (seller in it){
+                    seller?.let {
+                        converter.sellerConverter(seller)?.let {sellerEntity ->
+                            sellersEntityList.add(sellerEntity) }
+                    }
+                }
+            }
+            dbRepository.updateSellersEntity(sellersEntityList)
         }
     }
 

@@ -55,7 +55,7 @@ class Converters(private val dbRepository: DBRepository) {
     }
 
     suspend fun sellerEntityConverter(sellerEntity: SellerEntity): Seller? {
-        val budgetGroup = dbRepository.getBudgetGroupNameById(sellerEntity.id)
+        val budgetGroup = dbRepository.getBudgetGroupNameById(sellerEntity.budgetGroupId)
         return Seller(
                 sellerEntity.name,
                 budgetGroup.name
