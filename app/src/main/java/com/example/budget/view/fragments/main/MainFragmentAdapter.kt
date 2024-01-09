@@ -4,43 +4,57 @@ import android.icu.text.DateFormat
 import android.icu.text.DecimalFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budget.databinding.ItemMainFragmentBinding
-import com.example.budget.model.database.entity.BudgetEntryEntity
+import com.example.budget.model.constants.DEFAULT_BANK_IMAGE
+import com.example.budget.model.domain.BankAccount
+import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.model.domain.OperationType
 import java.util.Locale
 
 class MainFragmentAdapter(
-    private val values: List<BudgetEntryEntity>
+    private var budgetEntitiesTableList: List<BudgetEntryTable>?,
+    private val onItemClicked: (BudgetEntryTable) -> Unit
 ) : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
 
     private var decimalFormat = DecimalFormat("#,###,###")
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        return MainViewHolder(
-            ItemMainFragmentBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    class MainViewHolder(val binding: ItemMainFragmentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(budgetEntryTable: BudgetEntryTable) {
+            binding.textAccount.text = budgetEntryTable.cardPan
+            binding.textExpense.text = budgetEntryTable.budgetGroupName
+            binding.textDateAndTime.text=budgetEntryTable.date.toString()
+            binding.textAmount.text = budgetEntryTable.operationAmount.toString()
+            binding.accountImgBank.setImageResource(budgetEntryTable.bankImageId ?: DEFAULT_BANK_IMAGE)
+        }
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : MainViewHolder{
+        val binding =
+            ItemMainFragmentBinding.inflate(LayoutInflater.from(parent.context),
+                parent, false)
+        return MainViewHolder(binding)
+    }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val item = values[position]
-        holder.textAccount.text = item.bankAccountId.toString()
-        holder.textExpense.text = item.sellerId.toString()
-        holder.textDateAndTime.text = formatToRusShortDate.format(item.date)
-        holder.textAmount.text = item.operationAmount.formatToText(item.operationType)
-
-
+        val item = budgetEntitiesTableList?.get(position)
+        if (item != null) {
+            holder.bind(budgetEntitiesTableList?.get(position)!!)
+            holder.itemView.setOnClickListener {
+                onItemClicked(item)
+            }
+        }
     }
 
-    private var formatToRusShortDate: DateFormat =
+    override fun getItemCount(): Int = budgetEntitiesTableList?.size ?: 0
+
+    fun setList(list: List<BudgetEntryTable>) {
+        this.budgetEntitiesTableList = list
+        notifyDataSetChanged()
+    }
+
+    var formatToRusShortDate: DateFormat =
         DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale("ru"))
 
     private fun Number.formatToText(operationType: OperationType) =
@@ -49,16 +63,6 @@ class MainFragmentAdapter(
         } else {
             "+ " + decimalFormat.format(this).replace(",", " ") + " р."
         }
-
-
-    inner class MainViewHolder(binding: ItemMainFragmentBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val textAccount: TextView = binding.textAccount          // Название счета
-        val textDateAndTime: TextView = binding.textDateAndTime  // Дата
-        val textExpense: TextView = binding.textExpense // Статья расходов
-        val textAmount: TextView = binding.textAmount   // Сумма р.
-        val imgBank: ImageView = binding.accountImgBank
-    }
 
 }
 

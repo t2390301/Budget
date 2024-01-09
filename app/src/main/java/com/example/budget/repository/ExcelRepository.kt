@@ -26,7 +26,7 @@ class ExcelRepository(val applicationContext: Context) {
 
     private val convertToExcel = ConvertToExcel(applicationContext)
 
-    suspend fun convertToExcel(
+    fun convertToExcel(
         dataList: List<CombainBudgetEntry>, //= BUDGET_ENTRY,
     ) {
         convertToExcel.convertBudgetEntryToExcel(

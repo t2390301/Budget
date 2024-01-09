@@ -43,7 +43,7 @@ class AccountsFragmentAdapter(
 
 
     override fun onBindViewHolder(holder: BankAccountViewHolder, position: Int) {
-        val current = bankAccountsList.get(position)
+        val current = bankAccountsList[position]
         holder.itemView.setOnClickListener {
             onItemClicked(current)
         }

@@ -31,7 +31,7 @@ val BANKSENTITY = listOf<BankEntity>(
         "RUB. (.+?). Доступно",
         "\\d\\. ([\\d\\.]+) RUB.", //не работает
         "Доступно ([\\d\\.]+) RUB",
-        R.drawable.ic_tinkoff_72
+        R.drawable.ic_tinkoff
     ),
     BankEntity( 3L, "UniCredit", "UniCredit",
         "Pokupka",
@@ -50,7 +50,7 @@ val BANKSENTITY = listOf<BankEntity>(
         "RUB. (.+?). Доступно",
         "\\d\\. ([\\d\\.]+) RUB.",
         "Доступно ([\\d\\.]+) RUB",
-        R.drawable.ic_sberbank_72
+        R.drawable.ic_tinkoff
     ),
     BankEntity(
         5L, "МТС Банк",
