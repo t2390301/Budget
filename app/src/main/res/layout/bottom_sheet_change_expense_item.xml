@@ -27,9 +27,11 @@
         android:hint="@string/expense_item_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -59,6 +61,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/margin_12_dp"
         android:hint="@string/designation_in_sms"
+
         app:helperTextEnabled="true"
         app:helperText="@string/enter_seller_name_from_sms"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +71,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:minHeight="100dp" />
     </com.google.android.material.textfield.TextInputLayout>
 

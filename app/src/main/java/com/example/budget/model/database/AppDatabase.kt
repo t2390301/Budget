@@ -1,10 +1,13 @@
 package com.example.budget.model.database
 
+import android.content.ContentValues
+import android.database.sqlite.SQLiteDatabase.CONFLICT_REPLACE
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.budget.R
 import com.example.budget.model.database.converters.BudgetGroupConverter
 import com.example.budget.model.database.converters.DateConverter
 import com.example.budget.model.database.converters.OperationTypeConverter
@@ -14,6 +17,7 @@ import com.example.budget.model.database.dao.BankDao
 import com.example.budget.model.database.dao.BudgetEntryDao
 import com.example.budget.model.database.dao.BudgetEntryEntitiesTableDao
 import com.example.budget.model.database.dao.BudgetGroupDao
+import com.example.budget.model.database.dao.BudgetGroupWithAmountDao
 import com.example.budget.model.database.dao.CombainTableDao
 import com.example.budget.model.database.dao.PlanningNoteDao
 import com.example.budget.model.database.dao.SellerDao
@@ -38,7 +42,7 @@ import com.example.budget.model.database.entity.SmsDataEntity
         PlanningNoteEntity::class
     ],
 
-    version = 5
+    version = 7
 
 )
 @TypeConverters(
@@ -58,7 +62,7 @@ abstract class AppDatabase : RoomDatabase() {
                         "ADD COLUMN balanceRegex VARCHAR(256) NOT NULL;")
                 db.execSQL("ALTER TABLE sms_data_table " +
                         "DROP COLUMN bankAccountFound," +
-                        "DROP COLUNM sellerFound;")
+                        "DROP COLUMN sellerFound;")
                 db.execSQL("TRUNCATE TABLE bank_account_table")
 
             }
@@ -86,6 +90,41 @@ abstract class AppDatabase : RoomDatabase() {
 
         }
 
+        val MIGRATION_5_6 = object : Migration(5,6){
+            override fun migrate(db: SupportSQLiteDatabase) {
+                with(db){
+                    execSQL("CREATE TABLE bg_backup " +
+                            "(id INTEGER NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, iconResId INTEGER NOT NULL, " +
+                            "PRIMARY KEY (id))")
+                    execSQL("INSERT INTO bg_backup SELECT id, name, description, iconResId FROM budget_group_table")
+                    execSQL("DROP TABLE budget_group_table")
+                    execSQL("ALTER TABLE bg_Backup RENAME TO budget_group_table")
+                }
+            }
+        }
+
+        val MIGRATION_6_7 = object: Migration(6,7){
+            override fun migrate(db: SupportSQLiteDatabase) {
+                with(db){
+                    execSQL("CREATE TABLE bg_backup " +
+                            "(id INTEGER NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, iconResId INTEGER,  " +
+                            "PRIMARY KEY (id))")
+                    execSQL("INSERT INTO bg_backup SELECT id, name, description, iconResId FROM budget_group_table")
+                    execSQL("DROP TABLE budget_group_table")
+                    execSQL("ALTER TABLE bg_Backup RENAME TO budget_group_table")
+                    insert("budget_group_table",
+                        CONFLICT_REPLACE,
+                        ContentValues(4).apply{
+                        put("id", 0L)
+                        put("name", "ЗДОРОВЬЕ")
+                        put( "description", "")
+                        put("iconResId",R.drawable.ic_medical)
+                    })
+                }
+            }
+
+        }
+
     }
     abstract fun smsDataDao(): SmsDataDao
     abstract fun budgetGroupEntityDao(): BudgetGroupDao
@@ -98,6 +137,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun budgetEntryTableDao(): BudgetEntryEntitiesTableDao
 
     abstract fun getPlanningNoteDao(): PlanningNoteDao
+    abstract fun budgetGroupWithAmountDao(): BudgetGroupWithAmountDao
 
 }
 

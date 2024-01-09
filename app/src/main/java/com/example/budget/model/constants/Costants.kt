@@ -31,7 +31,7 @@ val BANKSENTITY = listOf<BankEntity>(
         "RUB. (.+?). Доступно",
         "\\d\\. ([\\d\\.]+) RUB.", //не работает
         "Доступно ([\\d\\.]+) RUB",
-        R.drawable.ic_tinkoff_72
+        R.drawable.ic_tinkoff
     ),
     BankEntity( 3L, "UniCredit", "UniCredit",
         "Pokupka",
@@ -50,7 +50,7 @@ val BANKSENTITY = listOf<BankEntity>(
         "RUB. (.+?). Доступно",
         "\\d\\. ([\\d\\.]+) RUB.",
         "Доступно ([\\d\\.]+) RUB",
-        R.drawable.ic_sberbank_72
+        R.drawable.ic_tinkoff
     ),
     BankEntity(
         5L, "МТС Банк",
@@ -68,15 +68,18 @@ val BANKSENTITY = listOf<BankEntity>(
 )
 
 val BUDGETGROUPS = listOf<BudgetGroupEntity>(
-    BudgetGroupEntity(1,BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО, "", 0L),
-    BudgetGroupEntity(2,BudgetGroupEnum.ПРОДУКТЫ, "", 0L),
-    BudgetGroupEntity(3,BudgetGroupEnum.ТРАНСПОРТ, "", 0L),
-    BudgetGroupEntity(4,BudgetGroupEnum.РАЗВЛЕЧЕНИЯ, "", 0L),
-    BudgetGroupEntity(5,BudgetGroupEnum.УСЛУГИ, "", 0L),
-    BudgetGroupEntity(6,BudgetGroupEnum.ДОМАШНЕЕ_ХОЗЯЙСТВО, "", 0L),
-    BudgetGroupEntity(7,BudgetGroupEnum.ЕДА_ВНЕ_ДОМА, "", 0L),
+    BudgetGroupEntity(1,"НЕ_ОПРЕДЕЛЕНО","", 0),
+    BudgetGroupEntity(2,"ПРОДУКТЫ", "", R.drawable.ic_food_beverage),
+    BudgetGroupEntity(3,"ТРАНСПОРТ", "", R.drawable.ic_transportation),
+    BudgetGroupEntity(4,"РАЗВЛЕЧЕНИЯ", "", R.drawable.ic_cafe),
+    BudgetGroupEntity(5,"УСЛУГИ", "", R.drawable.ic_services),
+    BudgetGroupEntity(6,"ДОМАШНЕЕ_ХОЗЯЙСТВО", "", R.drawable.ic_handyman),
+    BudgetGroupEntity(7,"ЕДА_ВНЕ_ДОМА", "", R.drawable.ic_fastfood),
+    BudgetGroupEntity(8,"ЗДОРОВЬЕ", "", R.drawable.ic_medical),
 
-)
+
+
+    )
 
 enum class BudgetGroupEnum(val id : Int){
     НЕ_ОПРЕДЕЛЕНО(1),

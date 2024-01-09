@@ -1,7 +1,6 @@
 package com.example.budget.view.fragments.sms
 
 import android.icu.text.DateFormat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,7 @@ class SMSFragmentAdapter(private var smslist: List<SmsData>?) : RecyclerView.Ada
 
     }
     class SMSViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val bankImage = itemView.findViewById<ImageView>(R.id.img_bank)
+        val bankImage = itemView.findViewById<ImageView>(R.id.account_img_bank)
         val smsBody = itemView.findViewById<TextView>(R.id.sms_text)
         val smsDate = itemView.findViewById<TextView>(R.id.sms_date_and_time)
     }
@@ -39,7 +38,7 @@ class SMSFragmentAdapter(private var smslist: List<SmsData>?) : RecyclerView.Ada
     }
 
     fun setList(list: List<SmsData>){
-        Log.i(TAG, "setList: ")
+
         this.smslist = list
         notifyDataSetChanged()
     }

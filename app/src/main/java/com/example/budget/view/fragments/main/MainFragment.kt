@@ -16,7 +16,6 @@ import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.view.activities.MainActivity
 import com.example.budget.viewmodel.MainFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import timber.log.Timber
 
 
 class MainFragment : Fragment() {
@@ -28,8 +27,6 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    var listAdapter: MainFragmentAdapter? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,29 +35,35 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val viewModel: MainFragmentViewModel by viewModels()
 
         val budgetEntryList: List<BudgetEntryTable>? = viewModel.budgetEntityTableList.value
-        Timber.tag(TAG).i("budgetEntryList = $budgetEntryList")
 
-        val listAdapter = MainFragmentAdapter(budgetEntryList)
-        Timber.tag(TAG).i("listAdapter = $listAdapter")
+/*        val listAdapter = MainFragmentAdapter(budgetEntryList) {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out
+                )
+                .replace(R.id.main_container, MainDetailFragment.newInstance(it) )
+                .addToBackStack("")
+                .commit()
+        }*/
 
-        binding.mainRecyclerView.adapter = listAdapter
+/*        binding.mainRecyclerView.adapter = listAdapter
 
         viewModel.budgetEntityTableList.observe(viewLifecycleOwner) {
             listAdapter.setList(it)
-            Timber.tag(TAG).i("viewModel._budgetEntityTableList   listAdapter = $listAdapter")
-        }
+        }*/
 
         bottomSheetInitialization()
     }
 
 
-    private fun bottomSheetInitialization(){
+    private fun bottomSheetInitialization() {
         (requireActivity() as MainActivity).setSupportActionBar(binding.mainRecyclerBottomAppbar)
         setHasOptionsMenu(true)
 

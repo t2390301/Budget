@@ -5,5 +5,5 @@ data class BudgetGroup(
     //val id: Long,
     val name: String,  //название статьи
     val description: String, //описание
-    val iconResId: Long //иконка
+    val iconResId: Int? //иконка
 )

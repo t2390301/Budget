@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.budget.R
 
+
 /** An adapter that displays [CarouselItem]s for a Carousel.  */
 internal class CarouselAdapter @JvmOverloads constructor(
+
     private val listener: CarouselItemListener,
     @field:LayoutRes @param:LayoutRes private val itemLayoutRes: Int = R.layout.carousel_expense_item_icons
 ) : ListAdapter<CarouselItem?, CarouselItemViewHolder>(

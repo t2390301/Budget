@@ -31,4 +31,13 @@ interface SellerDao {
 
     @Query("DELETE FROM seller_table")
     suspend fun deleteAll()
+
+
+    suspend fun updateAll(sellersEntityList: List<SellerEntity>){
+        for (sellerEntity in sellersEntityList){
+            updateByName(sellerEntity.name, sellerEntity.budgetGroupId)
+        }
+    }
+    @Query("UPDATE seller_table SET budgetGroupId = :budgeGtId  WHERE name = :sellerName")
+    suspend fun updateByName(sellerName: String, budgeGtId : Long)
 }

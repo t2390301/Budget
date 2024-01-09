@@ -12,6 +12,12 @@ class BudgetGroupConverter {
     }
 
     @TypeConverter
+    fun fromBudgetGroupToString(value: BudgetGroupEnum): String {
+
+        return value.toString()
+    }
+
+    @TypeConverter
     fun toBudgetGroup(strValue: String): BudgetGroupEnum{
 
         return  enumValueOf<BudgetGroupEnum>(strValue)?: BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО

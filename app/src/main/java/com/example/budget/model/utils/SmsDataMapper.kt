@@ -1,7 +1,6 @@
 package com.example.budget.model.utils
 
 import android.util.Log
-import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.database.converters.Converters
 import com.example.budget.model.domain.Bank
 import com.example.budget.model.domain.BankAccount
@@ -51,13 +50,10 @@ class SmsDataMapper(private val dbRepository: DBRepository) {
 
         val budgetEntry: BudgetEntry?
 
-        Log.i(TAG, "convertSMSToBudgetEntry: sms.adress = ${sms.sender}")
-        Log.i(TAG, "convertSMSToBudgetEntry: sms.body = ${sms.body}")
-        Log.i(TAG, "convertSMSToBudgetEntry: sms.date = ${Date(sms.date)}")
+
 
         val bank = banks.find { it.smsAddress.equals(sms.sender) }
         if (bank == null) {
-            Log.i(TAG, "convertSMSToBudgetEntry: bank wasn't find for ${sms.sender}")
             return null
         }
 
@@ -100,6 +96,7 @@ class SmsDataMapper(private val dbRepository: DBRepository) {
                         cardType = CardType.NOTYPE,
                         cardLimit = 0.0,
                         balance = balance!!,
+                        bank.bankImage
                     )?.let {
                         bankAccounts.add(it)
                         converter.bankAccountConverter(it)
@@ -109,16 +106,16 @@ class SmsDataMapper(private val dbRepository: DBRepository) {
                 } else {
                     list.first().balance = balance!!
                     converter.bankAccountConverter(list.first())
-                        ?.let { dbRepository.update(it) }//Update not insert
+                        ?.let { dbRepository.updatebankAccountEntity(it) }//Update not insert
                 }
             }
 
 
-            var budgetGroup = BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО
+            var budgetGroup = "НЕ_ОПРЕДЕЛЕНО"
 
             sellers.filter { it.name.equals(seller) }.let { sellerList ->
                 if (sellerList.isEmpty()) {
-                    Seller(seller!!, BudgetGroupEnum.НЕ_ОПРЕДЕЛЕНО)?.let {
+                    Seller(seller!!, budgetGroup)?.let {
                         sellers.add(it)
                         converter.sellerConverter(it)
                             ?.let { it1 -> dbRepository.insertSellerEntity(it1) }

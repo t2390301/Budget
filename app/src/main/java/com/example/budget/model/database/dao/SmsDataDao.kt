@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.SmsDataEntity
 
 @Dao
@@ -33,4 +34,6 @@ interface SmsDataDao {
     suspend fun getLastUnsavedSMSDate(): Long?
     @Query("DELETE FROM sms_data_table WHERE date = 1703421606276")
     fun deleteNull()
+
+
 }

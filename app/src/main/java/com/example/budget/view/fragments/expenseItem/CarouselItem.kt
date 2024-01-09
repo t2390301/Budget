@@ -8,6 +8,7 @@ import androidx.annotation.StringRes
  */
 internal class CarouselItem(
     @field:DrawableRes @get:DrawableRes
-    @param:DrawableRes val drawableRes: Int, @field:StringRes @get:StringRes
+    @param:DrawableRes val drawableRes: Int,
+    @field:StringRes @get:StringRes
     @param:StringRes val contentDescRes: Int
 )
