@@ -8,15 +8,22 @@
         android:id="@+id/account_material_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
+        android:minHeight="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/budget_group_image"
@@ -29,20 +36,44 @@
                 app:strokeColor="?attr/colorSecondary" />
             <!--  app:srcCompat="@drawable/ic_fastfood"-->
 
-            <TextView
-                android:id="@+id/text_expense"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/budget_group_image"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:background="@color/cardview_light_background"
+                    android:padding="4dp"
+                    app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+                    app:strokeColor="?attr/colorSecondary" />
+                <!--  app:srcCompat="@drawable/ic_fastfood"-->
+
+                <TextView
+                    android:id="@+id/text_expense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:gravity="center|start"
+                    android:text="@string/food_products"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/total_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/expense_linear_indicator"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/margin_12_dp"
                 android:layout_marginEnd="@dimen/margin_12_dp"
-                android:gravity="center|start"
-                android:text="@string/food_products"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/total_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
-
+                android:max="100"
+                android:min="0"
+                />
         </LinearLayout>
 
         <!--<com.google.android.material.progressindicator.CircularProgressIndicator
@@ -51,16 +82,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:indeterminate="true" />-->
-
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/expense_linear_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/margin_12_dp"
-            android:layout_marginEnd="@dimen/margin_12_dp"
-            android:progress="10"
-            android:indeterminate="true" />
 
     </com.google.android.material.card.MaterialCardView>
 
