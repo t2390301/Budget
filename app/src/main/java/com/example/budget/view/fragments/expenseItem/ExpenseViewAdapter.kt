@@ -26,7 +26,6 @@ class ExpenseViewAdapter(private var budgetGroupWithAmounts: List<BudgetGroupWit
 
                 totalAmount.text = String.format("%.2f р", budgetGroupWithAmount.totalAmount)
                 budgetGroupWithAmount.totalAmount?.let {
-                    assert(totalOperationAmount.toInt() != 0 )
                 expenseLinearIndicator.progress = (it/totalOperationAmount*100).toInt()
                 }
 

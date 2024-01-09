@@ -52,19 +52,20 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
 
         val behavior = BottomSheetBehavior.from(binding.included.bottomSheetExpenseItemContainer)
 
-        val adapter = ExpenseViewAdapter(budgetGroupWithAmount, sellers ){budgetGroup, sellersList ->
-            with(binding.included) {
-                newBudgetGroupId = budgetGroup.id
-                editTextExpenseItem.editText?.setText(budgetGroup.name)
-                editTextNote.editText?.setText(budgetGroup.description)
-                val sellersString =
-                    sellersList.filter{it.budgetGroupId == budgetGroup.id}
-                        .map { it.name }.joinToString("\n")
-                editTextMarkSms.editText?.setText(sellersString)
+        val adapter =
+            ExpenseViewAdapter(budgetGroupWithAmount, sellers) { budgetGroup, sellersList ->
+                with(binding.included) {
+                    newBudgetGroupId = budgetGroup.id
+                    editTextExpenseItem.editText?.setText(budgetGroup.name)
+                    editTextNote.editText?.setText(budgetGroup.description)
+                    val sellersString =
+                        sellersList.filter { it.budgetGroupId == budgetGroup.id }
+                            .map { it.name }.joinToString("\n")
+                    editTextMarkSms.editText?.setText(sellersString)
+                }
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                binding.expenseItemRecyclerView.visibility = View.GONE
             }
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            binding.expenseItemRecyclerView.visibility = View.GONE
-        }
 
         binding.expenseItemRecyclerView.adapter = adapter
 
@@ -86,10 +87,8 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
             with(binding.included) {
                 editTextExpenseItem.editText?.text?.let {
                     if (it.length > 0) {
-
                         val name = it.toString()
                         val description = editTextNote.editText?.text.toString()
-
                         insertBudgetGroup(
                             BudgetGroupEntity(
                                 newBudgetGroupId,
@@ -98,7 +97,25 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
                         )
                     }
                 }
+
             }
+            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            binding.expenseItemRecyclerView.visibility = View.VISIBLE
+            recyclerViewVisible = true
+        }
+
+        binding.included.deleteButton.setOnClickListener {
+            if (newBudgetGroupId == -1L) {
+                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                binding.expenseItemRecyclerView.visibility = View.VISIBLE
+                recyclerViewVisible = true
+            } else {
+                viewModel.deleteBudgetGroupEntity(newBudgetGroupId)
+                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                binding.expenseItemRecyclerView.visibility = View.VISIBLE
+                recyclerViewVisible = true
+            }
+
         }
 
 

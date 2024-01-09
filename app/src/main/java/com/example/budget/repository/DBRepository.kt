@@ -45,6 +45,9 @@ class DBRepository(db: DatabaseHelper) {
     suspend fun insertBudgetGroupEntity(budgetGroupEntity: BudgetGroupEntity) =
         budgetGroupDao.insert(budgetGroupEntity)
 
+    suspend fun deleteBudgetGroupEntity(budgetGroupId: Long) =
+        budgetGroupDao.deleteById(budgetGroupId)
+
     suspend fun insertSellerEntity(sellerEntity: SellerEntity) =
         sellerDao.insert(sellerEntity)
 
@@ -152,7 +155,6 @@ class DBRepository(db: DatabaseHelper) {
 
 
     suspend fun updateSellersEntity(sellersEntityList: List<SellerEntity>) {
-
         sellerDao.updateAll(sellersEntityList)
     }
 
@@ -162,6 +164,10 @@ class DBRepository(db: DatabaseHelper) {
 
     suspend fun updateBudgetGroupEntity(budgetGroupEntity: BudgetGroupEntity) {
         budgetGroupDao.update(budgetGroupEntity)
+    }
+
+    suspend fun updateSellersByDeletedBudgetGrupId(deletedId : Long){
+        sellerDao.prepareForDelete(deletedId)
     }
 
 
