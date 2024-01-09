@@ -18,13 +18,17 @@ class ExpenseViewAdapter(private var budgetGroupWithAmounts: List<BudgetGroupWit
     class ExpenseViewHolder(val binding:ItemExpenseItemsBinding):RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(budgetGroupWithAmount: BudgetGroupWithAmount){
+        fun bind(budgetGroupWithAmount: BudgetGroupWithAmount, totalOperationAmount: Long){
 
             with(binding){
                 textExpense.text = budgetGroupWithAmount.name
                 budgetGroupImage.setImageResource(budgetGroupWithAmount.iconResId?: R.drawable.ic_yandexdisk_64)
 
                 totalAmount.text = String.format("%.2f р", budgetGroupWithAmount.totalAmount)
+                budgetGroupWithAmount.totalAmount?.let {
+                expenseLinearIndicator.progress = (it/totalOperationAmount*100).toInt()
+                }
+
 
             }
         }
@@ -42,7 +46,7 @@ class ExpenseViewAdapter(private var budgetGroupWithAmounts: List<BudgetGroupWit
 
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
         val current = budgetGroupWithAmounts.get(position)
-        holder.bind(current)
+        holder.bind(current, totalOperationAmount)
         holder.itemView.setOnClickListener{
             onItemClickListener(current, sellers)
         }
