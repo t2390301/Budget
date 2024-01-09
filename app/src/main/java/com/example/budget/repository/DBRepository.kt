@@ -28,23 +28,37 @@ class DBRepository(db: DatabaseHelper) {
     private val combainBudgetEntryDao = db.getCombainBudgetEntriesDao()
     private val budgetGroupWithAmountDao = db.getBudgetGroupWithAmountDao()
 
-    suspend fun getBankAccountEntities(): List<BankAccountEntity> {
-        return bankAccountDao.getAll()
-    }
+    suspend fun getBankAccountEntities(): List<BankAccountEntity> =
+        bankAccountDao.getAll()
 
+    suspend fun getBankEntities(): List<BankEntity> =
+        bankDao.getAll()
 
-    suspend fun getBankEntities(): List<BankEntity> = bankDao.getAll()
+    suspend fun getBudgetEntities(): List<BudgetEntryEntity> =
+        budgetEntryDao.getAll()
 
+    suspend fun getBudgetGroupEntities(): List<BudgetGroupEntity> =
+        budgetGroupDao.getAll()
 
-    suspend fun getBudgetEntities(): List<BudgetEntryEntity> = budgetEntryDao.getAll()
-    suspend fun getBudgetGroupEntities(): List<BudgetGroupEntity> = budgetGroupDao.getAll()
-    suspend fun getCombainBudgetEntities(): List<CombainBudgetEntry> = combainBudgetEntryDao.getAll()
+    suspend fun getCombainBudgetEntities(): List<CombainBudgetEntry> =
+        combainBudgetEntryDao.getAll()
+
     suspend fun getBudgetEntryList(): List<BudgetEntryEntity> = budgetEntryDao.getAll()
     suspend fun getSellerEntities(): List<SellerEntity> = sellerDao.getAll()
     suspend fun getSMSList(): List<SmsDataEntity> = smsDao.getAll()
-    suspend fun getBudgetEntriesTableDao(): List<BudgetEntryTable> {
-        Timber.i("getBudgetEntriesTableDao: here")
-        return budgetEntriesTableDao.getAll()
+
+    suspend fun getBudgetEntriesTableDao(): List<BudgetEntryTable> =
+        budgetEntriesTableDao.getAll()
+
+    suspend fun getBudgetEntryById(id: Long): List<BudgetEntryTable> =
+        budgetEntriesTableDao.getAll()
+
+    suspend fun getBankAccountEntityById(id: Long): BankAccountEntity? {
+        val list = bankAccountDao.getBankAccountEntityById(id)
+        if (list.isNotEmpty()) {
+            return list.first()
+        }
+        return null
     }
 
     suspend fun insertBankAccountEntity(bankAccountEntity: BankAccountEntity) =
@@ -80,13 +94,14 @@ class DBRepository(db: DatabaseHelper) {
     }
 
     suspend fun getBudgetGroupNameById(id: Long): BudgetGroupEntity {
-        var budgetGroup = BudgetGroupEntity(1L,"НЕ ОПРЕДЕЛЕНО", "", 0)
+        var budgetGroup = BudgetGroupEntity(1L, "НЕ ОПРЕДЕЛЕНО", "", 0)
         val bugetGroupEntityList = budgetGroupDao.getBudgetGroupNameById(id)
         if (!bugetGroupEntityList.isEmpty()) {
-            budgetGroup= bugetGroupEntityList.first()
+            budgetGroup = bugetGroupEntityList.first()
         }
         return budgetGroup
     }
+
 
     suspend fun getBudgetGroupIdByBudgetGroupName(budgetGroupName: String): Long {
         var id: Long
@@ -117,7 +132,6 @@ class DBRepository(db: DatabaseHelper) {
         return id
     }
 
-
     suspend fun getSellerIdBySellerName(sellerName: String): Long {
         var id = -1L
         val sellerEntityList = sellerDao.getSellerIdBySellerName(sellerName)
@@ -127,7 +141,7 @@ class DBRepository(db: DatabaseHelper) {
         return id
     }
 
-    suspend fun updatebankAccountEntity (bankAccountEntity: BankAccountEntity) {
+    suspend fun updatebankAccountEntity(bankAccountEntity: BankAccountEntity) {
         bankAccountDao.update(bankAccountEntity)
     }
 
@@ -135,34 +149,19 @@ class DBRepository(db: DatabaseHelper) {
         smsDao.insertAll(smsEntityList)
     }
 
-    suspend fun getCombainBudgetEntitis(): List<CombainBudgetEntry> =
-        combainBudgetEntryDao.getAll()
-
-    suspend fun getSMSList(): List<SmsDataEntity> =
-        smsDao.getAll()
-
     suspend fun getSMSCount(): Long =
         smsDao.getSMSCount()
+
 
     suspend fun insertSMSEntity(smsDataEntity: SmsDataEntity) =
         smsDao.insert(smsDataEntity)
 
 
     suspend fun getLastUnSafeSMSDate(): Long =
-        smsDao.getLastUnsavedSMSDate()?:0
-
-
+        smsDao.getLastUnsavedSMSDate() ?: 0
 
     suspend fun updateSMS(sms: SmsDataEntity) {
         smsDao.update(sms)
-    }
-
-    suspend fun getBankAccountEntityById(id: Long): BankAccountEntity? {
-        val list = bankAccountDao.getBankAccountEntityById(id)
-        if(list.isNotEmpty()){
-            return  list.first()
-        }
-        return null
     }
 
 

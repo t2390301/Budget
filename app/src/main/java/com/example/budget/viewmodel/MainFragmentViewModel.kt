@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.budget.App
+import com.example.budget.model.database.converters.Converters
+import com.example.budget.model.domain.BankAccount
 import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.repository.DBRepository
 import com.example.budget.view.fragments.main.MainFragment
@@ -16,22 +18,30 @@ class MainFragmentViewModel : ViewModel() {
     companion object {
         const val TAG = "!!! MainFragmentViewModel"
     }
-    private val application = App.app
-    private val dbRepository = DBRepository(application.getDatabaseHelper())
+
+    private val dbRepository = DBRepository(App.app.getDatabaseHelper())
+    val converters = Converters(dbRepository)
 
     var budgetEntityTableList = getAllBudgetEntry()
 
+/*    fun retrieveItem(id: Long): MutableLiveData<BudgetEntryTable>? {
+
+        val  liveData = MutableLiveData<BudgetEntryTable>()
+        viewModelScope.launch {
+            dbRepository.getBudgetEntriesTableDao() .getBankAccountEntityById(id)?.let {
+                liveData.value = converters.budgetEntryConverter(it)
+            }
+        }
+        return liveData
+    }*/
 
     private fun getAllBudgetEntry(): LiveData<List<BudgetEntryTable>> {
         var budgetEntryTableList: List<BudgetEntryTable> = listOf()
         val liveData = MutableLiveData<List<BudgetEntryTable>>()
-        Timber.tag(TAG).i("liveData $liveData")
         viewModelScope.launch {
             budgetEntryTableList = dbRepository.getBudgetEntriesTableDao()
-            Timber.tag(TAG).i("budgetEntryTableList $budgetEntryTableList")
             if (budgetEntryTableList.isNotEmpty()) {
                 liveData.value = budgetEntryTableList
-                Timber.tag(TAG).i("budgetEntryTableList.isNotEmpty")
             }
         }
         return liveData

@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budget.databinding.ItemMainFragmentBinding
 import com.example.budget.model.constants.DEFAULT_BANK_IMAGE
+import com.example.budget.model.domain.BankAccount
 import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.model.domain.OperationType
 import java.util.Locale
 
 class MainFragmentAdapter(
-    private var budgetEntitiesTableList: List<BudgetEntryTable>?
+    private var budgetEntitiesTableList: List<BudgetEntryTable>?,
+    private val onItemClicked: (BudgetEntryTable) -> Unit
 ) : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
 
     private var decimalFormat = DecimalFormat("#,###,###")
@@ -22,7 +24,7 @@ class MainFragmentAdapter(
         fun bind(budgetEntryTable: BudgetEntryTable) {
             binding.textAccount.text = budgetEntryTable.cardPan
             binding.textExpense.text = budgetEntryTable.budgetGroupName
-//            binding.textDateAndTime.text=
+            binding.textDateAndTime.text=budgetEntryTable.date.toString()
             binding.textAmount.text = budgetEntryTable.operationAmount.toString()
             binding.accountImgBank.setImageResource(budgetEntryTable.bankImageId ?: DEFAULT_BANK_IMAGE)
         }
@@ -39,30 +41,11 @@ class MainFragmentAdapter(
         val item = budgetEntitiesTableList?.get(position)
         if (item != null) {
             holder.bind(budgetEntitiesTableList?.get(position)!!)
-        }
-    }
-
-    /*
-        override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-            val item = budgetEntitiesTableList?.get(position)
-            if (item != null) {
-                holder.textAccount.text = item.cardPan
-                holder.textExpense.text = item.budgetGroupName
-                holder.textDateAndTime.text = formatToRusShortDate.format(item.date)
-                holder.textAmount.text = item.operationAmount.formatToText(item.operationType)
-                holder.imgBank.setImageResource(item.bankImageId)
+            holder.itemView.setOnClickListener {
+                onItemClicked(item)
             }
         }
-    */
-    /*    class MainViewHolder(itemView: View) :
-            RecyclerView.ViewHolder(itemView) {
-            val textAccount: TextView =
-                itemView.findViewById(R.id.text_account)          // Название счета
-            val textDateAndTime: TextView = itemView.findViewById(R.id.text_date_and_time)   // Дата
-            val textExpense: TextView = itemView.findViewById(R.id.text_expense)  // Статья расходов
-            val textAmount: TextView = itemView.findViewById(R.id.text_amount)   // Сумма р.
-            val imgBank: ImageView = itemView.findViewById(R.id.account_img_bank)
-        }*/
+    }
 
     override fun getItemCount(): Int = budgetEntitiesTableList?.size ?: 0
 
