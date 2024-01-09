@@ -21,7 +21,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/budget_group_image"
@@ -34,16 +34,7 @@
                 app:strokeColor="?attr/colorSecondary" />
             <!--  app:srcCompat="@drawable/ic_fastfood"-->
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/budget_group_image"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginEnd="@dimen/margin_12_dp"
-                    android:background="@color/cardview_light_background"
-                    android:padding="4dp"
-                    app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
-                    app:strokeColor="?attr/colorSecondary" />
-                <!--  app:srcCompat="@drawable/ic_fastfood"-->
+
 
                 <TextView
                     android:id="@+id/text_expense"
