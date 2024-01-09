@@ -1,4 +1,4 @@
-package com.example.budget.view.fragments.accounts
+package com.example.budget.view.fragments.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,18 +13,14 @@ import com.example.budget.App
 import com.example.budget.databinding.FragmentAccountsDetailBinding
 import com.example.budget.model.constants.DEFAULT_BANK_IMAGE
 import com.example.budget.model.domain.BankAccount
+import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.model.domain.CardType
-import com.example.budget.viewmodel.AccountFragmentViewModel
+import com.example.budget.viewmodel.MainFragmentViewModel
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 const val ACCOUNT_ITEM_ID = "accountItemId"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AccountsDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class AccountsDetailFragment : Fragment() {
+class MainDetailFragment : Fragment() {
 
     private var accountItemId: Long? = null
 
@@ -37,7 +33,7 @@ class AccountsDetailFragment : Fragment() {
 
     companion object {
 
-        const val TAG = "AccountsDetailFragment"
+        const val TAG = "MainDetailFragment"
 
         private val cardTypes = mutableListOf<String>(
             CardType.NOTYPE.toString(),
@@ -45,13 +41,13 @@ class AccountsDetailFragment : Fragment() {
             CardType.DEBIT.toString()
         )
 
-        @JvmStatic
-        fun newInstance(accountId: Long) =
-            AccountsDetailFragment().apply {
+/*        @JvmStatic
+        fun newInstance(accountId: BudgetEntryTable) =
+            MainDetailFragment().apply {
                 arguments = Bundle().apply {
                     putLong(ACCOUNT_ITEM_ID, accountId)
                 }
-            }
+            }*/
 
     }
 
@@ -63,17 +59,17 @@ class AccountsDetailFragment : Fragment() {
         }
     }
 
-    private val viewModel:AccountFragmentViewModel by activityViewModels()
+    private val viewModel: MainFragmentViewModel by activityViewModels()
 
-    private fun bind(account: BankAccount) {
+/*    private fun bind(account: BankAccount) {
         binding.apply {
             accountImgBank.setImageResource(account.bankImageId ?: DEFAULT_BANK_IMAGE)
             accountCardPan.text = account.cardPan
-            accountBalance.setText(account.balance.toString(),TextView.BufferType.SPANNABLE)
+            accountBalance.setText(account.balance.toString(), TextView.BufferType.SPANNABLE)
             binding.accountTypeSpinner.adapter = spinnerAdapter
             accountTypeSpinner.setSelection(account.cardType.ordinal)
             accountTypeSpinner.onItemSelectedListener = itemSelectedListener
-            accountCreditLimit.setText(account.cardLimit.toString(),TextView.BufferType.SPANNABLE)
+            accountCreditLimit.setText(account.cardLimit.toString(), TextView.BufferType.SPANNABLE)
             creditCardLimitFocus(account)
             saveItem.setOnClickListener {
                 account.cardLimit = accountCreditLimit.text.toString().toDouble()
@@ -81,7 +77,7 @@ class AccountsDetailFragment : Fragment() {
                 viewModel.updateBankAccountList(account)
             }
         }
-    }
+    }*/
 
 
     private fun creditCardLimitFocus(account: BankAccount) {
@@ -118,7 +114,7 @@ class AccountsDetailFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+/*    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.retrieveItem(accountItemId!!)?.observe(viewLifecycleOwner) {
@@ -126,11 +122,12 @@ class AccountsDetailFragment : Fragment() {
             bind(bankAccount)
         }
 
-    }
+    }*/
 
     private val spinnerAdapter =
         App.app.applicationContext?.let {
-            ArrayAdapter(it, android.R.layout.simple_spinner_item, cardTypes) }?.apply {
+            ArrayAdapter(it, android.R.layout.simple_spinner_item, cardTypes)
+        }?.apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
 

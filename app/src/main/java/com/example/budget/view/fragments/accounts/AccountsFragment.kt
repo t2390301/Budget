@@ -40,7 +40,8 @@ class AccountsFragment : BottomSheetDialogFragment() {
         var bankAccountsList= mutableListOf<BankAccount>()
 
         if (viewModel.bankAccountsLiveData.value is AppState.Success) {
-            (viewModel.bankAccountsLiveData.value as AppState.Success).data?.let { bankAccountsList= it.toMutableList() }
+            (viewModel.bankAccountsLiveData.value as AppState.Success).data?.let {
+                bankAccountsList= it.toMutableList() }
         }
 
         val accountAdapter = AccountsFragmentAdapter(bankAccountsList){

@@ -20,10 +20,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/budget_group_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="@dimen/margin_12_dp"
+                android:padding="@dimen/padding_8dp"
+                app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+                android:background="@color/cardview_light_background"
+                app:strokeColor="?attr/colorSecondary" />
+            <!--  app:srcCompat="@drawable/ic_fastfood"-->
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/budget_group_image"

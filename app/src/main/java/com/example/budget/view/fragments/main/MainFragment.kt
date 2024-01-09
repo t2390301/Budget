@@ -1,6 +1,5 @@
 package com.example.budget.view.fragments.main
 
-import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -8,31 +7,25 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
-import com.example.budget.App
 import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
+import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.view.activities.MainActivity
-import com.example.budget.view.fragments.planning.PlanningFragment
 import com.example.budget.viewmodel.MainFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 
 class MainFragment : Fragment() {
+    companion object {
+        const val TAG = "!!! MainFragment"
+        fun newInstance() = MainFragment()
+    }
+
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<MainFragmentViewModel>()
-    private var adapter: MainFragmentAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,33 +35,35 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.init(
-            (requireContext().applicationContext as App)
-                .getDatabaseHelper().getBudgetEntryEntityDao()
-        )
+        val viewModel: MainFragmentViewModel by viewModels()
 
-        val listAdapter = MainFragmentAdapter(viewModel.budgetEntry)
-        this.adapter = listAdapter
+        val budgetEntryList: List<BudgetEntryTable>? = viewModel.budgetEntityTableList.value
 
-        viewModel.onUpdateListEvent = { list ->
-            CoroutineScope(Dispatchers.Main).launch {
-                println(list)
-                listAdapter.notifyDataSetChanged()
-            }
-        }
+/*        val listAdapter = MainFragmentAdapter(budgetEntryList) {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out
+                )
+                .replace(R.id.main_container, MainDetailFragment.newInstance(it) )
+                .addToBackStack("")
+                .commit()
+        }*/
 
-        binding.mainRecyclerView.run {
-            adapter = listAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
-        }
+/*        binding.mainRecyclerView.adapter = listAdapter
 
-        viewModel.loadBudgetEntry()
+        viewModel.budgetEntityTableList.observe(viewLifecycleOwner) {
+            listAdapter.setList(it)
+        }*/
+
+        bottomSheetInitialization()
+    }
 
 
-
+    private fun bottomSheetInitialization() {
         (requireActivity() as MainActivity).setSupportActionBar(binding.mainRecyclerBottomAppbar)
         setHasOptionsMenu(true)
 
@@ -90,12 +85,10 @@ class MainFragment : Fragment() {
             }
             isMain = !isMain
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(
                     requireActivity().supportFragmentManager,
@@ -114,10 +107,6 @@ class MainFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    companion object {
-        fun newInstance() = MainFragment()
     }
 
 }

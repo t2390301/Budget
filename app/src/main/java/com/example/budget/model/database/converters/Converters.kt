@@ -110,12 +110,12 @@ class Converters(private val dbRepository: DBRepository) {
             bankEntity.bankImage
         )
 
-    fun bankConverter(bank: Bank): BankEntity =
+/*    fun bankConverter(bank: Bank): BankEntity =
         BankEntity(
             bank.id,
             bank.name,
             bank.smsAddress, "", "", "", "", "", "", null
-        )
+        )*/
 
     fun smsDataConverter(smsData: SmsData): SmsDataEntity =
         SmsDataEntity(
@@ -139,5 +139,25 @@ class Converters(private val dbRepository: DBRepository) {
                 .first().bankImage
         )
 
+        /*suspend fun budgetEntryConverter(budgetEntry: BudgetEntry): BudgetEntryEntity? {
+            val bankAccountId = dbRepository.getBankAccountIdBySMSAddressAndCardSpan(
+                budgetEntry.bankSMSAdress,
+                budgetEntry.cardSPan
+            )
+            val sellerId = dbRepository.getSellerIdBySellerName(budgetEntry.sellerName)
+            return if (bankAccountId >= 0) {
+                BudgetEntryEntity(
+                    id = 0L,
+                    date = budgetEntry.date,
+                    operationType = budgetEntry.operationType,
+                    bankAccountId = bankAccountId,
+                    note = budgetEntry.note,
+                    operationAmount = budgetEntry.operationAmount,
+                    sellerId = sellerId
+                )
+            } else {
+                null
+            }
+        }*/
     }
 }
