@@ -32,6 +32,7 @@ class ExpenseViewAdapter(
                 budgetGroupWithAmount.totalAmount?.let {
                     assert(totalOperationAmount.toInt() != 0)
                     expenseLinearIndicator.progress = (it / totalOperationAmount * 100).toInt()
+
                 }
             }
         }

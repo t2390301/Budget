@@ -31,4 +31,7 @@ interface BudgetGroupDao {
 
     @Delete
     suspend fun delete(entity: BudgetGroupEntity)
+
+    @Query("DELETE FROM budget_group_table WHERE id =:deletedId")
+    suspend fun deleteById(deletedId: Long)
 }

@@ -69,7 +69,15 @@ class ExpenseItemViewModel : ViewModel() {
                 dbRepository.updateBudgetGroupEntity(budgetGroupEntity)
             }
             val budgetGroupList = dbRepository.getBudgetGroupWithAmount()
+            budgetGroupsWithAmount.value = AppState.Success(budgetGroupList.toMutableList())
+        }
+    }
 
+    fun deleteBudgetGroupEntity(budgetGroupId: Long){
+        viewModelScope.launch {
+            dbRepository.updateSellersByDeletedBudgetGrupId(budgetGroupId)
+            dbRepository.deleteBudgetGroupEntity(budgetGroupId)
+            val budgetGroupList = dbRepository.getBudgetGroupWithAmount()
             budgetGroupsWithAmount.value = AppState.Success(budgetGroupList.toMutableList())
         }
     }
