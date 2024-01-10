@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/item_margin_bottom_2dp">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/account_material_card"
+        android:id="@+id/expense_material_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
+        android:minHeight="@dimen/item_min_height_50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,10 +21,11 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/account_img_bank"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/item_img_size_small"
+                android:layout_height="@dimen/item_img_size_small"
                 android:layout_marginEnd="@dimen/margin_12_dp"
                 android:padding="@dimen/padding_8dp"
+                android:layout_marginStart="@dimen/item_img_margin_start_small"
                 app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
                 app:srcCompat="@drawable/ic_tinkoff"
                 app:strokeColor="?attr/colorSecondary" />
@@ -40,7 +42,7 @@
                     android:layout_marginEnd="@dimen/margin_12_dp"
                     android:gravity="center|start"
                     android:text="@string/text_account_example"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/item_text_size_big" />
 
                 <TextView
                     android:id="@+id/text_expense_type"
@@ -49,7 +51,7 @@
                     android:layout_marginEnd="@dimen/margin_12_dp"
                     android:gravity="center|end"
                     android:text="@string/text_expense_type_example"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/item_text_size_big" />
 
             </LinearLayout>
 
@@ -60,16 +62,9 @@
                 android:layout_marginEnd="@dimen/margin_12_dp"
                 android:gravity="center|end"
                 android:text="@string/text_amount_example"
-                android:textSize="24sp" />
+                android:textSize="@dimen/item_text_size_biggest" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/account_material_card"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

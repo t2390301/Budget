@@ -17,6 +17,17 @@
     <dimen name="margin">16dp</dimen>
     <dimen name="margin_between_elements">8dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="item_image_72dp">72dp</dimen>
+    <dimen name="item_text_size_medium">16sp</dimen>
+    <dimen name="item_text_size_14sp">14sp</dimen>
+    <dimen name="item_margin_bottom_2dp">2dp</dimen>
+    <dimen name="item_min_height_50dp">50dp</dimen>
+    <dimen name="item_img_size_small">60dp</dimen>
+    <dimen name="item_img_margin_start_big">4dp</dimen>
+    <dimen name="item_img_margin_start_small">4dp</dimen>
+    <dimen name="item_text_size_big">20sp</dimen>
+    <dimen name="item_text_size_biggest">24sp</dimen>
+    <dimen name="item_text_size_small">14sp</dimen>
 
 
 </resources>

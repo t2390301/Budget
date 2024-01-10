@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/item_margin_bottom_2dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/material_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
+        android:minHeight="@dimen/item_min_height_50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,9 +21,10 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/account_img_bank"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="@dimen/item_image_72dp"
+                android:layout_height="@dimen/item_image_72dp"
                 android:padding="@dimen/padding_8dp"
+                android:layout_marginStart="@dimen/item_img_margin_start_big"
                 app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
                 app:srcCompat="@drawable/ic_tinkoff"
                 app:strokeColor="?attr/colorSecondary" />
@@ -37,13 +39,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_12_dp"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/text_date_and_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_12_dp"
                         android:gravity="start"
-                        android:text="@string/date_and_time_example"/>
+                        android:text="@string/date_and_time_example"
+                        android:textSize="@dimen/item_text_size_14sp" />
 
                     <TextView
                         android:id="@+id/text_account"
@@ -51,7 +55,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="@dimen/margin_12_dp"
                         android:gravity="end"
-                        android:text="@string/account_example" />
+                        android:text="@string/account_example"
+                        android:textSize="@dimen/item_text_size_14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -59,13 +64,15 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_12_dp"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/text_expense"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="@dimen/margin_12_dp"
                         android:gravity="center|start"
-                        android:text="@string/expense_item_example" />
+                        android:text="@string/expense_item_example"
+                        android:textSize="@dimen/item_text_size_medium" />
 
                     <TextView
                         android:id="@+id/text_amount"
@@ -73,8 +80,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="@dimen/margin_12_dp"
                         android:gravity="center|end"
-                        android:textSize="16sp"
-                        android:text="@string/text_amount_example" />
+                        android:text="@string/text_amount_example"
+                        android:textSize="@dimen/item_text_size_medium" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

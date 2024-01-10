@@ -20,7 +20,6 @@ class MainFragmentAdapter(
             binding.textAccount.text = budgetEntryTable.cardPan
             binding.textExpense.text = budgetEntryTable.budgetGroupName
             binding.textDateAndTime.text = formatToRusShortDate.format(budgetEntryTable.date)
-
             binding.textAmount.text = budgetEntryTable.operationAmount.formatToText(budgetEntryTable.operationType)
             binding.accountImgBank.setImageResource(budgetEntryTable.bankImageId)
         }
