@@ -85,5 +85,9 @@ class SellerFragmentViewMode : ViewModel() {
         }
     }
 
+    fun updateSellers() {
+        sellersViewModel = getSellersLiveData()
+    }
+
 
 }

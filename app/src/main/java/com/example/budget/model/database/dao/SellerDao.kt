@@ -38,6 +38,10 @@ interface SellerDao {
             updateByName(sellerEntity.name, sellerEntity.budgetGroupId)
         }
     }
-    @Query("UPDATE seller_table SET budgetGroupId = :budgeGtId  WHERE name = :sellerName")
+
+    @Query("UPDATE seller_table SET budgetGroupId = 1 WHERE budgetGroupId =:deleteId")
+    suspend fun prepareForDelete(deleteId: Long)
+
+    @Query("UPDATE seller_table SET budgetGroupId = :budgeGtId  WHERE name =:sellerName")
     suspend fun updateByName(sellerName: String, budgeGtId : Long)
 }

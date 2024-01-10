@@ -37,11 +37,8 @@ class SellersFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         var budgetGroups: List<BudgetGroupEntity> = listOf()
-
-
+        viewModel.updateSellers()
         val sellersAdapter =
             SellerFragmentAdapter(sellersList, budgetGroups) {
                 viewModel.updateSeller(it)
