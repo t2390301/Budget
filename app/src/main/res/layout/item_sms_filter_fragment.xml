@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/account_material_card"
+        android:id="@+id/expense_material_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="50dp"
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/account_material_card"
+        app:layout_constraintBottom_toBottomOf="@+id/expense_material_card"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
