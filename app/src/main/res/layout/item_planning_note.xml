@@ -3,47 +3,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/text_margin_small">
+    android:layout_marginBottom="@dimen/item_margin_bottom_2dp">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/planning_item_icon_back"
-        android:padding="10dp"
-        android:src="@drawable/ic_fastfood"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/planning_material_card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Продукты питания"
-        android:layout_marginHorizontal="@dimen/text_margin_small"
-        android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin_small"
-        android:text="20000 руб"
-        android:textAppearance="?attr/textAppearanceBody2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:minHeight="@dimen/item_min_height_50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="297dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/icon"
+                    android:layout_width="@dimen/item_img_size_small"
+                    android:layout_height="@dimen/item_img_size_small"
+                    android:layout_marginStart="@dimen/item_img_margin_start_small"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:padding="@dimen/padding_8dp"
+                    app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+                    app:srcCompat="@drawable/ic_empty_expense_24"
+                    app:strokeColor="?attr/colorSecondary" />
+
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:gravity="center|start"
+                    android:text="@string/food_products"
+                    android:textSize="@dimen/item_text_size_big" />
+
+                <TextView
+                    android:id="@+id/value"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_12_dp"
+                    android:gravity="center|end"
+                    android:text="@string/text_amount_example"
+                    android:textSize="@dimen/item_text_size_medium" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
