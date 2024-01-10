@@ -131,6 +131,7 @@
     <string name="card_balance">Баланс карты</string>
     <string name="save">Сохранить</string>
     <string name="menu_sellers">Продавцы</string>
+    <string name="credit_limit">Кредитный лимит</string>
 
 
 </resources>

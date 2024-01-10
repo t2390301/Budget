@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.budget.App
-import com.example.budget.databinding.FragmentAccountsDetailBinding
 import com.example.budget.model.constants.DEFAULT_BANK_IMAGE
 import com.example.budget.model.domain.BankAccount
 import com.example.budget.model.domain.BudgetEntryTable
@@ -24,7 +23,7 @@ class MainDetailFragment : Fragment() {
 
     private var accountItemId: Long? = null
 
-    private var _binding: FragmentAccountsDetailBinding? = null
+    private var _binding: MainDetailFragment? = null
 
     lateinit var bankAccount: BankAccount
 
@@ -80,7 +79,7 @@ class MainDetailFragment : Fragment() {
     }*/
 
 
-    private fun creditCardLimitFocus(account: BankAccount) {
+/*    private fun creditCardLimitFocus(account: BankAccount) {
         binding.apply {
             if (bankAccount.cardType == CardType.CREDIT) {
                 accountCreditLimit.isFocusable = true
@@ -90,9 +89,9 @@ class MainDetailFragment : Fragment() {
                 accountCreditLimit.isFocusableInTouchMode = false
             }
         }
-    }
+    }*/
 
-    private val itemSelectedListener = object : AdapterView.OnItemSelectedListener {
+/*    private val itemSelectedListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             bankAccount.cardType = CardType.values().get(position)
             creditCardLimitFocus(bankAccount)
@@ -102,17 +101,17 @@ class MainDetailFragment : Fragment() {
 
         }
 
-    }
+    }*/
 
-    override fun onCreateView(
+/*    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentAccountsDetailBinding.inflate(inflater, container, false)
+        _binding = MainDetailFragment().inflate(inflater, container, false)
 
         return binding.root
-    }
+    }*/
 
 /*    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

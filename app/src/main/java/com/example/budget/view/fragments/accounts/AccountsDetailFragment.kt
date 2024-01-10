@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.budget.App
-import com.example.budget.databinding.FragmentAccountsDetailBinding
+import com.example.budget.databinding.BottomSheetChangeAccountBinding
 import com.example.budget.model.constants.DEFAULT_BANK_IMAGE
 import com.example.budget.model.domain.BankAccount
 import com.example.budget.model.domain.CardType
@@ -28,7 +28,7 @@ class AccountsDetailFragment : Fragment() {
 
     private var accountItemId: Long? = null
 
-    private var _binding: FragmentAccountsDetailBinding? = null
+    private var _binding: BottomSheetChangeAccountBinding? = null
 
     lateinit var bankAccount: BankAccount
 
@@ -68,14 +68,16 @@ class AccountsDetailFragment : Fragment() {
     private fun bind(account: BankAccount) {
         binding.apply {
             accountImgBank.setImageResource(account.bankImageId ?: DEFAULT_BANK_IMAGE)
-            accountCardPan.text = account.cardPan
+            accountName.setText(account.cardPan)
+            accountBank.setText(account.bankSMSAddress)
             accountBalance.setText(account.balance.toString(),TextView.BufferType.SPANNABLE)
-            binding.accountTypeSpinner.adapter = spinnerAdapter
+//            this.accountTypeSpinner.adapter = spinnerAdapter
             accountTypeSpinner.setSelection(account.cardType.ordinal)
             accountTypeSpinner.onItemSelectedListener = itemSelectedListener
-            accountCreditLimit.setText(account.cardLimit.toString(),TextView.BufferType.SPANNABLE)
-            creditCardLimitFocus(account)
-            saveItem.setOnClickListener {
+            accountCreditLimit.setText(account.cardLimit.toString())
+//            accountCreditLimit.setText(account.cardLimit.toString(),TextView.BufferType.SPANNABLE)
+//            creditCardLimitFocus(account)
+            saveButton.setOnClickListener {
                 account.cardLimit = accountCreditLimit.text.toString().toDouble()
                 account.balance = accountBalance.text.toString().toDouble()
                 viewModel.updateBankAccountList(account)
@@ -113,7 +115,7 @@ class AccountsDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentAccountsDetailBinding.inflate(inflater, container, false)
+        _binding = BottomSheetChangeAccountBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -128,7 +130,7 @@ class AccountsDetailFragment : Fragment() {
 
     }
 
-    private val spinnerAdapter =
+    private var spinnerAdapter =
         App.app.applicationContext?.let {
             ArrayAdapter(it, android.R.layout.simple_spinner_item, cardTypes) }?.apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

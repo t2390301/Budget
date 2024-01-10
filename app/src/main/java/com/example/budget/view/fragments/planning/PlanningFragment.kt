@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
@@ -33,10 +32,10 @@ class PlanningFragment : BottomSheetDialogFragment() {
     private val viewModel by viewModels<PlanningViewModel>()
     private var adapter: PlanningItemsAdapter? = null
 
-    val decimalFormater = DecimalFormat("#,###,###")
-    val dateFormater = SimpleDateFormat("dd.mm.yyyy", Locale.getDefault())
+    private val decimalFormatter = DecimalFormat("#,###,###")
+    private val dateFormatter = SimpleDateFormat("dd.mm.yyyy", Locale.getDefault())
 
-    var isEditSheetOpen = false
+    private var isEditSheetOpen = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -167,7 +166,7 @@ class PlanningFragment : BottomSheetDialogFragment() {
 
     private fun initDateField() {
         binding?.sheetEdit?.editTextDate?.editText?.setText(
-            dateFormater.format(Date())
+            dateFormatter.format(Date())
         )
     }
 
@@ -208,7 +207,7 @@ class PlanningFragment : BottomSheetDialogFragment() {
     }
 
     private fun Number.formatToText() =
-        decimalFormater.format(this).replace(",", " ") + " р."
+        decimalFormatter.format(this).replace(",", " ") + " р."
 
     companion object {
 
