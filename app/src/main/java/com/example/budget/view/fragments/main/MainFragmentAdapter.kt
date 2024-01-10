@@ -6,34 +6,42 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budget.databinding.ItemMainFragmentBinding
-import com.example.budget.model.constants.DEFAULT_BANK_IMAGE
-import com.example.budget.model.domain.BankAccount
 import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.model.domain.OperationType
 import java.util.Locale
 
 class MainFragmentAdapter(
-    private var budgetEntitiesTableList: List<BudgetEntryTable>?,
-    private val onItemClicked: (BudgetEntryTable) -> Unit
+    private var budgetEntitiesTableList: List<BudgetEntryTable>?
 ) : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
-
-    private var decimalFormat = DecimalFormat("#,###,###")
 
     class MainViewHolder(val binding: ItemMainFragmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(budgetEntryTable: BudgetEntryTable) {
             binding.textAccount.text = budgetEntryTable.cardPan
             binding.textExpense.text = budgetEntryTable.budgetGroupName
-            binding.textDateAndTime.text=budgetEntryTable.date.toString()
-            binding.textAmount.text = budgetEntryTable.operationAmount.toString()
-            binding.accountImgBank.setImageResource(budgetEntryTable.bankImageId ?: DEFAULT_BANK_IMAGE)
+            binding.textDateAndTime.text = formatToRusShortDate.format(budgetEntryTable.date)
+
+            binding.textAmount.text = budgetEntryTable.operationAmount.formatToText(budgetEntryTable.operationType)
+            binding.accountImgBank.setImageResource(budgetEntryTable.bankImageId)
         }
+
+        private var formatToRusShortDate: DateFormat =
+            DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale("ru"))
+
+        private fun Number.formatToText(operationType: OperationType) =
+            if (operationType == OperationType.EXPENSE) {
+                "- "
+            } else {
+                "+ "
+            } + DecimalFormat("#,###,###").format(this).replace(",", " ") + " р."
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : MainViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding =
-            ItemMainFragmentBinding.inflate(LayoutInflater.from(parent.context),
-                parent, false)
+            ItemMainFragmentBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
         return MainViewHolder(binding)
     }
 
@@ -41,9 +49,6 @@ class MainFragmentAdapter(
         val item = budgetEntitiesTableList?.get(position)
         if (item != null) {
             holder.bind(budgetEntitiesTableList?.get(position)!!)
-            holder.itemView.setOnClickListener {
-                onItemClicked(item)
-            }
         }
     }
 
@@ -54,15 +59,6 @@ class MainFragmentAdapter(
         notifyDataSetChanged()
     }
 
-    var formatToRusShortDate: DateFormat =
-        DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale("ru"))
-
-    private fun Number.formatToText(operationType: OperationType) =
-        if (operationType == OperationType.EXPENSE) {
-            "- " + decimalFormat.format(this).replace(",", " ") + " р."
-        } else {
-            "+ " + decimalFormat.format(this).replace(",", " ") + " р."
-        }
 
 }
 
