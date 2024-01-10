@@ -10,6 +10,7 @@
     app:behavior_peekHeight="1dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+
     <View
         android:id="@+id/bottom_sheet_line"
         android:layout_width="25dp"
@@ -39,7 +40,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_account_type"
+        android:id="@+id/account_type_label"
         style="?attr/textInputOutlinedExposedDropdownMenuStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +70,7 @@
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_account_type">
+        app:layout_constraintTop_toBottomOf="@+id/account_type_label">
 
         <AutoCompleteTextView
             android:id="@+id/edit_text_expense_item_text"
