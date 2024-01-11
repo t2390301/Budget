@@ -47,9 +47,20 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.1")
 
     //Test
+    val mockito_ver = "3.5.13"
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    /*androidTestImplementation("org.mockito:mockito-android:$mockito_ver")*/
+
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6")
+    /*testImplementation("org.mockito:mockito-core:$mockito_ver")*/
+    testImplementation("org.mockito:mockito-inline:$mockito_ver")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:2.2.7") {
+        exclude( "org.jetbrains.kotlin")
+        exclude ("org.mockito")
+    }
+
 
     //Logcat new analog
     implementation ("com.jakewharton.timber:timber:5.0.1")

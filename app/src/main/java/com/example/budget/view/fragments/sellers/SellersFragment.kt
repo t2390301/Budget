@@ -38,20 +38,11 @@ class SellersFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var budgetGroups: List<BudgetGroupEntity> = listOf()
+        viewModel.updateBudgetGroups()
         viewModel.updateSellers()
         val sellersAdapter =
             SellerFragmentAdapter(sellersList, budgetGroups) {
                 viewModel.updateSeller(it)
-                /*requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.slide_in,
-                        R.anim.fade_out,
-                        R.anim.fade_in,
-                        R.anim.slide_out
-                    )
-                    .replace(R.id.main_container, SellerDetailFragment())
-                    .addToBackStack("")
-                    .commit()*/
 
             }
 

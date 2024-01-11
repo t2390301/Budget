@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.budget.databinding.FragmentExpenseItemsBinding
 import com.example.budget.model.database.entity.BudgetGroupEntity
@@ -37,10 +38,7 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         var budgetGroupWithAmount = mutableListOf<BudgetGroupWithAmount>()
         viewModel.budgetGroupsWithAmount = viewModel.getBudgetGroupWithAmount()
-        if ((viewModel.budgetGroupsWithAmount.value is AppState.Success)) {
-            budgetGroupWithAmount =
-                (viewModel.budgetGroupsWithAmount.value as AppState.Success).data as MutableList<BudgetGroupWithAmount>
-        }
+
 
         var sellers = mutableListOf<SellerEntity>()
         if (viewModel.sellersListLiveData.value is AppState.Success) {
@@ -104,11 +102,15 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
             recyclerViewVisible = true
         }
 
+
         binding.included.deleteButton.setOnClickListener {
             if (newBudgetGroupId == -1L) {
                 behavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 binding.expenseItemRecyclerView.visibility = View.VISIBLE
                 recyclerViewVisible = true
+            } else if (newBudgetGroupId.toInt() == 1) {
+                Toast.makeText(activity, "Нельзя удалить группу НЕ_ОПРЕДЕЛЕНО", Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 viewModel.deleteBudgetGroupEntity(newBudgetGroupId)
                 behavior.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -116,6 +118,12 @@ class ExpenseItemsFragment : BottomSheetDialogFragment() {
                 recyclerViewVisible = true
             }
 
+        }
+
+        binding.included.cancelButton.setOnClickListener {
+            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            binding.expenseItemRecyclerView.visibility = View.VISIBLE
+            recyclerViewVisible = true
         }
 
 

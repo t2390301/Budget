@@ -89,5 +89,9 @@ class SellerFragmentViewMode : ViewModel() {
         sellersViewModel = getSellersLiveData()
     }
 
+    fun updateBudgetGroups() {
+        budgetGroupEntityLiveData = getBudgetEntityList()
+    }
+
 
 }
