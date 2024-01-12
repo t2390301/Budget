@@ -25,7 +25,7 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/budget_group_image"
-                    android:layout_width=60dp"
+                    android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="12dp"
