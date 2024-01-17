@@ -11,13 +11,12 @@ import com.example.budget.model.domain.SmsData
 import com.example.budget.repository.DBRepository
 import kotlinx.coroutines.launch
 
-class SMSFragmentViewModel : ViewModel() {
+class SMSFragmentViewModel(private val dbRepository: DBRepository) : ViewModel() {
     companion object {
         const val TAG = "SMSFragmentViewModel"
     }
 
     val application = App.app
-    val dbRepository = DBRepository(application.getDatabaseHelper())
     val converter = Converters(dbRepository)
 
 

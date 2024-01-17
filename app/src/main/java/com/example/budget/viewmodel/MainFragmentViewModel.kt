@@ -4,22 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.budget.App
 import com.example.budget.model.database.converters.Converters
-import com.example.budget.model.domain.BankAccount
 import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.repository.DBRepository
-import com.example.budget.view.fragments.main.MainFragment
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
-class MainFragmentViewModel : ViewModel() {
+class MainFragmentViewModel(private val dbRepository: DBRepository) : ViewModel() {
     companion object {
         const val TAG = "!!! MainFragmentViewModel"
     }
 
-    private val dbRepository = DBRepository(App.app.getDatabaseHelper())
+    //private val dbRepository = DBRepository(App.app.getDatabaseHelper())
     val converters = Converters(dbRepository)
 
     var budgetEntityTableList = getAllBudgetEntry()

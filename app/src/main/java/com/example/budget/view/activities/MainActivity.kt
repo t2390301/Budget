@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.example.budget.R
@@ -20,6 +19,7 @@ import com.example.budget.view.fragments.sms.SMSFragment
 import com.example.budget.viewmodel.AppState
 import com.example.budget.viewmodel.MainActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.android.ext.android.inject
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var BudgetEntries: MutableLiveData<List<BudgetEntry>>
     private var broadcastReceiver: BroadcastReceiver? = null
 
-    val viewModel: MainActivityViewModel by viewModels()
+    val viewModel: MainActivityViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         var permissions = mutableListOf<String>()
 
         if (checkSelfPermission("android.permission.READ_SMS") != PackageManager.PERMISSION_GRANTED) {
-            permissions .add("android.permission.READ_SMS")
+            permissions.add("android.permission.READ_SMS")
         }
         if (checkSelfPermission("android.permission.RECEIVE_SMS") != PackageManager.PERMISSION_GRANTED) {
             permissions.add("android.permission.RECEIVE_SMS")
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         if (permissions.isNotEmpty()) {
 
             requestPermissions(permissions.toTypedArray(), 2)
-        } else{
+        } else {
             smsActions()
         }
 
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 //Log.i(TAG, "onCreate: Success")
                 budgets.data?.let { list ->
                     for (budget in list) {
-                       Log.i(
+                        Log.i(
                             TAG,
                             "onCreate: ${budget.date} ; ${budget.cardSPan} ; ${budget.sellerName} ; ${budget.operationAmount}"
                         )
@@ -80,7 +80,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -90,8 +89,8 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             2 -> {
                 var isPerpermissionForAllGranted = true
-                if (grantResults.size >0 && permissions.size == grantResults.size) {
-                    for (result in grantResults){
+                if (grantResults.size > 0 && permissions.size == grantResults.size) {
+                    for (result in grantResults) {
                         isPerpermissionForAllGranted =
                             (result == PackageManager.PERMISSION_GRANTED) && isPerpermissionForAllGranted
                     }
@@ -107,19 +106,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        if(broadcastReceiver != null){
+        if (broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver)
         }
     }
 
-    private fun smsActions(){
+    private fun smsActions() {
         registerReceiver()
 
         viewModel.updateSMSList()
     }
 
     private fun registerReceiver() {
-        broadcastReceiver = object : BroadcastReceiver(){
+        broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 viewModel.updateSMSList()
 
@@ -127,7 +126,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        registerReceiver (broadcastReceiver, IntentFilter("com.example.budget"))
+        registerReceiver(broadcastReceiver, IntentFilter("com.example.budget"))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

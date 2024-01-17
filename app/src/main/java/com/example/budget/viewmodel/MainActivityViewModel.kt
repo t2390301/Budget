@@ -25,12 +25,12 @@ import kotlinx.coroutines.launch
 
 
 @SuppressLint("LogNotTimber")
-class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel(private val dbRepository: DBRepository) : ViewModel() {
 
     val application = app
     private val TAG = "MainActivityViewModel"
     val smsRepository = SMSRepository(application)
-    val dbRepository = DBRepository(application.getDatabaseHelper())
+
 
     var converter: Converters
 

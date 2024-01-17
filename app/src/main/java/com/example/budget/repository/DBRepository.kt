@@ -1,6 +1,5 @@
 package com.example.budget.repository
 
-import android.util.Log
 import com.example.budget.DatabaseHelper
 import com.example.budget.model.database.entity.BankAccountEntity
 import com.example.budget.model.database.entity.BankEntity
@@ -8,12 +7,15 @@ import com.example.budget.model.database.entity.BudgetEntryEntity
 import com.example.budget.model.database.entity.BudgetGroupEntity
 import com.example.budget.model.database.entity.SellerEntity
 import com.example.budget.model.database.entity.SmsDataEntity
-import com.example.budget.model.domain.BudgetGroupWithAmount
+import com.example.budget.model.database.entity.toPlanningNote
+import com.example.budget.model.database.entity.toPlanningNoteEntity
 import com.example.budget.model.domain.BudgetEntryTable
+import com.example.budget.model.domain.BudgetGroupWithAmount
 import com.example.budget.model.domain.CombainBudgetEntry
+import com.example.budget.model.domain.PlanningNote
 import timber.log.Timber
 
-class DBRepository(db: DatabaseHelper) {
+class DBRepository(val db: DatabaseHelper) {
     companion object {
         const val TAG = "DBRepository"
     }
@@ -27,18 +29,28 @@ class DBRepository(db: DatabaseHelper) {
     private val smsDao = db.getSmsDataDao()
     private val combainBudgetEntryDao = db.getCombainBudgetEntriesDao()
     private val budgetGroupWithAmountDao = db.getBudgetGroupWithAmountDao()
+    private val planningNoteDao = db.getPlanningNoteDao()
+
 
     suspend fun getBankAccountEntities(): List<BankAccountEntity> {
         return bankAccountDao.getAll()
     }
 
+    suspend fun getPlanningNotes(): List<PlanningNote> = planningNoteDao.getAll().map {
+        it.toPlanningNote()
+    }
+
+    suspend fun insertPlanningNote(planningNote: PlanningNote) =
+        planningNoteDao.insert(planningNote.toPlanningNoteEntity())
 
     suspend fun getBankEntities(): List<BankEntity> = bankDao.getAll()
 
 
     suspend fun getBudgetEntities(): List<BudgetEntryEntity> = budgetEntryDao.getAll()
     suspend fun getBudgetGroupEntities(): List<BudgetGroupEntity> = budgetGroupDao.getAll()
-    suspend fun getCombainBudgetEntities(): List<CombainBudgetEntry> = combainBudgetEntryDao.getAll()
+    suspend fun getCombainBudgetEntities(): List<CombainBudgetEntry> =
+        combainBudgetEntryDao.getAll()
+
     suspend fun getBudgetEntryList(): List<BudgetEntryEntity> = budgetEntryDao.getAll()
     suspend fun getSellerEntities(): List<SellerEntity> = sellerDao.getAll()
     suspend fun getBudgetEntriesTableDao(): List<BudgetEntryTable> {
@@ -79,10 +91,10 @@ class DBRepository(db: DatabaseHelper) {
     }
 
     suspend fun getBudgetGroupNameById(id: Long): BudgetGroupEntity {
-        var budgetGroup = BudgetGroupEntity(1L,"НЕ ОПРЕДЕЛЕНО", "", 0)
+        var budgetGroup = BudgetGroupEntity(1L, "НЕ ОПРЕДЕЛЕНО", "", 0)
         val bugetGroupEntityList = budgetGroupDao.getBudgetGroupNameById(id)
         if (!bugetGroupEntityList.isEmpty()) {
-            budgetGroup= bugetGroupEntityList.first()
+            budgetGroup = bugetGroupEntityList.first()
         }
         return budgetGroup
     }
@@ -126,7 +138,7 @@ class DBRepository(db: DatabaseHelper) {
         return id
     }
 
-    suspend fun updatebankAccountEntity (bankAccountEntity: BankAccountEntity) {
+    suspend fun updatebankAccountEntity(bankAccountEntity: BankAccountEntity) {
         bankAccountDao.update(bankAccountEntity)
     }
 
@@ -148,8 +160,7 @@ class DBRepository(db: DatabaseHelper) {
 
 
     suspend fun getLastUnSafeSMSDate(): Long =
-        smsDao.getLastUnsavedSMSDate()?:0
-
+        smsDao.getLastUnsavedSMSDate() ?: 0
 
 
     suspend fun updateSMS(sms: SmsDataEntity) {
@@ -158,8 +169,8 @@ class DBRepository(db: DatabaseHelper) {
 
     suspend fun getBankAccountEntityById(id: Long): BankAccountEntity? {
         val list = bankAccountDao.getBankAccountEntityById(id)
-        if(list.isNotEmpty()){
-            return  list.first()
+        if (list.isNotEmpty()) {
+            return list.first()
         }
         return null
     }

@@ -12,15 +12,13 @@ import com.example.budget.repository.DBRepository
 import com.example.budget.repository.ExcelRepository
 import kotlinx.coroutines.launch
 
-class ExportAndBackupViewModel: ViewModel() {
+class ExportAndBackupViewModel(private val dbRepository: DBRepository): ViewModel() {
 
     companion object {
         const val TAG = "ExportAndBackupViewModel"
     }
         val application = App.app
         val excelRepository = ExcelRepository(application)
-        val dbRepository = DBRepository(application.getDatabaseHelper())
-
 
     var _budgetEntitiesListForExcel =
         MutableLiveData<AppState<MutableList<CombainBudgetEntry>>>()

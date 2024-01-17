@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.budget.model.constants.BudgetGroupEnum
 import com.example.budget.model.domain.OperationType
+import com.example.budget.model.domain.PlanningNote
 import java.util.Date
 
 @Entity(
@@ -18,3 +19,15 @@ data class PlanningNoteEntity(
     val description: String,
     val value: Long,
 )
+
+fun PlanningNoteEntity.toPlanningNote(): PlanningNote {
+    return PlanningNote(
+        id, date, operationType, budgetGroup, description, value
+    )
+}
+
+fun PlanningNote.toPlanningNoteEntity(): PlanningNoteEntity {
+    return PlanningNoteEntity(
+        id, date, operationType, budgetGroup, description, value
+    )
+}

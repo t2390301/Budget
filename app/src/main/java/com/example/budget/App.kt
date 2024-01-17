@@ -1,6 +1,12 @@
 package com.example.budget
 
 import android.app.Application
+import com.example.budget.di.application
+import com.example.budget.di.repository
+import com.example.budget.di.viewModels
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
 
@@ -9,24 +15,14 @@ class App : Application() {
         lateinit var app: App
     }
 
-    private lateinit var databaseHelper: DatabaseHelper
-
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         app = applicationContext as App
-        initDatabase()
-    }
-
-    fun getDatabaseHelper(): DatabaseHelper {
-
-    //    initDatabase()
-
-        return databaseHelper
-    }
-
-    private fun initDatabase() {
-        databaseHelper = DatabaseHelper()
-        databaseHelper.initDatabase(this)
+        startKoin {
+            androidLogger()
+            androidContext(app)
+            modules(listOf(application, viewModels, repository))
+        }
     }
 }

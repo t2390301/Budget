@@ -8,20 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.example.budget.App
 import com.example.budget.databinding.FragmentPlanningListBinding
 import com.example.budget.model.constants.BudgetGroupEnum
-import com.example.budget.model.database.entity.PlanningNoteEntity
 import com.example.budget.model.domain.OperationType
+import com.example.budget.model.domain.PlanningNote
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import java.util.Date
 import java.util.Locale
 import kotlin.math.abs
@@ -30,7 +28,7 @@ import kotlin.math.abs
 class PlanningFragment : BottomSheetDialogFragment() {
 
     private var binding: FragmentPlanningListBinding? = null
-    private val viewModel by viewModels<PlanningViewModel>()
+    private val viewModel: PlanningViewModel by inject()
     private var adapter: PlanningItemsAdapter? = null
 
     val decimalFormater = DecimalFormat("#,###,###")
@@ -50,10 +48,6 @@ class PlanningFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.init(
-            (requireContext().applicationContext as App)
-                .getDatabaseHelper().getPlanningNoteDao()
-        )
 
         val listAdapter = PlanningItemsAdapter(viewModel.notes)
         this.adapter = listAdapter
@@ -73,7 +67,6 @@ class PlanningFragment : BottomSheetDialogFragment() {
             adapter = listAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
         }
-
 
         binding.addNote.setOnClickListener {
             changeVisibilityOfSheet()
@@ -171,7 +164,7 @@ class PlanningFragment : BottomSheetDialogFragment() {
         )
     }
 
-    private fun recalculateBalance(notes: List<PlanningNoteEntity>) {
+    private fun recalculateBalance(notes: List<PlanningNote>) {
         var income = 0L
         var expense = 0L
 

@@ -12,13 +12,12 @@ import com.example.budget.model.domain.Seller
 import com.example.budget.repository.DBRepository
 import kotlinx.coroutines.launch
 
-class SellerFragmentViewMode : ViewModel() {
+class SellerFragmentViewMode(private val dbRepository: DBRepository) : ViewModel() {
     
     companion object{
         const val TAG = "SellerFragmentViewMode"
     }
 
-    val dbRepository = DBRepository(App.app.getDatabaseHelper())
     val converter = Converters(dbRepository)
 
     var sellersViewModel: MutableLiveData<AppState<MutableList<Seller>>> = getSellersLiveData()

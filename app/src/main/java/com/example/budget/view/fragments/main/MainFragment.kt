@@ -9,13 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.example.budget.R
 import com.example.budget.databinding.FragmentMainBinding
 import com.example.budget.model.domain.BudgetEntryTable
 import com.example.budget.view.activities.MainActivity
 import com.example.budget.viewmodel.MainFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 
@@ -41,7 +41,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel: MainFragmentViewModel by viewModels()
+        val viewModel: MainFragmentViewModel by inject()
 
         val budgetEntryList: List<BudgetEntryTable>? = viewModel.budgetEntityTableList.value
         Timber.tag(TAG).i("budgetEntryList = $budgetEntryList")

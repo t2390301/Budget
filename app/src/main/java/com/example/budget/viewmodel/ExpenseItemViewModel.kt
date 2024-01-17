@@ -11,9 +11,8 @@ import com.example.budget.model.domain.BudgetGroupWithAmount
 import com.example.budget.repository.DBRepository
 import kotlinx.coroutines.launch
 
-class ExpenseItemViewModel : ViewModel() {
+class ExpenseItemViewModel(private val dbRepository: DBRepository) : ViewModel() {
 
-    val dbRepository = DBRepository(App.app.getDatabaseHelper())
     var budgetGroupsWithAmount =
         getBudgetGroupWithAmount() //MutableLiveData<AppState<List<BudgetGroupWithAmount>>>()
 

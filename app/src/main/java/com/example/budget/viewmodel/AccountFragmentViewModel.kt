@@ -4,19 +4,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.budget.App
+import com.example.budget.DatabaseHelper
 import com.example.budget.model.database.converters.Converters
 import com.example.budget.model.domain.BankAccount
 import com.example.budget.repository.DBRepository
 import kotlinx.coroutines.launch
 
-class AccountFragmentViewModel : ViewModel() {
+class AccountFragmentViewModel(/*private val dbRepository: DBRepository*/) : ViewModel() {
 
     companion object {
         const val TAG = "AccountFragmentViewModel"
     }
-
-    val dbRepository = DBRepository(App.app.getDatabaseHelper())
+    private val dbRepository = DBRepository(DatabaseHelper())
     val converters = Converters(dbRepository)
 
     var bankAccountsLiveData: MutableLiveData<AppState<MutableList<BankAccount>>>
@@ -58,8 +57,6 @@ class AccountFragmentViewModel : ViewModel() {
                 if (!bankAccountList.isNullOrEmpty()) {
                     bankAccountsLiveData.value = AppState.Success(bankAccountList as MutableList<BankAccount>)
                 }
-
-
             }
         }
     }

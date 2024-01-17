@@ -75,4 +75,9 @@ dependencies {
     implementation ("org.apache.poi:poi:4.1.2")
     implementation ("org.apache.poi:poi-ooxml:4.1.2")
 
+    //Koin
+    val koinVersion = "3.5.0"
+    implementation ("io.insert-koin:koin-core:$koinVersion")
+    implementation ("io.insert-koin:koin-android:$koinVersion")
+
 }
